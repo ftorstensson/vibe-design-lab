@@ -1,27 +1,25 @@
 # PROJECT BRAIN: VIBE DESIGN LAB
-*Current Status: V0.2 (Prototype Active)*
+*Current Status: V0.3 (The Architect is Live)*
 *Last Updated: 2025-12-18*
 
 ## 1. THE MISSION
-We are building **"The Design Lab"** – a Visual IDE and Meta-Tool.
-It solves the "Tell vs. Show" problem in AI coding. Instead of prompting text, the user "Shows" the AI what to build using an Infinite Canvas, and the AI "Tells" the code how to render it.
+We are building **"The Design Lab"** – a Visual IDE where a Human "Director" collaborates with an AI "Producer" (The Architect) to design mobile apps via "Show and Tell."
 
-## 2. THE ARCHITECTURE (Planned V1)
-*   **Engine:** Next.js + Tailwind + XYFlow (React Flow).
-*   **State Management (The Brain):** `Zustand`. Holds the "Vibe Manifest" (Single Source of Truth).
-*   **Layout Engine (The Eyes):** `Dagre`. Automatically organizes AI-generated nodes so they don't overlap.
-*   **Interface:** Mobile-First "Center Stage" layout with "Wireframe/Hi-Fi" toggle.
+## 2. THE ARCHITECTURE (Twin Engines)
+*   **Frontend (Design Lab):** Next.js + XYFlow + Zustand.
+*   **Backend (Co-Founder):** FastAPI + LangChain.
+    *   **The Architect:** A specialized `gemini-2.5-flash` agent at `/agent/design` that outputs structured JSON nodes (Flows/Sitemaps) instead of text.
+*   **State:** `Zustand` holds the "Vibe Manifest" (Journey, Sitemap, Wireframes).
+*   **Layout:** `Dagre` automatically organizes AI-generated nodes.
 
-## 3. ACTIVE FEATURES (The Foundation)
+## 3. ACTIVE FEATURES
 *   [x] **Infinite Canvas:** XYFlow setup with Dot Grid and Pan/Zoom.
-*   [x] **Component Library:** Sidebar with draggable "Legos" (Header, Button, etc.) defined by strict TypeScript contracts.
-*   [x] **Wireframe Toggle:** Global switch to strip CSS styling for structural review.
-*   [x] **Interactive Prototype:** A hard-coded "Lobby -> Drawer -> Chat" flow to test the UX feel.
+*   [x] **3-Layer Lens:** Switch between Journey (Logic), Sitemap (Structure), and Wireframes (UI).
+*   [x] **The Architect:** Voice-to-Canvas. User speaks a flow, AI generates the diagram instantly.
+*   [x] **Auto-Layout:** Nodes are automatically arranged to prevent overlapping.
+*   [x] **Component Library:** Draggable "Legos" defined by strict TypeScript contracts.
 
-## 4. NEXT IMMEDIATE GOALS (The 3-Layer Pivot)
-1.  **State Migration:** Move from local React state to `Zustand` global store.
-2.  **The 3 Lenses:** Implement the View Switcher:
-    *   **View A:** User Journey (Logic Flowchart).
-    *   **View B:** Sitemap (Structure Tree).
-    *   **View C:** Wireframes (The Screens).
-3.  **Auto-Layout:** Integrate `Dagre` to stop the AI from piling nodes on top of each other.
+## 4. NEXT IMMEDIATE GOALS
+1.  **Sitemap Generation:** Teach the Architect to generate a Tree Structure (View B) based on the Journey (View A).
+2.  **Wireframe Auto-Fill:** Teach the Architect to populate a "Phone Screen" with components based on a prompt.
+3.  **The Export:** A button to package the "Manifest" into a prompt for the Coding Agent.
