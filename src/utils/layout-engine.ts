@@ -1,27 +1,24 @@
 import dagre from 'dagre';
 import { Node, Edge, Position } from '@xyflow/react';
 
-const NODE_WIDTH = 200;
-const NODE_HEIGHT = 100;
+const NODE_WIDTH = 150;
+const NODE_HEIGHT = 150; // Increased to match the square shapes
 
-/**
- * Auto-calculates X/Y coordinates for nodes using the Dagre algorithm.
- * Crucial for AI-generated flows which lack spatial awareness.
- */
 export const getLayoutedElements = (nodes: Node[], edges: Edge[], direction = 'TB') => {
   const dagreGraph = new dagre.graphlib.Graph();
   
   dagreGraph.setDefaultEdgeLabel(() => ({}));
 
   const isHorizontal = direction === 'LR';
-  dagreGraph.setGraph({ rankdir: direction });
+  dagreGraph.setGraph({ 
+      rankdir: direction,
+      align: 'UL',
+      nodesep: 80,
+      ranksep: 100
+  });
 
   nodes.forEach((node) => {
-    // We default to a standard size if not specified, prevents layout collapse
-    dagreGraph.setNode(node.id, { 
-        width: node.measured?.width || NODE_WIDTH, 
-        height: node.measured?.height || NODE_HEIGHT 
-    });
+    dagreGraph.setNode(node.id, { width: NODE_WIDTH, height: NODE_HEIGHT });
   });
 
   edges.forEach((edge) => {
@@ -33,18 +30,27 @@ export const getLayoutedElements = (nodes: Node[], edges: Edge[], direction = 'T
   const layoutedNodes = nodes.map((node) => {
     const nodeWithPosition = dagreGraph.node(node.id);
     
-    // We shift the node so the center point aligns (Dagre gives center, React Flow wants top-left)
+    if (!nodeWithPosition) return node;
+
     return {
       ...node,
       targetPosition: isHorizontal ? Position.Left : Position.Top,
       sourcePosition: isHorizontal ? Position.Right : Position.Bottom,
-      // We assume the node has dimensions, otherwise fallback to defaults
       position: {
-        x: nodeWithPosition.x - (node.measured?.width || NODE_WIDTH) / 2,
-        y: nodeWithPosition.y - (node.measured?.height || NODE_HEIGHT) / 2,
+        x: nodeWithPosition.x - (NODE_WIDTH / 2),
+        y: nodeWithPosition.y - (NODE_HEIGHT / 2),
       },
     };
   });
 
-  return { nodes: layoutedNodes, edges };
+  // SMART EDGES: Assign specific handles based on direction
+  const layoutedEdges = edges.map((edge) => {
+      if (isHorizontal) {
+          return { ...edge, sourceHandle: 'right', targetHandle: 'left' };
+      } else {
+          return { ...edge, sourceHandle: 'bottom', targetHandle: 'top' };
+      }
+  });
+
+  return { nodes: layoutedNodes, edges: layoutedEdges };
 };
