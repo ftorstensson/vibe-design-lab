@@ -35,7 +35,7 @@ export const useVibeStore = create<VibeStore & VibeActions>((set, get) => ({
   activeLayer: 'JOURNEY',
   
   layers: {
-    JOURNEY: { nodes: [], edges: [] }, // <--- CLEAN SLATE
+    JOURNEY: { nodes: [], edges: [] }, 
     SITEMAP: { nodes: [], edges: [] },
     WIREFRAME: { nodes: [], edges: [] }
   },
@@ -101,11 +101,17 @@ export const useVibeStore = create<VibeStore & VibeActions>((set, get) => ({
         const rawNodes: Node[] = data.nodes.map((n: any) => ({
             id: n.id,
             type: activeLayer === 'WIREFRAME' && n.type === 'MobileScreen' ? 'MobileScreen' : n.type,
-            data: { label: n.label },
+            data: { 
+                label: n.label,
+                // --- NEW FIELDS FOR SITEMAP ---
+                template: n.template,
+                content: n.content,
+                goal: n.goal
+            },
             position: { x: 0, y: 0 },
             parentId: n.parentNode, 
             extent: n.parentNode ? 'parent' : undefined,
-            style: NODE_STYLE // Ensures new nodes are ghost-free
+            style: NODE_STYLE 
         }));
 
         const rawEdges: Edge[] = data.edges.map((e: any) => ({

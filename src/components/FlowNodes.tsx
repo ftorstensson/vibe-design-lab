@@ -4,10 +4,8 @@ import React, { useState, useEffect } from 'react';
 import { Handle, Position, NodeProps, useReactFlow } from '@xyflow/react';
 
 // --- VISUAL STYLES ---
-// FIX 1: Solid Black Dots (No border)
 const handleCommon = { width: 10, height: 10, background: '#000', border: 'none', zIndex: 50 };
 
-// --- EDITABLE LABEL COMPONENT ---
 const EditableLabel = ({ id, label }: { id: string, label: string }) => {
   const { setNodes } = useReactFlow();
   const [text, setText] = useState(label);
@@ -33,11 +31,10 @@ const EditableLabel = ({ id, label }: { id: string, label: string }) => {
   );
 };
 
-// 1. DECISION NODE (Diamond - SVG Implementation)
+// 1. DECISION NODE (Diamond)
 export const DecisionNode = ({ id, data }: NodeProps) => {
   return (
-    // FIX 2: Removed filter drop-shadow to clean up edges
-    <div className="relative w-32 h-32 flex items-center justify-center group">
+    <div className="relative w-32 h-32 flex items-center justify-center filter drop-shadow-sm group">
       {/* SVG Shape */}
       <svg className="absolute inset-0 w-full h-full overflow-visible pointer-events-none">
         <path d="M 64 0 L 128 64 L 64 128 L 0 64 Z" fill="white" stroke="black" strokeWidth="2" />
@@ -48,20 +45,16 @@ export const DecisionNode = ({ id, data }: NodeProps) => {
         <EditableLabel id={id} label={data.label as string} />
       </div>
 
-      {/* Handles: FIX 3 - Pulled back to -6px to sit ON the tip */}
-      {/* Top Tip */}
-      <Handle type="source" position={Position.Top} id="top" style={{ ...handleCommon, top: -6, left: '50%', transform: 'translateX(-50%)' }} />
-      {/* Right Tip */}
-      <Handle type="source" position={Position.Right} id="right" style={{ ...handleCommon, right: -6, top: '50%', transform: 'translateY(-50%)' }} />
-      {/* Bottom Tip */}
-      <Handle type="source" position={Position.Bottom} id="bottom" style={{ ...handleCommon, bottom: -6, left: '50%', transform: 'translateX(-50%)' }} />
-      {/* Left Tip */}
-      <Handle type="source" position={Position.Left} id="left" style={{ ...handleCommon, left: -6, top: '50%', transform: 'translateY(-50%)' }} />
+      {/* Handles: Pushed to -10px */}
+      <Handle type="source" position={Position.Top} id="top" style={{ ...handleCommon, top: -10 }} />
+      <Handle type="source" position={Position.Right} id="right" style={{ ...handleCommon, right: -10 }} />
+      <Handle type="source" position={Position.Bottom} id="bottom" style={{ ...handleCommon, bottom: -10 }} />
+      <Handle type="source" position={Position.Left} id="left" style={{ ...handleCommon, left: -10 }} />
     </div>
   );
 };
 
-// 2. START NODE (Rounded Pill)
+// 2. START NODE
 export const StartNode = ({ id, data }: NodeProps) => {
   return (
     <div className="relative px-4 py-3 bg-white border-2 border-black rounded-full min-w-[120px] text-center shadow-sm flex items-center justify-center">
@@ -78,22 +71,22 @@ export const StartNode = ({ id, data }: NodeProps) => {
   );
 };
 
-// 3. END NODE (Circle)
+// 3. END NODE
 export const EndNode = ({ id, data }: NodeProps) => {
   return (
     <div className="relative w-24 h-24 bg-white border-2 border-black rounded-full flex items-center justify-center text-center shadow-sm">
       <div className="relative z-10 w-16 flex flex-col items-center gap-1">
-        <div className="w-2 h-2 bg-black rounded-full" />
         <EditableLabel id={id} label={data.label as string} />
       </div>
       <Handle type="source" position={Position.Top} id="top" style={handleCommon} />
       <Handle type="source" position={Position.Left} id="left" style={handleCommon} />
       <Handle type="source" position={Position.Right} id="right" style={handleCommon} />
+      <Handle type="source" position={Position.Bottom} id="bottom" style={handleCommon} />
     </div>
   );
 };
 
-// 4. ACTION NODE (Square Box)
+// 4. ACTION NODE
 export const ActionNode = ({ id, data }: NodeProps) => {
   return (
     <div className="relative w-32 h-32 bg-white border-2 border-black flex items-center justify-center text-center shadow-sm rounded-xl">

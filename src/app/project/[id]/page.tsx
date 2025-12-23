@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useRef, useState, useMemo } from 'react';
 import { 
   ReactFlow, 
   Background, 
@@ -21,13 +21,15 @@ import '@xyflow/react/dist/style.css';
 import { Smartphone, GripHorizontal, Box, Map, Network, Layout, Loader2, ArrowLeft } from 'lucide-react';
 import { Sidebar } from '@/components/Sidebar';
 import { JourneyToolbar } from '@/components/JourneyToolbar';
+import { SitemapToolbar } from '@/components/SitemapToolbar';
 import { useVibeStore } from '@/store/vibe-store';
 import VoiceRecorder from '@/components/VoiceRecorder';
 import { clsx } from 'clsx';
 import { useRouter } from 'next/navigation';
 
-// Import Flow Nodes
+// Import Visual Nodes
 import { DecisionNode, StartNode, EndNode, ActionNode } from '@/components/FlowNodes';
+import { PageNode, PurposeNode } from '@/components/SitemapNodes';
 
 // --- CUSTOM NODES ---
 const MobileFrameNode = ({ data }: NodeProps) => {
@@ -75,11 +77,15 @@ const nodeTypes = {
     StickyNote: GenericComponentNode,
     MobileScreen: MobileFrameNode,
     
-    // Journey Nodes
+    // Journey (Flowchart)
     decision: DecisionNode,
     input: StartNode,
     output: EndNode,
-    default: ActionNode
+    default: ActionNode,
+
+    // Sitemap (Tree)
+    page: PageNode,
+    purpose: PurposeNode // The new "Dot"
 };
 
 const Canvas = () => {
@@ -87,7 +93,7 @@ const Canvas = () => {
   const reactFlowWrapper = useRef(null);
   const { screenToFlowPosition } = useReactFlow();
   const [isGenerating, setIsGenerating] = useState(false);
-  const edgeUpdateSuccessful = useRef(true); // Track if update worked
+  const edgeUpdateSuccessful = useRef(true);
 
   const { 
     activeLayer, 
@@ -104,13 +110,32 @@ const Canvas = () => {
   const nodes = layers[activeLayer].nodes;
   const edges = layers[activeLayer].edges;
 
+  // DYNAMIC EDGE STYLES
+  const edgeOptions = useMemo(() => {
+    if (activeLayer === 'SITEMAP') {
+        return {
+            type: 'step', // Right Angles
+            animated: false,
+            style: { stroke: '#000', strokeWidth: 2 },
+            markerEnd: { type: MarkerType.ArrowClosed, color: '#000' },
+            interactionWidth: 25
+        };
+    }
+    return {
+        type: 'bezier', // Curved Flow
+        animated: false,
+        style: { stroke: '#000', strokeWidth: 2 },
+        markerEnd: { type: MarkerType.ArrowClosed, color: '#000' },
+        interactionWidth: 25
+    };
+  }, [activeLayer]);
+
   const handleVoice = async (blob: Blob) => {
     setIsGenerating(true);
     await generateLayout(blob);
     setIsGenerating(false);
   };
 
-  // --- EDGE LOGIC ---
   const onReconnectStart = useCallback(() => {
     edgeUpdateSuccessful.current = false;
   }, []);
@@ -136,7 +161,6 @@ const Canvas = () => {
   const onDrop = useCallback(
     (event: React.DragEvent) => {
       event.preventDefault();
-      if (activeLayer === 'SITEMAP') return;
 
       const type = event.dataTransfer.getData('application/reactflow/type');
       const propsString = event.dataTransfer.getData('application/reactflow/props');
@@ -182,7 +206,6 @@ const Canvas = () => {
           onEdgesChange={onEdgesChange}
           onConnect={onConnect}
           
-          // Updated Edge Update Hooks
           onReconnect={onReconnect}
           onReconnectStart={onReconnectStart}
           onReconnectEnd={onReconnectEnd}
@@ -192,16 +215,15 @@ const Canvas = () => {
           nodeTypes={nodeTypes}
           fitView
           className="bg-slate-50"
+          
+          // FIX: Snap to Grid
+          snapToGrid={true}
+          snapGrid={[20, 20]} // 20px Grid
+          
           connectionMode={ConnectionMode.Loose}
-          defaultEdgeOptions={{
-            type: 'bezier',
-            animated: false,
-            style: { stroke: '#000', strokeWidth: 2 }, 
-            markerEnd: { type: MarkerType.ArrowClosed, color: '#000' },
-            interactionWidth: 25 // <--- THE FAT FINGER FIX
-          }}
+          defaultEdgeOptions={edgeOptions}
         >
-          <Background color="#ccc" variant={BackgroundVariant.Dots} gap={25} size={1} />
+          <Background color="#ccc" variant={BackgroundVariant.Dots} gap={20} size={1} />
           
           <Controls className="!bg-white !border !border-slate-200 !shadow-xl !rounded-lg !text-slate-600 overflow-hidden" />
 
@@ -212,6 +234,7 @@ const Canvas = () => {
           </Panel>
 
           {activeLayer === 'JOURNEY' && <JourneyToolbar />}
+          {activeLayer === 'SITEMAP' && <SitemapToolbar />}
 
           <Panel position="bottom-center" className="mb-8">
             <div className="bg-white px-2 py-2 rounded-2xl shadow-xl border border-slate-200 flex items-center gap-4 animate-in slide-in-from-bottom-4">
@@ -241,8 +264,8 @@ const LayerTab = ({ label, icon: Icon, isActive, onClick }: { label: string, ico
         className={clsx(
             "flex items-center gap-2 px-3 sm:px-4 py-2 rounded-full text-xs font-bold transition-all border border-transparent",
             isActive 
-                ? "bg-black text-white" 
-                : "text-slate-500 hover:bg-slate-100 hover:border-slate-300"
+                ? "bg-slate-900 text-white shadow-md" 
+                : "text-slate-500 hover:bg-slate-100 hover:text-slate-900"
         )}
     >
         <Icon className="w-3 h-3" />
