@@ -9,7 +9,7 @@
 ## KINGDOM: UX-CANVAS (The Content)
 | ID | Feature Name | The Law (Guarantees) | Status |
 | :--- | :--- | :--- | :--- |
-| **UX-VIS-001** | **Schematic Style** | Nodes must be High-Contrast B&W. Handles must be SOLID BLACK (No White Border). | 🔒 PINNED |
-| **UX-VIS-004** | **Sitemap Cards** | Brutalist Aesthetic. No Icons in Header. White Body Background. Dashed Border for Contexts (Modals). | 🔒 PINNED |
-| **UX-INT-003** | **Handle Placement** | Handles must sit EXACTLY on the border line (Offset: -5px) with `zIndex: 50`. | 🔒 PINNED |
-| **UX-INT-004** | **Sitemap Physics** | Sitemap uses "Step" (Right Angle) lines. Journey uses "Bezier" (Curved) lines. | ✅ Active |
+| **UX-VIS-004** | **Sitemap Cards** | Brutalist Aesthetic. White Body. Dashed Border for Contexts. | 🔒 PINNED |
+| **UX-VIS-005** | **Wireframe Nodes** | Brutalist Aesthetic. Solid Black borders. No Icons in Actions/Navs. | 🔒 PINNED |
+| **UX-INT-005** | **Auto-Centering** | Layout components (Header, TabBar, Button) MUST snap to `x=5` (Center) when dropped in a Phone. | ✅ Active |
+| **UX-INT-006** | **Elastic Screens** | Phone frames must be vertically resizable. "The Fold" line appears > 812px. | ✅ Active |

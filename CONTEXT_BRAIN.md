@@ -1,6 +1,6 @@
 # PROJECT BRAIN: VIBE DESIGN LAB
-*Current Status: V0.5 (Sitemap Layer Polished)*
-*Last Updated: 2025-12-24*
+*Current Status: V1.0 (Core Foundation Complete)*
+*Last Updated: 2025-12-26*
 
 ## 1. THE MISSION
 We are building **"The Design Lab"** – a Visual IDE where a Human "Director" collaborates with an AI "Producer" (The Architect) to design mobile apps via "Show and Tell."
@@ -13,13 +13,14 @@ We are building **"The Design Lab"** – a Visual IDE where a Human "Director" c
 
 ## 3. ACTIVE FEATURES
 *   [x] **Journey Layer:** Schematic Flowcharts (Diamonds/Pills) with Miro-style connections.
-*   [x] **Sitemap Layer:**
-    *   **Rich Page Cards:** "Brutalist" style (White/Black), Collapsible content lists, Goal footers.
-    *   **Purpose Dots:** Expandable nodes to annotate "Why this category exists."
-    *   **Ortho-Connections:** Right-Angle (Step) lines for tree structures.
-*   [x] **The Architect:** Voice-to-Canvas with Layer Awareness (knows if it's drawing a Flow or a Tree).
+*   [x] **Sitemap Layer:** Rich "Page Cards" with content priority lists and purpose dots.
+*   [x] **Wireframe Layer:**
+    *   **Elastic Design:** Resizable components and Phone Screens (Infinite Scroll).
+    *   **Physics:** Components "Auto-Dock" and "Center" when dropped onto a screen.
+    *   **The Fold:** Visual indicator for 812px height.
+*   [x] **The Architect:** Voice-to-Canvas engine (Backend ready, Prompt tuning next).
 
 ## 4. NEXT IMMEDIATE GOALS
-1.  **Wireframe Layer:** The final frontier. Teaching the AI to populate components *inside* the Phone Frame (Parent/Child logic).
+1.  **The Architect V2:** Upgrade the AI Prompt to use the specific Wireframe Components (Header, Input, etc.) instead of generic boxes.
 2.  **The Export:** Packaging the "Manifest" into a prompt for the Coding Agent.
 3.  **Comments:** Adding a discussion layer on top of nodes.
