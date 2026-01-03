@@ -1,73 +1,99 @@
 import dagre from 'dagre';
 import { Node, Edge, Position } from '@xyflow/react';
 
-const NODE_WIDTH = 250; // Wider to match Page Cards
-const NODE_HEIGHT = 100;
+const NODE_WIDTH = 200;
+const NODE_HEIGHT = 150;
 
+/**
+ * SPINE + RIBS LAYOUT ENGINE
+ * Replaces Dagre for Journey Flows to ensure the "Happy Path" is a straight line.
+ */
 export const getLayoutedElements = (nodes: Node[], edges: Edge[], direction = 'TB') => {
-  const dagreGraph = new dagre.graphlib.Graph();
-  
-  dagreGraph.setDefaultEdgeLabel(() => ({}));
-
   const isHorizontal = direction === 'LR';
+
+  // 1. Fallback to Dagre for Sitemap/Wireframes (Tree structures)
+  if (!isHorizontal) {
+    return runDagreLayout(nodes, edges);
+  }
+
+  // 2. SPINE LAYOUT (For User Journeys)
+  // Logic: Hero nodes go on Y=0. Others go above/below.
   
-  dagreGraph.setGraph({ 
-      rankdir: direction,
-      align: isHorizontal ? 'UL' : undefined, // Center alignment for Trees looks better
-      nodesep: isHorizontal ? 80 : 100, // Space between sibling nodes
-      ranksep: isHorizontal ? 100 : 80  // Space between hierarchy levels
+  const heroNodes = nodes.filter(n => n.data.variant === 'hero');
+  const otherNodes = nodes.filter(n => n.data.variant !== 'hero');
+
+  // Sort heroes by logic (simplistic assumption: ID order or connection order)
+  // In a real graph traverse, we'd follow the edges. For now, we assume AI output order roughly matches flow.
+  
+  // Position Spine (Heroes)
+  let currentX = 0;
+  heroNodes.forEach((node) => {
+    node.position = { x: currentX, y: 0 };
+    node.targetPosition = Position.Left;
+    node.sourcePosition = Position.Right;
+    currentX += 350; // Wide spacing
   });
 
-  nodes.forEach((node) => {
-    dagreGraph.setNode(node.id, { width: NODE_WIDTH, height: NODE_HEIGHT });
-  });
+  // Position Ribs (Others) relative to their source
+  otherNodes.forEach((node, i) => {
+    // Find who connects to this node
+    const sourceEdge = edges.find(e => e.target === node.id);
+    const parent = nodes.find(n => n.id === sourceEdge?.source);
 
-  edges.forEach((edge) => {
-    dagreGraph.setEdge(edge.source, edge.target);
-  });
-
-  dagre.layout(dagreGraph);
-
-  const layoutedNodes = nodes.map((node) => {
-    const nodeWithPosition = dagreGraph.node(node.id);
+    if (parent) {
+      // Alternate Top/Bottom
+      const offset = (i % 2 === 0) ? -250 : 250; 
+      node.position = { 
+          x: parent.position.x, 
+          y: parent.position.y + offset 
+      };
+    } else {
+      // Orphan: Put it at the end
+      node.position = { x: currentX, y: 200 };
+      currentX += 200;
+    }
     
-    if (!nodeWithPosition) return node;
+    node.targetPosition = Position.Left;
+    node.sourcePosition = Position.Right;
+  });
+
+  // Smart Edges
+  const layoutedEdges = edges.map((edge) => ({
+      ...edge,
+      sourceHandle: 'right',
+      targetHandle: 'left',
+      type: 'bezier'
+  }));
+
+  return { nodes, edges: layoutedEdges };
+};
+
+// --- DAGRE FALLBACK (For Sitemaps) ---
+const runDagreLayout = (nodes: Node[], edges: Edge[]) => {
+    const dagreGraph = new dagre.graphlib.Graph();
+    dagreGraph.setDefaultEdgeLabel(() => ({}));
+    dagreGraph.setGraph({ rankdir: 'TB', nodesep: 100, ranksep: 100 });
+
+    nodes.forEach((node) => {
+        dagreGraph.setNode(node.id, { width: 250, height: 100 });
+    });
+
+    edges.forEach((edge) => {
+        dagreGraph.setEdge(edge.source, edge.target);
+    });
+
+    dagre.layout(dagreGraph);
 
     return {
-      ...node,
-      // React Flow positioning logic
-      targetPosition: isHorizontal ? Position.Left : Position.Top,
-      sourcePosition: isHorizontal ? Position.Right : Position.Bottom,
-      position: {
-        x: nodeWithPosition.x - (NODE_WIDTH / 2),
-        y: nodeWithPosition.y - (NODE_HEIGHT / 2),
-      },
+        nodes: nodes.map((node) => {
+            const pos = dagreGraph.node(node.id);
+            return {
+                ...node,
+                targetPosition: Position.Top,
+                sourcePosition: Position.Bottom,
+                position: { x: pos.x - 125, y: pos.y - 50 }
+            };
+        }),
+        edges: edges.map(e => ({ ...e, type: 'step', sourceHandle: 'bottom', targetHandle: 'top' }))
     };
-  });
-
-  // SMART EDGES: Assign handles based on layout direction
-  const layoutedEdges = edges.map((edge) => {
-      // SITEMAP (Vertical Tree) -> Use Step Lines (SmoothStep or Step)
-      if (!isHorizontal) {
-          return { 
-              ...edge, 
-              type: 'step', // Forces Right-Angles
-              sourceHandle: 'bottom', // Force exit from bottom
-              targetHandle: 'top',    // Force enter at top
-              style: { stroke: '#000', strokeWidth: 2 }
-          };
-      } 
-      // JOURNEY (Horizontal Flow) -> Use Bezier Curves
-      else {
-          return { 
-              ...edge, 
-              type: 'bezier', // Forces Curves
-              sourceHandle: 'right', 
-              targetHandle: 'left',
-              style: { stroke: '#000', strokeWidth: 2 }
-          };
-      }
-  });
-
-  return { nodes: layoutedNodes, edges: layoutedEdges };
 };

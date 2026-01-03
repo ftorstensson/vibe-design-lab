@@ -1,6 +1,6 @@
 # PROJECT BRAIN: VIBE DESIGN LAB
-*Current Status: V1.0 (Core Foundation Complete)*
-*Last Updated: 2025-12-26*
+*Current Status: V1.1 (Strategy Layer & Persistent Nav)*
+*Last Updated: 2026-01-03*
 
 ## 1. THE MISSION
 We are building **"The Design Lab"** – a Visual IDE where a Human "Director" collaborates with an AI "Producer" (The Architect) to design mobile apps via "Show and Tell."
@@ -8,19 +8,16 @@ We are building **"The Design Lab"** – a Visual IDE where a Human "Director" c
 ## 2. THE ARCHITECTURE (Twin Engines)
 *   **Frontend (Design Lab):** Next.js + XYFlow + Zustand.
 *   **Backend (Co-Founder):** FastAPI + LangChain (`/agent/design` route).
-*   **State:** `Zustand` holds the "Vibe Manifest" (Journey, Sitemap, Wireframes).
+*   **State:** `Zustand` holds the "Vibe Manifest" (Strategy Doc + 3 Visual Layers).
 *   **Layout:** `Dagre` automatically organizes AI-generated nodes.
 
 ## 3. ACTIVE FEATURES
-*   [x] **Journey Layer:** Schematic Flowcharts (Diamonds/Pills) with Miro-style connections.
-*   [x] **Sitemap Layer:** Rich "Page Cards" with content priority lists and purpose dots.
-*   [x] **Wireframe Layer:**
-    *   **Elastic Design:** Resizable components and Phone Screens (Infinite Scroll).
-    *   **Physics:** Components "Auto-Dock" and "Center" when dropped onto a screen.
-    *   **The Fold:** Visual indicator for 812px height.
-*   [x] **The Architect:** Voice-to-Canvas engine (Backend ready, Prompt tuning next).
+*   [x] **Strategy Layer:** Markdown Document Editor ("The Truth").
+*   [x] **Journey Layer:** Schematic Flowcharts with "Spine" layout.
+*   [x] **Sitemap Layer:** Rich "Page Cards" with Brutalist UI.
+*   [x] **Wireframe Layer:** Auto-Docking Phone Screens with "The Fold" indicator.
+*   [x] **Persistent Navigation:** Tabs stay visible across Text and Canvas views.
 
 ## 4. NEXT IMMEDIATE GOALS
-1.  **The Architect V2:** Upgrade the AI Prompt to use the specific Wireframe Components (Header, Input, etc.) instead of generic boxes.
+1.  **The "Context Snowball":** Ensure the Architect reads the `STRATEGY.md` when generating the `JOURNEY`, and reads the `JOURNEY` when generating the `SITEMAP`.
 2.  **The Export:** Packaging the "Manifest" into a prompt for the Coding Agent.
-3.  **Comments:** Adding a discussion layer on top of nodes.

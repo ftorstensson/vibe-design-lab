@@ -17,16 +17,18 @@ import {
   reconnectEdge,
   ConnectionMode,
   NodeResizer,
-  useStore,
-  NodeResizeControl
+  NodeResizeControl,
+  useStore
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
-import { Smartphone, GripHorizontal, Box, Map, Network, Layout, Loader2, ArrowLeft, ChevronDown } from 'lucide-react';
+import { Smartphone, GripHorizontal, Box, Map, Network, Layout, Loader2, ArrowLeft, BookOpen, ChevronDown } from 'lucide-react';
 import { JourneyToolbar } from '@/components/JourneyToolbar';
 import { SitemapToolbar } from '@/components/SitemapToolbar';
 import { WireframeToolbar } from '@/components/WireframeToolbar';
 import { useVibeStore } from '@/store/vibe-store';
 import VoiceRecorder from '@/components/VoiceRecorder';
+import StrategyView from '@/components/StrategyView';
+import BlueprintReviewModal from '@/components/BlueprintReviewModal';
 import { clsx } from 'clsx';
 import { useRouter } from 'next/navigation';
 
@@ -58,13 +60,7 @@ import {
     AccordionNode 
 } from '@/components/WireframeNodes';
 
-// --- CONFIG: AUTO-CENTERING ---
-const FULL_WIDTH_COMPONENTS = [
-    'Header', 'TabBar', 'SearchBar', 'Divider', 'List', 'ListItem', 
-    'Input', 'InputField', 'Button', 'PrimaryButton', 'SecondaryButton', 'Card', 'Image'
-];
-
-// --- CUSTOM NODES (WIREFRAME CONTAINER) ---
+// --- CUSTOM NODES ---
 
 const ResizeIcon = () => (
     <div className="w-full flex justify-center cursor-ns-resize py-1 bg-slate-100 hover:bg-slate-200 border-t border-slate-300">
@@ -75,7 +71,6 @@ const ResizeIcon = () => (
 const MobileFrameNode = ({ id, data, selected }: NodeProps) => {
   const height = useStore((s) => s.nodeLookup.get(id)?.measured?.height || 812);
   const showFold = height > 812;
-
   const { setNodes } = useReactFlow();
   const [label, setLabel] = useState(data.label as string);
   
@@ -86,8 +81,6 @@ const MobileFrameNode = ({ id, data, selected }: NodeProps) => {
 
   return (
     <div className="w-full h-full bg-white border-[4px] border-black rounded-xl shadow-2xl relative flex flex-col group overflow-visible min-h-[812px]">
-      
-      {/* Resizer */}
       <NodeResizer 
         isVisible={!!selected} 
         minWidth={375} maxWidth={375} 
@@ -95,8 +88,6 @@ const MobileFrameNode = ({ id, data, selected }: NodeProps) => {
         handleStyle={{ width: 10, height: 10, borderRadius: 5 }}
         lineStyle={{ border: '1px solid #000' }}
       />
-
-      {/* HEADER */}
       <div className="h-10 bg-black flex items-center justify-between px-4 handle cursor-move shrink-0 z-20 rounded-t-lg">
         <input 
             className="text-xs font-bold text-white bg-transparent outline-none w-full uppercase tracking-wider placeholder-gray-500"
@@ -107,13 +98,10 @@ const MobileFrameNode = ({ id, data, selected }: NodeProps) => {
         />
         <GripHorizontal className="w-4 h-4 text-gray-500" />
       </div>
-
-      {/* CONTENT AREA */}
       <div className="flex-1 bg-white relative overflow-hidden">
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-0 group-hover:opacity-10 transition-opacity">
             <span className="text-4xl font-bold text-slate-100 uppercase tracking-widest -rotate-45">Canvas</span>
         </div>
-
         {showFold && (
             <div className="absolute top-[812px] left-0 right-0 border-t-2 border-dashed border-blue-400 z-50 flex justify-center pointer-events-none">
                 <span className="bg-blue-400 text-white text-[9px] px-2 rounded-b font-bold uppercase tracking-widest">
@@ -122,17 +110,13 @@ const MobileFrameNode = ({ id, data, selected }: NodeProps) => {
             </div>
         )}
       </div>
-
-      {/* FOOTER RESIZER */}
       <NodeResizeControl style={{ opacity: 1, background: 'transparent', border: 'none' }} minWidth={375} minHeight={812} position="bottom">
          <ResizeIcon />
       </NodeResizeControl>
-
     </div>
   );
 };
 
-// --- FALLBACK NODE ---
 const GenericComponentNode = ({ data, type }: NodeProps) => {
   return (
     <div className="min-w-[120px] min-h-[40px] bg-white border border-purple-200 rounded-lg shadow-sm flex items-center gap-3 px-3 py-2">
@@ -169,15 +153,12 @@ const nodeTypes = {
     Card: CardNode,
     Divider: DividerNode,
     Accordion: AccordionNode,
-    
     decision: DecisionNode,
     input: StartNode,
     output: EndNode,
     default: ActionNode,
-
     page: PageNode,
     purpose: PurposeNode,
-    
     StickyNote: GenericComponentNode,
 };
 
@@ -188,10 +169,29 @@ const Canvas = () => {
   const [isGenerating, setIsGenerating] = useState(false);
   const edgeUpdateSuccessful = useRef(true);
 
-  const { activeLayer, layers, onNodesChange, onEdgesChange, onConnect, setNodes, setEdges, setActiveLayer, generateLayout } = useVibeStore();
+  // REVIEW MODAL STATE
+  const [isReviewOpen, setIsReviewOpen] = useState(false);
+  const [reviewContent, setReviewContent] = useState("");
 
-  const nodes = layers[activeLayer].nodes;
-  const edges = layers[activeLayer].edges;
+  const { 
+    activeLayer, 
+    layers, 
+    strategyDoc, 
+    setStrategyDoc, 
+    onNodesChange, 
+    onEdgesChange, 
+    onConnect, 
+    setNodes, 
+    setEdges, 
+    setActiveLayer, 
+    generateLayout
+  } = useVibeStore();
+
+  // SAFE ACCESS
+  const isVisualLayer = activeLayer !== 'STRATEGY';
+  const currentLayerKey = activeLayer as 'JOURNEY' | 'SITEMAP' | 'WIREFRAME';
+  const nodes = isVisualLayer ? layers[currentLayerKey].nodes : [];
+  const edges = isVisualLayer ? layers[currentLayerKey].edges : [];
 
   const edgeOptions = useMemo(() => {
     if (activeLayer === 'SITEMAP') {
@@ -202,8 +202,25 @@ const Canvas = () => {
 
   const handleVoice = async (blob: Blob) => {
     setIsGenerating(true);
-    await generateLayout(blob);
+    const result = await generateLayout(blob);
+    
+    // If we got Strategy Text back, open the Review Modal
+    if (activeLayer === 'STRATEGY' && result?.content) {
+        setReviewContent(result.content);
+        setIsReviewOpen(true);
+    }
+    
     setIsGenerating(false);
+  };
+
+  const handleEditStrategy = () => {
+      setReviewContent(strategyDoc);
+      setIsReviewOpen(true);
+  };
+
+  const handleSaveStrategy = (newContent: string) => {
+      setStrategyDoc(newContent);
+      setIsReviewOpen(false);
   };
 
   const onReconnectStart = useCallback(() => { edgeUpdateSuccessful.current = false; }, []);
@@ -217,20 +234,15 @@ const Canvas = () => {
     edgeUpdateSuccessful.current = true;
   }, [edges, setEdges]);
 
-  // --- FIX: USE NODES ARRAY DIRECTLY ---
-  const onNodeDragStop = useCallback((event: React.MouseEvent, node: Node) => {
-      // Only apply if node is inside a parent (Phone Screen)
-      if (!node.parentId) return;
+  // FULL_WIDTH_COMPONENTS list for physics
+  const FULL_WIDTH_COMPONENTS = ['Header', 'TabBar', 'SearchBar', 'Divider', 'List', 'ListItem', 'Input', 'InputField', 'Button', 'PrimaryButton', 'SecondaryButton', 'Card', 'Image'];
 
-      // Check if it's a component that should be centered
+  const onNodeDragStop = useCallback((event: React.MouseEvent, node: Node) => {
+      if (!node.parentId) return;
       if (node.type && FULL_WIDTH_COMPONENTS.some(t => node.type?.includes(t))) {
-          // Update the specific node in the current list
           const updatedNodes = nodes.map((n) => {
               if (n.id === node.id) {
-                  return {
-                      ...n,
-                      position: { ...n.position, x: 5 } // Keep Y, Snap X to 5px
-                  };
+                  return { ...n, position: { ...n.position, x: 5 } };
               }
               return n;
           });
@@ -252,6 +264,8 @@ const Canvas = () => {
 
       const position = screenToFlowPosition({ x: event.clientX, y: event.clientY });
       
+      if (!isVisualLayer) return;
+
       const parentNode = nodes.find(n => 
         n.type === 'MobileScreen' &&
         position.x >= n.position.x &&
@@ -260,7 +274,6 @@ const Canvas = () => {
         position.y <= n.position.y + (n.measured?.height || 812)
       );
 
-      // DEFAULTS
       let style: React.CSSProperties = { backgroundColor: 'transparent', border: 'none', width: 'auto', boxShadow: 'none' };
       let defaultWidth = 365;
 
@@ -277,15 +290,10 @@ const Canvas = () => {
       if (type === 'Divider') { style = { ...style, width: '340px', height: '10px' }; defaultWidth = 340; }
 
       let finalPosition = position;
-      
       if (parentNode) {
           const centeredX = (375 - defaultWidth) / 2;
           const relativeY = position.y - parentNode.position.y;
-          
-          finalPosition = {
-              x: centeredX,
-              y: relativeY
-          };
+          finalPosition = { x: centeredX, y: relativeY };
       }
 
       const newNode: Node = {
@@ -294,62 +302,89 @@ const Canvas = () => {
         position: parentNode ? finalPosition : position, 
         data: propsString ? JSON.parse(propsString) : { label: type },
         style,
-        ...(parentNode && {
-            parentId: parentNode.id,
-            extent: 'parent',
-        })
+        ...(parentNode && { parentId: parentNode.id, extent: 'parent' })
       };
       setNodes(nodes.concat(newNode));
     },
-    [screenToFlowPosition, nodes, setNodes, activeLayer],
+    [screenToFlowPosition, nodes, setNodes, activeLayer, isVisualLayer],
   );
 
   return (
     <div className="flex h-screen w-screen bg-slate-50 overflow-hidden">
       
+      <BlueprintReviewModal 
+        isOpen={isReviewOpen} 
+        onClose={() => setIsReviewOpen(false)} 
+        initialContent={reviewContent}
+        onSave={handleSaveStrategy}
+      />
+
       <div className="flex-1 h-full relative" ref={reactFlowWrapper}>
+        
+        {/* GLOBAL NAVIGATION (Always visible) */}
         <div className="absolute top-4 left-4 z-50">
             <button onClick={() => router.push('/')} className="bg-white p-2 rounded-lg shadow-md border border-slate-200 hover:bg-slate-50 text-slate-600 transition-colors flex items-center gap-2" aria-label="Back to Lobby">
                 <ArrowLeft className="w-4 h-4" /><span className="text-xs font-bold hidden sm:inline">Lobby</span>
             </button>
         </div>
-        <ReactFlow
-          nodes={nodes}
-          edges={edges}
-          onNodesChange={onNodesChange}
-          onEdgesChange={onEdgesChange}
-          onConnect={onConnect}
-          onReconnect={onReconnect}
-          onReconnectStart={onReconnectStart}
-          onReconnectEnd={onReconnectEnd}
-          onNodeDragStop={onNodeDragStop}
-          onDragOver={onDragOver}
-          onDrop={onDrop}
-          nodeTypes={nodeTypes}
-          fitView
-          className="bg-slate-50"
-          snapToGrid={true}
-          snapGrid={[10, 10]}
-          connectionMode={ConnectionMode.Loose}
-          defaultEdgeOptions={edgeOptions}
-        >
-          <Background color="#ccc" variant={BackgroundVariant.Dots} gap={20} size={1} />
-          <Controls className="!bg-white !border !border-slate-200 !shadow-xl !rounded-lg !text-slate-600 overflow-hidden" />
-          <Panel position="top-center" className="bg-white p-1.5 rounded-full shadow-lg border border-slate-200 flex gap-1 pointer-events-auto">
-            <LayerTab label="Journey" icon={Map} isActive={activeLayer === 'JOURNEY'} onClick={() => setActiveLayer('JOURNEY')} />
-            <LayerTab label="Sitemap" icon={Network} isActive={activeLayer === 'SITEMAP'} onClick={() => setActiveLayer('SITEMAP')} />
-            <LayerTab label="Wireframes" icon={Layout} isActive={activeLayer === 'WIREFRAME'} onClick={() => setActiveLayer('WIREFRAME')} />
-          </Panel>
-          {activeLayer === 'JOURNEY' && <JourneyToolbar />}
-          {activeLayer === 'SITEMAP' && <SitemapToolbar />}
-          {activeLayer === 'WIREFRAME' && <WireframeToolbar />}
-          <Panel position="bottom-center" className="mb-8">
-            <div className="bg-white px-2 py-2 rounded-2xl shadow-xl border border-slate-200 flex items-center gap-4 animate-in slide-in-from-bottom-4">
-                <div className="flex flex-col items-start px-2"><span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Architect</span><span className="text-xs font-medium text-slate-700">{isGenerating ? "Thinking..." : "Ready"}</span></div>
-                {isGenerating ? <div className="p-3 bg-slate-50 rounded-xl"><Loader2 className="w-5 h-5 animate-spin text-slate-400" /></div> : <VoiceRecorder onRecordingComplete={handleVoice} />}
+
+        {/* LAYER TABS (Always visible, moved outside of conditional) */}
+        <div className="absolute top-4 left-1/2 -translate-x-1/2 z-50">
+            <div className="bg-white p-1.5 rounded-full shadow-lg border border-slate-200 flex gap-1 pointer-events-auto">
+                <LayerTab label="Strategy" icon={BookOpen} isActive={(activeLayer as string) === 'STRATEGY'} onClick={() => setActiveLayer('STRATEGY')} />
+                <LayerTab label="Journey" icon={Map} isActive={(activeLayer as string) === 'JOURNEY'} onClick={() => setActiveLayer('JOURNEY')} />
+                <LayerTab label="Sitemap" icon={Network} isActive={(activeLayer as string) === 'SITEMAP'} onClick={() => setActiveLayer('SITEMAP')} />
+                <LayerTab label="Wireframes" icon={Layout} isActive={(activeLayer as string) === 'WIREFRAME'} onClick={() => setActiveLayer('WIREFRAME')} />
             </div>
-          </Panel>
-        </ReactFlow>
+        </div>
+
+        {activeLayer === 'STRATEGY' ? (
+             <div className="pt-20 h-full">
+                <StrategyView onEdit={handleEditStrategy} />
+                <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-50">
+                     {/* AI CONTROL for Strategy */}
+                    <div className="bg-white px-2 py-2 rounded-2xl shadow-xl border border-slate-200 flex items-center gap-4">
+                        <div className="flex flex-col items-start px-2"><span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Strategist</span><span className="text-xs font-medium text-slate-700">{isGenerating ? "Thinking..." : "Ready"}</span></div>
+                        {isGenerating ? <div className="p-3 bg-slate-50 rounded-xl"><Loader2 className="w-5 h-5 animate-spin text-slate-400" /></div> : <VoiceRecorder onRecordingComplete={handleVoice} />}
+                    </div>
+                </div>
+             </div>
+        ) : (
+            <ReactFlow
+            nodes={nodes}
+            edges={edges}
+            onNodesChange={onNodesChange}
+            onEdgesChange={onEdgesChange}
+            onConnect={onConnect}
+            onReconnect={onReconnect}
+            onReconnectStart={onReconnectStart}
+            onReconnectEnd={onReconnectEnd}
+            onNodeDragStop={onNodeDragStop}
+            onDragOver={onDragOver}
+            onDrop={onDrop}
+            nodeTypes={nodeTypes}
+            fitView
+            className="bg-slate-50"
+            snapToGrid={true}
+            snapGrid={[10, 10]}
+            connectionMode={ConnectionMode.Loose}
+            defaultEdgeOptions={edgeOptions}
+            >
+            <Background color="#ccc" variant={BackgroundVariant.Dots} gap={20} size={1} />
+            <Controls className="!bg-white !border !border-slate-200 !shadow-xl !rounded-lg !text-slate-600 overflow-hidden" />
+            
+            {activeLayer === 'JOURNEY' && <JourneyToolbar />}
+            {activeLayer === 'SITEMAP' && <SitemapToolbar />}
+            {activeLayer === 'WIREFRAME' && <WireframeToolbar />}
+            
+            <Panel position="bottom-center" className="mb-8">
+                <div className="bg-white px-2 py-2 rounded-2xl shadow-xl border border-slate-200 flex items-center gap-4 animate-in slide-in-from-bottom-4">
+                    <div className="flex flex-col items-start px-2"><span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Architect</span><span className="text-xs font-medium text-slate-700">{isGenerating ? "Thinking..." : "Ready"}</span></div>
+                    {isGenerating ? <div className="p-3 bg-slate-50 rounded-xl"><Loader2 className="w-5 h-5 animate-spin text-slate-400" /></div> : <VoiceRecorder onRecordingComplete={handleVoice} />}
+                </div>
+            </Panel>
+            </ReactFlow>
+        )}
       </div>
     </div>
   );
