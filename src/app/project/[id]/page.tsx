@@ -21,7 +21,7 @@ import {
   useStore
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
-import { Smartphone, GripHorizontal, Box, Map, Network, Layout, Loader2, ArrowLeft, BookOpen, ChevronDown } from 'lucide-react';
+import { GripHorizontal, Box, Map, Network, Layout, Loader2, ArrowLeft, BookOpen, ChevronDown, Send, MessageSquare, ChevronRight, PanelRightClose, PanelRightOpen } from 'lucide-react';
 import { JourneyToolbar } from '@/components/JourneyToolbar';
 import { SitemapToolbar } from '@/components/SitemapToolbar';
 import { WireframeToolbar } from '@/components/WireframeToolbar';
@@ -36,28 +36,11 @@ import { useRouter } from 'next/navigation';
 import { DecisionNode, StartNode, EndNode, ActionNode } from '@/components/FlowNodes';
 import { PageNode, PurposeNode } from '@/components/SitemapNodes';
 import { 
-    HeaderNode, 
-    TabBarNode,
-    SearchBarNode,
-    PrimaryButtonNode, 
-    SecondaryButtonNode, 
-    FABNode,
-    LinkNode,
-    InputFieldNode,
-    TextAreaNode,
-    CheckboxNode,
-    SwitchNode,
-    ImageNode, 
-    AvatarNode,
-    VideoNode,
-    MapNode,
-    ListItemNode, 
-    HeadingNode,
-    ParagraphNode,
-    BadgeNode,
-    CardNode,
-    DividerNode,
-    AccordionNode 
+    HeaderNode, TabBarNode, SearchBarNode, PrimaryButtonNode, 
+    SecondaryButtonNode, FABNode, LinkNode, InputFieldNode,
+    TextAreaNode, CheckboxNode, SwitchNode, ImageNode, 
+    AvatarNode, VideoNode, MapNode, ListItemNode, HeadingNode,
+    ParagraphNode, BadgeNode, CardNode, DividerNode, AccordionNode 
 } from '@/components/WireframeNodes';
 
 // --- CUSTOM NODES ---
@@ -130,35 +113,14 @@ const GenericComponentNode = ({ data, type }: NodeProps) => {
 };
 
 const nodeTypes = { 
-    MobileScreen: MobileFrameNode,
-    Header: HeaderNode,
-    TabBar: TabBarNode,
-    SearchBar: SearchBarNode,
-    PrimaryButton: PrimaryButtonNode,
-    SecondaryButton: SecondaryButtonNode,
-    FAB: FABNode,
-    Link: LinkNode,
-    InputField: InputFieldNode,
-    TextArea: TextAreaNode,
-    Checkbox: CheckboxNode,
-    Switch: SwitchNode,
-    Image: ImageNode,
-    ImagePlaceholder: ImageNode,
-    Avatar: AvatarNode,
-    List: ListItemNode,
-    ListItem: ListItemNode,
-    Heading: HeadingNode,
-    Paragraph: ParagraphNode,
-    Badge: BadgeNode,
-    Card: CardNode,
-    Divider: DividerNode,
-    Accordion: AccordionNode,
-    decision: DecisionNode,
-    input: StartNode,
-    output: EndNode,
-    default: ActionNode,
-    page: PageNode,
-    purpose: PurposeNode,
+    MobileScreen: MobileFrameNode, Header: HeaderNode, TabBar: TabBarNode,
+    SearchBar: SearchBarNode, PrimaryButton: PrimaryButtonNode, SecondaryButton: SecondaryButtonNode,
+    FAB: FABNode, Link: LinkNode, InputField: InputFieldNode, TextArea: TextAreaNode,
+    Checkbox: CheckboxNode, Switch: SwitchNode, Image: ImageNode, ImagePlaceholder: ImageNode,
+    Avatar: AvatarNode, List: ListItemNode, ListItem: ListItemNode, Heading: HeadingNode,
+    Paragraph: ParagraphNode, Badge: BadgeNode, Card: CardNode, Divider: DividerNode,
+    Accordion: AccordionNode, decision: DecisionNode, input: StartNode,
+    output: EndNode, default: ActionNode, page: PageNode, purpose: PurposeNode,
     StickyNote: GenericComponentNode,
 };
 
@@ -167,61 +129,56 @@ const Canvas = () => {
   const reactFlowWrapper = useRef(null);
   const { screenToFlowPosition } = useReactFlow();
   const [isGenerating, setIsGenerating] = useState(false);
+  const [chatInput, setChatInput] = useState("");
   const edgeUpdateSuccessful = useRef(true);
 
-  // REVIEW MODAL STATE
+  // MODAL STATE
   const [isReviewOpen, setIsReviewOpen] = useState(false);
   const [reviewContent, setReviewContent] = useState("");
 
   const { 
-    activeLayer, 
-    layers, 
-    strategyDoc, 
-    setStrategyDoc, 
-    onNodesChange, 
-    onEdgesChange, 
-    onConnect, 
-    setNodes, 
-    setEdges, 
-    setActiveLayer, 
-    generateLayout
+    activeLayer, layers, strategyDoc, setStrategyDoc, 
+    onNodesChange, onEdgesChange, onConnect, 
+    setNodes, setEdges, setActiveLayer, 
+    generateLayout, chatHistory, isChatOpen, setChatOpen
   } = useVibeStore();
 
-  // SAFE ACCESS
   const isVisualLayer = activeLayer !== 'STRATEGY';
   const currentLayerKey = activeLayer as 'JOURNEY' | 'SITEMAP' | 'WIREFRAME';
   const nodes = isVisualLayer ? layers[currentLayerKey].nodes : [];
   const edges = isVisualLayer ? layers[currentLayerKey].edges : [];
 
-  const edgeOptions = useMemo(() => {
-    if (activeLayer === 'SITEMAP') {
-        return { type: 'step', animated: false, style: { stroke: '#000', strokeWidth: 2 }, markerEnd: { type: MarkerType.ArrowClosed, color: '#000' }, interactionWidth: 25 };
-    }
-    return { type: 'bezier', animated: false, style: { stroke: '#000', strokeWidth: 2 }, markerEnd: { type: MarkerType.ArrowClosed, color: '#000' }, interactionWidth: 25 };
-  }, [activeLayer]);
-
-  const handleVoice = async (blob: Blob) => {
-    setIsGenerating(true);
-    const result = await generateLayout(blob);
-    
-    // If we got Strategy Text back, open the Review Modal
-    if (activeLayer === 'STRATEGY' && result?.content) {
-        setReviewContent(result.content);
-        setIsReviewOpen(true);
-    }
-    
-    setIsGenerating(false);
-  };
-
   const handleEditStrategy = () => {
-      setReviewContent(strategyDoc);
-      setIsReviewOpen(true);
+    setReviewContent(strategyDoc);
+    setIsReviewOpen(true);
   };
 
   const handleSaveStrategy = (newContent: string) => {
-      setStrategyDoc(newContent);
-      setIsReviewOpen(false);
+    setStrategyDoc(newContent);
+    setIsReviewOpen(false);
   };
+
+  const handleSend = async (text?: string) => {
+    const message = text || chatInput;
+    if (!message.trim()) return;
+    setIsGenerating(true);
+    setChatInput("");
+    await generateLayout(message);
+    setIsGenerating(false);
+  };
+
+  const handleVoice = async (blob: Blob) => {
+    setIsGenerating(true);
+    await generateLayout(blob);
+    setIsGenerating(false);
+  };
+
+  const edgeOptions = useMemo(() => {
+    if (activeLayer === 'SITEMAP') {
+        return { type: 'step', animated: false, style: { stroke: '#000', strokeWidth: 2 }, markerEnd: { type: MarkerType.ArrowClosed, color: '#000' } };
+    }
+    return { type: 'bezier', animated: false, style: { stroke: '#000', strokeWidth: 2 }, markerEnd: { type: MarkerType.ArrowClosed, color: '#000' } };
+  }, [activeLayer]);
 
   const onReconnectStart = useCallback(() => { edgeUpdateSuccessful.current = false; }, []);
   const onReconnect = useCallback((oldEdge: Edge, newConnection: Connection) => {
@@ -234,18 +191,11 @@ const Canvas = () => {
     edgeUpdateSuccessful.current = true;
   }, [edges, setEdges]);
 
-  // FULL_WIDTH_COMPONENTS list for physics
-  const FULL_WIDTH_COMPONENTS = ['Header', 'TabBar', 'SearchBar', 'Divider', 'List', 'ListItem', 'Input', 'InputField', 'Button', 'PrimaryButton', 'SecondaryButton', 'Card', 'Image'];
-
   const onNodeDragStop = useCallback((event: React.MouseEvent, node: Node) => {
       if (!node.parentId) return;
+      const FULL_WIDTH_COMPONENTS = ['Header', 'TabBar', 'SearchBar', 'Divider', 'List', 'ListItem', 'Input', 'InputField', 'Button', 'PrimaryButton', 'SecondaryButton', 'Card', 'Image'];
       if (node.type && FULL_WIDTH_COMPONENTS.some(t => node.type?.includes(t))) {
-          const updatedNodes = nodes.map((n) => {
-              if (n.id === node.id) {
-                  return { ...n, position: { ...n.position, x: 5 } };
-              }
-              return n;
-          });
+          const updatedNodes = nodes.map((n) => n.id === node.id ? { ...n, position: { ...n.position, x: 5 } } : n);
           setNodes(updatedNodes);
       }
   }, [nodes, setNodes]);
@@ -255,143 +205,134 @@ const Canvas = () => {
     event.dataTransfer.dropEffect = 'move';
   }, []);
 
-  const onDrop = useCallback(
-    (event: React.DragEvent) => {
+  const onDrop = useCallback((event: React.DragEvent) => {
       event.preventDefault();
       const type = event.dataTransfer.getData('application/reactflow/type');
-      const propsString = event.dataTransfer.getData('application/reactflow/props');
       if (!type) return;
-
       const position = screenToFlowPosition({ x: event.clientX, y: event.clientY });
-      
       if (!isVisualLayer) return;
-
-      const parentNode = nodes.find(n => 
-        n.type === 'MobileScreen' &&
-        position.x >= n.position.x &&
-        position.x <= n.position.x + 375 && 
-        position.y >= n.position.y &&
-        position.y <= n.position.y + (n.measured?.height || 812)
-      );
-
-      let style: React.CSSProperties = { backgroundColor: 'transparent', border: 'none', width: 'auto', boxShadow: 'none' };
-      let defaultWidth = 365;
-
-      if (type === 'MobileScreen') style = { ...style, width: '375px', height: '812px' };
-      if (type === 'Header') style = { ...style, width: '365px', height: '60px' };
-      if (type === 'TabBar') style = { ...style, width: '365px', height: '80px' };
-      if (type === 'SearchBar') style = { ...style, width: '340px', height: '45px' };
-      if (type === 'PrimaryButton' || type === 'SecondaryButton') { style = { ...style, width: '300px', height: '50px' }; defaultWidth = 300; }
-      if (type === 'InputField') { style = { ...style, width: '300px', height: '60px' }; defaultWidth = 300; }
-      if (type === 'TextArea') { style = { ...style, width: '300px', height: '100px' }; defaultWidth = 300; }
-      if (type === 'Image') { style = { ...style, width: '150px', height: '150px' }; defaultWidth = 150; }
-      if (type === 'Card') { style = { ...style, width: '340px', height: '120px' }; defaultWidth = 340; }
-      if (type === 'List' || type === 'ListItem') { style = { ...style, width: '365px', height: '60px' }; }
-      if (type === 'Divider') { style = { ...style, width: '340px', height: '10px' }; defaultWidth = 340; }
-
-      let finalPosition = position;
-      if (parentNode) {
-          const centeredX = (375 - defaultWidth) / 2;
-          const relativeY = position.y - parentNode.position.y;
-          finalPosition = { x: centeredX, y: relativeY };
-      }
-
+      const parentNode = nodes.find(n => n.type === 'MobileScreen' && position.x >= n.position.x && position.x <= n.position.x + 375 && position.y >= n.position.y && position.y <= n.position.y + (n.measured?.height || 812));
       const newNode: Node = {
         id: `${type}-${Date.now()}`,
-        type, 
-        position: parentNode ? finalPosition : position, 
-        data: propsString ? JSON.parse(propsString) : { label: type },
-        style,
+        type, position: parentNode ? { x: 5, y: position.y - parentNode.position.y } : position, 
+        data: { label: type }, style: { width: 'auto' },
         ...(parentNode && { parentId: parentNode.id, extent: 'parent' })
       };
       setNodes(nodes.concat(newNode));
-    },
-    [screenToFlowPosition, nodes, setNodes, activeLayer, isVisualLayer],
-  );
+  }, [screenToFlowPosition, nodes, setNodes, isVisualLayer]);
 
   return (
-    <div className="flex h-screen w-screen bg-slate-50 overflow-hidden">
+    <div className="flex h-screen w-screen bg-slate-100 overflow-hidden relative">
+      <BlueprintReviewModal isOpen={isReviewOpen} onClose={() => setIsReviewOpen(false)} initialContent={reviewContent} onSave={handleSaveStrategy} />
       
-      <BlueprintReviewModal 
-        isOpen={isReviewOpen} 
-        onClose={() => setIsReviewOpen(false)} 
-        initialContent={reviewContent}
-        onSave={handleSaveStrategy}
-      />
+      {/* LEFT: PERSISTENT LOBBY BUTTON */}
+      <div className="absolute top-6 left-6 z-[60]">
+        <button 
+          onClick={() => router.push('/')} 
+          aria-label="Go back to lobby" 
+          className="p-3 bg-white hover:bg-slate-50 rounded-2xl shadow-xl border border-slate-200 transition-all active:scale-95"
+        >
+            <ArrowLeft className="w-5 h-5 text-slate-500" />
+        </button>
+      </div>
 
-      <div className="flex-1 h-full relative" ref={reactFlowWrapper}>
-        
-        {/* GLOBAL NAVIGATION (Always visible) */}
-        <div className="absolute top-4 left-4 z-50">
-            <button onClick={() => router.push('/')} className="bg-white p-2 rounded-lg shadow-md border border-slate-200 hover:bg-slate-50 text-slate-600 transition-colors flex items-center gap-2" aria-label="Back to Lobby">
-                <ArrowLeft className="w-4 h-4" /><span className="text-xs font-bold hidden sm:inline">Lobby</span>
-            </button>
-        </div>
-
-        {/* LAYER TABS (Always visible, moved outside of conditional) */}
-        <div className="absolute top-4 left-1/2 -translate-x-1/2 z-50">
-            <div className="bg-white p-1.5 rounded-full shadow-lg border border-slate-200 flex gap-1 pointer-events-auto">
-                <LayerTab label="Strategy" icon={BookOpen} isActive={(activeLayer as string) === 'STRATEGY'} onClick={() => setActiveLayer('STRATEGY')} />
-                <LayerTab label="Journey" icon={Map} isActive={(activeLayer as string) === 'JOURNEY'} onClick={() => setActiveLayer('JOURNEY')} />
-                <LayerTab label="Sitemap" icon={Network} isActive={(activeLayer as string) === 'SITEMAP'} onClick={() => setActiveLayer('SITEMAP')} />
-                <LayerTab label="Wireframes" icon={Layout} isActive={(activeLayer as string) === 'WIREFRAME'} onClick={() => setActiveLayer('WIREFRAME')} />
+      {/* MAIN PROJECT BOARD (Fills screen, Chat slides OVER or PUSHES) */}
+      <div className={clsx(
+          "flex-1 h-full relative bg-white transition-all duration-300 ease-in-out",
+          isChatOpen ? "mr-[450px]" : "mr-0"
+      )}>
+        <div className="absolute top-6 left-1/2 -translate-x-1/2 z-50">
+            <div className="bg-white/90 backdrop-blur-md p-1.5 rounded-full shadow-2xl border flex gap-1">
+                <LayerTab label="Strategy" icon={BookOpen} isActive={activeLayer === 'STRATEGY'} onClick={() => setActiveLayer('STRATEGY')} />
+                <LayerTab label="Journey" icon={Map} isActive={activeLayer === 'JOURNEY'} onClick={() => setActiveLayer('JOURNEY')} />
+                <LayerTab label="Sitemap" icon={Network} isActive={activeLayer === 'SITEMAP'} onClick={() => setActiveLayer('SITEMAP')} />
+                <LayerTab label="Wireframes" icon={Layout} isActive={activeLayer === 'WIREFRAME'} onClick={() => setActiveLayer('WIREFRAME')} />
             </div>
         </div>
 
         {activeLayer === 'STRATEGY' ? (
-             <div className="pt-20 h-full">
-                <StrategyView onEdit={handleEditStrategy} />
-                <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-50">
-                     {/* AI CONTROL for Strategy */}
-                    <div className="bg-white px-2 py-2 rounded-2xl shadow-xl border border-slate-200 flex items-center gap-4">
-                        <div className="flex flex-col items-start px-2"><span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Strategist</span><span className="text-xs font-medium text-slate-700">{isGenerating ? "Thinking..." : "Ready"}</span></div>
-                        {isGenerating ? <div className="p-3 bg-slate-50 rounded-xl"><Loader2 className="w-5 h-5 animate-spin text-slate-400" /></div> : <VoiceRecorder onRecordingComplete={handleVoice} />}
-                    </div>
-                </div>
+             <div className="h-full pt-24 pb-20 px-12 overflow-y-auto flex justify-center">
+                <div className="w-full max-w-4xl"><StrategyView onEdit={handleEditStrategy} /></div>
              </div>
         ) : (
-            <ReactFlow
-            nodes={nodes}
-            edges={edges}
-            onNodesChange={onNodesChange}
-            onEdgesChange={onEdgesChange}
-            onConnect={onConnect}
-            onReconnect={onReconnect}
-            onReconnectStart={onReconnectStart}
-            onReconnectEnd={onReconnectEnd}
-            onNodeDragStop={onNodeDragStop}
-            onDragOver={onDragOver}
-            onDrop={onDrop}
-            nodeTypes={nodeTypes}
-            fitView
-            className="bg-slate-50"
-            snapToGrid={true}
-            snapGrid={[10, 10]}
-            connectionMode={ConnectionMode.Loose}
-            defaultEdgeOptions={edgeOptions}
-            >
-            <Background color="#ccc" variant={BackgroundVariant.Dots} gap={20} size={1} />
-            <Controls className="!bg-white !border !border-slate-200 !shadow-xl !rounded-lg !text-slate-600 overflow-hidden" />
-            
-            {activeLayer === 'JOURNEY' && <JourneyToolbar />}
-            {activeLayer === 'SITEMAP' && <SitemapToolbar />}
-            {activeLayer === 'WIREFRAME' && <WireframeToolbar />}
-            
-            <Panel position="bottom-center" className="mb-8">
-                <div className="bg-white px-2 py-2 rounded-2xl shadow-xl border border-slate-200 flex items-center gap-4 animate-in slide-in-from-bottom-4">
-                    <div className="flex flex-col items-start px-2"><span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Architect</span><span className="text-xs font-medium text-slate-700">{isGenerating ? "Thinking..." : "Ready"}</span></div>
-                    {isGenerating ? <div className="p-3 bg-slate-50 rounded-xl"><Loader2 className="w-5 h-5 animate-spin text-slate-400" /></div> : <VoiceRecorder onRecordingComplete={handleVoice} />}
-                </div>
-            </Panel>
+            <ReactFlow nodes={nodes} edges={edges} onNodesChange={onNodesChange} onEdgesChange={onEdgesChange} onConnect={onConnect} onReconnect={onReconnect} onReconnectStart={onReconnectStart} onReconnectEnd={onReconnectEnd} onNodeDragStop={onNodeDragStop} onDragOver={onDragOver} onDrop={onDrop} nodeTypes={nodeTypes} fitView snapToGrid connectionMode={ConnectionMode.Loose} defaultEdgeOptions={edgeOptions}>
+                <Background color="#ccc" variant={BackgroundVariant.Dots} gap={20} size={1} />
+                <Controls className="!bg-white !shadow-xl !rounded-lg overflow-hidden" />
+                {activeLayer === 'JOURNEY' && <JourneyToolbar />}
+                {activeLayer === 'SITEMAP' && <SitemapToolbar />}
+                {activeLayer === 'WIREFRAME' && <WireframeToolbar />}
             </ReactFlow>
         )}
+
+        {/* TOGGLE CHAT BUTTON (Visible when closed) */}
+        {!isChatOpen && (
+            <button 
+                onClick={() => setChatOpen(true)}
+                aria-label="Open Project Manager"
+                className="absolute top-6 right-6 z-[60] p-3 bg-slate-900 text-white rounded-2xl shadow-2xl hover:bg-black transition-all animate-in fade-in slide-in-from-right-4"
+            >
+                <MessageSquare className="w-6 h-6" />
+            </button>
+        )}
+      </div>
+
+      {/* RIGHT SIDEBAR (Project Manager) */}
+      <div className={clsx(
+          "fixed top-0 right-0 h-full bg-white border-l border-slate-200 flex flex-col shadow-[-20px_0_30px_rgba(0,0,0,0.05)] z-[70] transition-all duration-300 ease-in-out",
+          isChatOpen ? "w-[450px] translate-x-0" : "w-[450px] translate-x-full"
+      )}>
+        <div className="p-4 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
+            <div className="flex items-center gap-3">
+                <div className="w-8 h-8 bg-slate-900 rounded-lg flex items-center justify-center">
+                    <MessageSquare className="w-4 h-4 text-white" />
+                </div>
+                <div>
+                    <span className="text-[10px] font-black uppercase tracking-widest text-slate-400 block leading-none mb-1">Agentic</span>
+                    <span className="text-xs font-bold text-slate-900 uppercase leading-none">Project Manager</span>
+                </div>
+            </div>
+            <button 
+                onClick={() => setChatOpen(false)} 
+                aria-label="Close Project Manager" 
+                className="p-2 hover:bg-slate-200 rounded-xl transition-colors text-slate-400 hover:text-slate-900"
+            >
+                <PanelRightClose className="w-5 h-5" />
+            </button>
+        </div>
+
+        <div className="flex-1 overflow-y-auto p-4 space-y-6 scrollbar-hide">
+            {chatHistory.length === 0 && (
+                <div className="h-full flex flex-col items-center justify-center text-center px-8 opacity-50">
+                    <MessageSquare className="w-12 h-12 mb-4 text-slate-300" />
+                    <p className="text-sm font-medium">Explain your vision to begin.</p>
+                </div>
+            )}
+            {chatHistory.map((msg, i) => (
+                <div key={i} className={clsx("flex flex-col", msg.role === 'user' ? "items-end" : "items-start")}>
+                    <div className={clsx("max-w-[90%] p-4 rounded-2xl text-sm leading-relaxed shadow-sm", msg.role === 'user' ? "bg-slate-900 text-white rounded-tr-none" : "bg-slate-100 text-slate-800 rounded-tl-none border")}>
+                        {msg.content}
+                    </div>
+                </div>
+            ))}
+            {isGenerating && <div className="flex items-center gap-2 animate-pulse text-[10px] font-bold uppercase tracking-widest text-slate-400"><Loader2 className="w-3 h-3 animate-spin" /> Thinking...</div>}
+        </div>
+
+        <div className="p-4 bg-slate-50 border-t border-slate-200">
+            <div className="relative bg-white rounded-2xl border border-slate-200 p-2">
+                <textarea className="w-full bg-transparent border-none focus:ring-0 text-sm p-3 pb-12 resize-none min-h-[100px]" placeholder="Evolve the vision..." value={chatInput} onChange={(e) => setChatInput(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && (e.preventDefault(), handleSend())} />
+                <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between">
+                    <VoiceRecorder onRecordingComplete={handleVoice} />
+                    <button onClick={() => handleSend()} aria-label="Send message" disabled={!chatInput.trim() || isGenerating} className="bg-slate-900 text-white p-2.5 rounded-xl disabled:opacity-50"><Send className="w-4 h-4" /></button>
+                </div>
+            </div>
+        </div>
       </div>
     </div>
   );
 };
 
 const LayerTab = ({ label, icon: Icon, isActive, onClick }: { label: string, icon: any, isActive: boolean, onClick: () => void }) => (
-    <button onClick={onClick} className={clsx("flex items-center gap-2 px-3 sm:px-4 py-2 rounded-full text-xs font-bold transition-all border border-transparent", isActive ? "bg-slate-900 text-white shadow-md" : "text-slate-500 hover:bg-slate-100 hover:text-slate-900")}><Icon className="w-3 h-3" /><span className="hidden sm:inline">{label}</span></button>
+    <button onClick={onClick} className={clsx("flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold transition-all", isActive ? "bg-slate-900 text-white shadow-lg" : "text-slate-500 hover:bg-slate-100")}><Icon className="w-3.5 h-3.5" /><span>{label}</span></button>
 );
 
 export default function DesignLabApp() { return <ReactFlowProvider><Canvas /></ReactFlowProvider>; }
