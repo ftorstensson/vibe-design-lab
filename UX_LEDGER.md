@@ -1,15 +1,14 @@
 # THE UX TRUTH LEDGER (Vibe Taxonomy)
 
-## KINGDOM: UX-SHELL (The Interface)
+## KINGDOM: UX-STRATEGY-PAPER (The Executive Suite)
 | ID | Feature Name | The Law (Guarantees) | Status |
 | :--- | :--- | :--- | :--- |
-| **UX-SHELL-001** | **Modern Vibe** | The Toolbar, Sidebar, and Headers MUST use "Vibe Style" (White, `shadow-xl`, `rounded-2xl`). | 🔒 PINNED |
-| **UX-SHELL-002** | **Vertical Tools** | The Toolbar must be a Vertical Column on the Left side. | 🔒 PINNED |
+| **UX-VIS-008** | **Executive-Paper** | Nodes on Strategy Layer must look like high-end A4 documents. White background, `shadow-2xl`, zero rounded corners (Sharp). | 📝 PLANNED |
+| **UX-TYP-001** | **Premium-Type** | Use Serif headers (e.g. Playfair Display) for Paper titles and high-density Sans-Serif (e.g. Inter) for body text. | 📝 PLANNED |
+| **UX-INT-008** | **Context-First** | Every strategy paper MUST start with a "Context Paragraph" (The Narrative) before any bullet points. | 📝 PLANNED |
+| **UX-INT-009** | **Version-Ledger** | Each paper must display its current version (v1.x) and have a clickable history to see previous iterations. | 📝 PLANNED |
 
-## KINGDOM: UX-CANVAS (The Content)
+## KINGDOM: UX-PM-INTERFACE
 | ID | Feature Name | The Law (Guarantees) | Status |
 | :--- | :--- | :--- | :--- |
-| **UX-VIS-004** | **Sitemap Cards** | Brutalist Aesthetic. White Body. Dashed Border for Contexts. | 🔒 PINNED |
-| **UX-VIS-005** | **Wireframe Nodes** | Brutalist Aesthetic. Solid Black borders. No Icons in Actions/Navs. | 🔒 PINNED |
-| **UX-INT-005** | **Auto-Centering** | Layout components (Header, TabBar, Button) MUST snap to `x=5` (Center) when dropped in a Phone. | ✅ Active |
-| **UX-INT-006** | **Elastic Screens** | Phone frames must be vertically resizable. "The Fold" line appears > 812px. | ✅ Active |
+| **UX-SOC-001** | **Sequential-Gate** | PM must ask: "Are you happy with the [Paper Name], or should we refine it before I call the next department?" | 📝 PLANNED |

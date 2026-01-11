@@ -1,3 +1,36 @@
+# THE VIBE AGENCY MANIFEST (v2.1)
+
+## 1. THE STRATEGY ORG CHART
+The Agency authors 9 **Executive Position Papers** in a sequential, validated loop.
+
+| Dept # | Name | Core Responsibility |
+| :--- | :--- | :--- |
+| **1** | **Product Strategy** | Intent, Problem, Market, Success Criteria, Non-Goals. |
+| **2** | **Growth & Lifecycle** | AARRR readiness, return loops, entry points. |
+| **3** | **Audience & Research** | Buyer Types (Achievers/Socializers), behavioral mapping. |
+| **4** | **Category & Convention** | The 95% Rule. Norms, expectations, anti-patterns. |
+| **5** | **Value Prop & Messaging** | Pillars, proof strategy, CTA logic by buyer type. |
+| **6** | **Experience & Principles** | Guardrails, complexity threshold, error philosophy. |
+| **7** | **IA & Discoverability** | Silos, linking logic, SEO/LLM legibility. |
+| **8** | **Content Systems** | Cadence, types, evergreen vs dynamic logic. |
+| **9** | **Measurement & Learning** | Qual/Quant loops, indicators per lifecycle stage. |
+
+## 2. THE SEQUENTIAL GATEKEEPING
+The **Project Manager (PM)** is the Orchestrator. 
+- **Rule:** Departments 1-4 are **Mandatory** and must be authored/approved in sequence.
+- **Rule:** Departments 5-9 are **Activated** based on project complexity.
+
+## 3. THE DATA HANDSHAKE
+Every Strategy Paper must be returned as a **Structured Object**:
+- `paper_id`: (1-8)
+- `version`: (string)
+- `department`: (string)
+- `context_paragraph`: (string)
+- `structured_findings`: (JSON list of key-value pairs)
+- `deep_dive_report`: (Markdown)
+
+--------
+
 # THE VIBE AGENCY MANIFEST
 *The Intelligence Architecture for The Design Lab*
 

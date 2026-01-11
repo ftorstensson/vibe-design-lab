@@ -1,5 +1,20 @@
 # FEATURE LEDGER
 
+## CORE CAPABILITIES
+- [x] **Dispatcher Factory:** Multi-model routing (Flash/Pro).
+- [x] **The Context Snowball:** Cascading JSON/Markdown context.
+- [x] **Search Grounding:** Agents research the live web for Landscape Analysis.
+
+## INTERFACE
+- [x] **Right-Side PM Workspace:** Collapsible brainstorming drawer.
+- [x] **Infinite Layers:** 4 layers of zoomable, pannable design space.
+- [ ] **Spatial Strategy:** Strategy represented as nodes rather than a doc. (Next)
+
+
+-------
+
+# FEATURE LEDGER
+
 ## CORE CAPABILITIES (PROTECTED)
 - [x] **Voice-to-Canvas:** The "Architect" Agent generates diagrams from speech.
 - [x] **Twin-Engine Backend:** Dedicated `/agent/design` router.
