@@ -15,3 +15,7 @@
 **Entry 031: The 422 Handshake Error**
 *   **Symptom:** Frontend fetch fails with "Unprocessable Entity."
 *   **Fix:** Ensure FastAPI parameters (Form vs Body) match exactly between Frontend `FormData` and Backend endpoint signatures.
+
+**Entry 032: The Truncation Trap (Merging Logic)**
+*   **Symptom:** Refactoring major UI components led to 200+ lines of specialized visual logic being deleted, breaking all layers except the one being worked on.
+*   **Fix:** Never "lean out" the page logic during a refactor. Always merge new architectural changes into the existing production code to preserve resizable frames and custom node types. Use explicit typing (e.g. `DeptSlot`) to satisfy the TS compiler during ledger-to-node mapping.

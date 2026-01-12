@@ -55,36 +55,23 @@ export const useVibeStore = create<VibeStore>((set, get) => ({
   setActiveLayer: (layer: VibeLayer) => set({ activeLayer: layer }),
   setStrategyDoc: (doc: string) => set({ strategyDoc: doc }),
   setChatOpen: (open: boolean) => set({ isChatOpen: open }),
-  setNodes: (nodes: Node[]) => {
-    const { activeLayer, layers } = get();
-    set({ layers: { ...layers, [activeLayer]: { ...layers[activeLayer], nodes } } });
-  },
-  setEdges: (edges: Edge[]) => {
-    const { activeLayer, layers } = get();
-    set({ layers: { ...layers, [activeLayer]: { ...layers[activeLayer], edges } } });
-  },
+  setNodes: (nodes: Node[]) => set(state => ({ layers: { ...state.layers, [state.activeLayer]: { ...state.layers[state.activeLayer], nodes } } })),
+  setEdges: (edges: Edge[]) => set(state => ({ layers: { ...state.layers, [state.activeLayer]: { ...state.layers[state.activeLayer], edges } } })),
   updateManifest: (partial) => set((state) => ({ ...state, ...partial })),
 
-  onNodesChange: (changes: NodeChange[]) => {
-    const { activeLayer, layers } = get();
-    set({ layers: { ...layers, [activeLayer]: { ...layers[activeLayer], nodes: applyNodeChanges(changes, layers[activeLayer].nodes) } } });
-  },
-  onEdgesChange: (changes: EdgeChange[]) => {
-    const { activeLayer, layers } = get();
-    set({ layers: { ...layers, [activeLayer]: { ...layers[activeLayer], edges: applyEdgeChanges(changes, layers[activeLayer].edges) } } });
-  },
-  onConnect: (connection: Connection) => {
-    const { activeLayer, layers } = get();
-    const updatedEdges = addEdge({ ...connection, style: { stroke: '#000', strokeWidth: 2 } }, layers[activeLayer].edges);
-    set({ layers: { ...layers, [activeLayer]: { ...layers[activeLayer], edges: updatedEdges } } });
-  },
+  onNodesChange: (changes: NodeChange[]) => set(state => ({ layers: { ...state.layers, [state.activeLayer]: { ...state.layers[state.activeLayer], nodes: applyNodeChanges(changes, state.layers[state.activeLayer].nodes) } } })),
+  onEdgesChange: (changes: EdgeChange[]) => set(state => ({ layers: { ...state.layers, [state.activeLayer]: { ...state.layers[state.activeLayer], edges: applyEdgeChanges(changes, state.layers[state.activeLayer].edges) } } })),
+  onConnect: (connection: Connection) => set(state => ({ layers: { ...state.layers, [state.activeLayer]: { ...state.layers[state.activeLayer], edges: addEdge({ ...connection, style: { stroke: '#000', strokeWidth: 2 } }, state.layers[state.activeLayer].edges) } } })),
 
   generateLayout: async (input: Blob | string) => {
-    const { activeLayer, strategyLedger, chatHistory, layers } = get();
     const API_URL = 'http://localhost:8000';
     
+    // 1. Snapshot latest state for the request
+    const { activeLayer, chatHistory, strategyLedger } = get();
     const userMsg = typeof input === 'string' ? input : "Voice Command Received";
     const updatedChat = [...chatHistory, { role: 'user' as const, content: userMsg }];
+    
+    // Immediate UI update for chat
     set({ chatHistory: updatedChat });
 
     try {
@@ -100,55 +87,69 @@ export const useVibeStore = create<VibeStore>((set, get) => ({
         if (!response.ok) throw new Error(`Agency Error: ${response.status}`);
         const data = await response.json();
 
-        set({ chatHistory: [...get().chatHistory, { role: 'assistant', content: data.user_message }] });
+        // 2. Functional Update: Ensure we merge with the LATEST state from the store
+        set((state) => {
+            const nextHistory = [...state.chatHistory, { role: 'assistant' as const, content: data.user_message }];
+            let nextLayers = { ...state.layers };
+            let nextLedger = { ...state.strategyLedger };
 
-        if (activeLayer === 'STRATEGY' && data.patch) {
-            const { dept_id, content, version_note } = data.patch;
-            const currentDept = strategyLedger[dept_id];
-            if (!currentDept) return data;
+            if (state.activeLayer === 'STRATEGY' && data.patch) {
+                const { dept_id, content, version_note } = data.patch;
+                const currentDept = nextLedger[dept_id];
+                
+                if (currentDept) {
+                    const newPaper: StrategyPaper = { 
+                        ...content, 
+                        version_note, 
+                        timestamp: new Date().toISOString(), 
+                        version: (currentDept.history.length + 1).toFixed(1) 
+                    };
 
-            const newPaper: StrategyPaper = { 
-                ...content, 
-                version_note, 
-                timestamp: new Date().toISOString(), 
-                version: (currentDept.history.length + 1).toFixed(1) 
-            };
+                    nextLedger[dept_id] = { 
+                        ...currentDept, 
+                        status: 'STABLE' as const, 
+                        history: [...currentDept.history, newPaper], 
+                        activeVersion: currentDept.history.length 
+                    };
 
-            const updatedLedger = { 
-                ...strategyLedger, 
-                [dept_id]: { 
-                    ...currentDept, 
-                    status: 'STABLE' as const, 
-                    history: [...currentDept.history, newPaper], 
-                    activeVersion: currentDept.history.length 
-                } 
-            };
+                    // Re-calculate all nodes from the updated ledger to maintain sync
+                    const newNodes = (Object.values(nextLedger) as DeptSlot[])
+                        .filter(d => d.history.length > 0)
+                        .map((d, idx) => ({
+                            id: d.id,
+                            type: 'strategy',
+                            position: { x: idx * 600, y: 50 },
+                            data: { ...d.history[d.activeVersion], label: d.label, deptId: d.deptId, icon: d.icon }
+                        }));
 
-            const newNodes = (Object.values(updatedLedger) as DeptSlot[])
-                .filter((dept: DeptSlot) => dept.history.length > 0)
-                .map((dept: DeptSlot, idx: number) => ({
-                    id: dept.id,
-                    type: 'strategy',
-                    position: { x: idx * 550, y: 50 },
-                    data: { ...dept.history[dept.activeVersion], label: dept.label, deptId: dept.deptId, icon: dept.icon }
-                }));
-
-            set({ strategyLedger: updatedLedger, layers: { ...layers, STRATEGY: { nodes: newNodes, edges: [] } } });
-        } else if (data.nodes || data.root) {
-            // Visual Layer Processing (Journey, Sitemap, Wireframe)
-            let newNodes: Node[] = [];
-            let newEdges: Edge[] = [];
-            if (activeLayer === 'WIREFRAME' && data.root) {
-                newNodes = flattenTree(data.root);
-            } else if (data.nodes) {
-                newNodes = data.nodes.map((n: any) => ({ id: n.id, type: n.type, data: { ...n }, position: { x: 0, y: 0 }, style: NODE_STYLE }));
-                if (data.edges) newEdges = data.edges.map((e: any) => ({ id: e.id || `${e.source}-${e.target}`, source: e.source, target: e.target, style: { stroke: '#000', strokeWidth: 2 } }));
+                    nextLayers.STRATEGY = { nodes: newNodes, edges: [] };
+                }
+            } else if (data.nodes || data.root) {
+                // Visual Layer Processing (Journey, Sitemap, Wireframe)
+                let newNodes: Node[] = [];
+                let newEdges: Edge[] = [];
+                if (state.activeLayer === 'WIREFRAME' && data.root) {
+                    newNodes = flattenTree(data.root);
+                } else if (data.nodes) {
+                    newNodes = data.nodes.map((n: any) => ({ id: n.id, type: n.type, data: { ...n }, position: { x: 0, y: 0 }, style: NODE_STYLE }));
+                    if (data.edges) newEdges = data.edges.map((e: any) => ({ id: e.id || `${e.source}-${e.target}`, source: e.source, target: e.target, style: { stroke: '#000', strokeWidth: 2 } }));
+                }
+                const direction = state.activeLayer === 'SITEMAP' ? 'TB' : 'LR';
+                const layout = getLayoutedElements(newNodes, newEdges, direction);
+                nextLayers[state.activeLayer] = { nodes: layout.nodes, edges: layout.edges };
             }
-            const direction = activeLayer === 'SITEMAP' ? 'TB' : 'LR';
-            const layout = getLayoutedElements(newNodes, newEdges, direction);
-            set({ layers: { ...layers, [activeLayer]: { nodes: layout.nodes, edges: layout.edges } } });
-        }
+
+            return {
+                chatHistory: nextHistory,
+                strategyLedger: nextLedger,
+                layers: nextLayers
+            };
+        });
+
         return data;
-    } catch (e) { return null; }
+    } catch (e) { 
+        console.error("Critical Store Error:", e);
+        return null; 
+    }
   }
 }));
