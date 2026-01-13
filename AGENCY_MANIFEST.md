@@ -1,3 +1,24 @@
+# THE VIBE AGENCY MANIFEST
+
+## 1. THE "LIVING LEDGER" PHILOSOPHY
+The AI does not own the canvas structure. The **"Dumb Code"** owns a Registry of 9 slots. The AI acts as an **Author/Editor**, providing atomic `StrategyPatch` objects to update specific departments.
+
+## 2. THE 2026 HIRING HALL (GA Stable)
+- **PROJECT_MANAGER:** `gemini-2.5-flash` (Speed, Warmth, Social).
+- **ARCHITECT / RESEARCHER:** `gemini-2.5-pro` (High Reasoning, JSON/Markdown logic).
+- **TRANSPORT:** All Vertex AI clients must use `transport="rest"` for stability.
+
+## 3. THE 9 POSITION PAPERS
+1. Product Strategy, 2. Growth & Lifecycle, 3. Audience & Research, 4. Category & Convention, 5. Value Prop, 6. Experience Principles, 7. IA & Discoverability, 8. Content Systems, 9. Measurement & Learning.
+
+## 4. COMMUNICATION LAWS
+- **Handshake:** Every request includes `chat_history` and `strategy_context`.
+- **Response:** The PM must separate `user_message` (chat) from `patch` (canvas).
+- **Negative Constraint:** NO META-TALK in the social bubble.
+
+------
+
+
 # THE VIBE AGENCY MANIFEST (v2.1)
 
 ## 1. THE STRATEGY ORG CHART

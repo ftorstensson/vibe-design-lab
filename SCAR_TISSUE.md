@@ -19,3 +19,17 @@
 **Entry 032: The Truncation Trap (Merging Logic)**
 *   **Symptom:** Refactoring major UI components led to 200+ lines of specialized visual logic being deleted, breaking all layers except the one being worked on.
 *   **Fix:** Never "lean out" the page logic during a refactor. Always merge new architectural changes into the existing production code to preserve resizable frames and custom node types. Use explicit typing (e.g. `DeptSlot`) to satisfy the TS compiler during ledger-to-node mapping.
+
+
+
+**Entry 033: The Truncation Trap**
+*   **Symptom:** Refactoring major UI components led to 200+ lines of visual logic being deleted.
+*   **Fix:** Never "lean out" production files during a refactor. Always merge new logic into the existing production code.
+
+**Entry 034: The Middleware Gate**
+*   **Symptom:** Production Handshake failed with "Access-Control-Allow-Origin" errors.
+*   **Fix:** CORSMiddleware must be added **before** routes are mounted. Use `allow_origins=["*"]` for Cloud Run MVPs to handle shifting service URLs.
+
+**Entry 035: Baked Config (Docker Build Args)**
+*   **Symptom:** Local frontend talking to Cloud backend or vice-versa.
+*   **Fix:** Next.js environment variables must be passed as `--build-arg` during the Docker build process, as they are baked at build-time.

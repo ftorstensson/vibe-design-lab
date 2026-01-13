@@ -35,7 +35,6 @@ const flattenTree = (node: any, parentId: string | null = null, depth = 0): Node
     if (node.children && Array.isArray(node.children)) {
         node.children.forEach((child: any, index: number) => {
             const childNodeList = flattenTree(child, node.id, depth + 1);
-            childNodeList[0].position.y = (index * 80) + 60;
             childrenNodes = [...childrenNodes, ...childNodeList];
         });
     }
@@ -105,9 +104,13 @@ export const useVibeStore = create<VibeStore>((set, get) => ({
     } catch (e) { console.error("Delete failed", e); }
   },
 
-  // --- SECTION G: THE GENERATOR (LIVING LEDGER LOGIC) ---
+  // --- SECTION G: THE GENERATOR (LOUD LOGS) ---
   generateLayout: async (input: Blob | string) => {
     const { activeLayer, strategyLedger, chatHistory, project } = get();
+    
+    // 🚩 LOUD LOG: Establish Ground Truth on which API we are hitting
+    const targetUrl = `${API_URL}/agent/design/generate`;
+    console.log("🚀 [STORE] Starting generation. URL:", targetUrl);
     
     const userMsg = typeof input === 'string' ? input : "Voice Command Received";
     const updatedChat = [...chatHistory, { role: 'user' as const, content: userMsg }];
@@ -123,11 +126,12 @@ export const useVibeStore = create<VibeStore>((set, get) => ({
         formData.append("chat_history", JSON.stringify(updatedChat));
         formData.append("strategy_context", JSON.stringify(strategyLedger));
 
-        const response = await fetch(`${API_URL}/agent/design/generate`, { method: "POST", body: formData, mode: 'cors' });
+        const response = await fetch(targetUrl, { method: "POST", body: formData, mode: 'cors' });
+        console.log("📥 [STORE] Response status:", response.status);
+
         if (!response.ok) throw new Error(`Agency Error: ${response.status}`);
         const data = await response.json();
 
-        // Use functional state update to prevent data loss during long requests
         set((state) => {
             const nextHistory = [...state.chatHistory, { role: 'assistant' as const, content: data.user_message }];
             let nextLayers = { ...state.layers };
@@ -165,7 +169,7 @@ export const useVibeStore = create<VibeStore>((set, get) => ({
         });
         return data;
     } catch (e) { 
-        console.error("Critical Connection Error:", e);
+        console.error("🔥 [STORE] Handshake Error:", e);
         return null; 
     }
   }
