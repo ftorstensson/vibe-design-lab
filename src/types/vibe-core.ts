@@ -1,6 +1,7 @@
-// --- SECTION A: CORE STRATEGY TYPES ---
+// --- SECTION A: IMPORTS ---
 import { Node, Edge, OnNodesChange, OnEdgesChange, Connection } from '@xyflow/react';
 
+// --- SECTION B: CORE COMPONENT TYPES ---
 export type VibeLayer = 'STRATEGY' | 'JOURNEY' | 'SITEMAP' | 'WIREFRAME';
 export type DeptStatus = 'NOT_STARTED' | 'DRAFTING' | 'STABLE' | 'EVOLVING';
 
@@ -23,11 +24,11 @@ export interface DeptSlot {
   history: StrategyPaper[];
 }
 
-// --- SECTION B: PROJECT METADATA ---
 export interface ProjectMetadata {
   thread_id: string;
   project_name: string;
   updated_at: string;
+  is_pinned?: boolean;
 }
 
 export interface LayerData {
@@ -35,43 +36,51 @@ export interface LayerData {
   edges: Edge[];
 }
 
-// --- SECTION C: STORE INTERFACE ---
+export interface ChatMessage {
+  role: 'user' | 'assistant';
+  content: string;
+}
+
+// --- SECTION C: THE UNIFIED MANIFEST ---
+// Everything in this interface is what gets saved to Firestore
 export interface VibeManifest {
-  project: {
-    id: string;
-    name: string;
-  };
-  projectList: ProjectMetadata[]; // For the homepage list
+  project_name: string;
   strategyLedger: Record<string, DeptSlot>;
-  strategyDoc: string; 
+  chatHistory: ChatMessage[];
+  strategyDoc: string;
+  activeLayer: VibeLayer;
   layers: {
     STRATEGY: LayerData;
     JOURNEY: LayerData;
     SITEMAP: LayerData;
     WIREFRAME: LayerData;
   };
-  activeLayer: VibeLayer;
 }
 
-export interface ChatMessage {
-  role: 'user' | 'assistant';
-  content: string;
-}
-
+// --- SECTION D: THE STORE (Manifest + Actions) ---
 export interface VibeStore extends VibeManifest {
-  // Navigation & UI
-  setActiveLayer: (layer: VibeLayer) => void;
-  setChatOpen: (open: boolean) => void;
+  // Global Project State (Local only)
+  project: { id: string; name: string };
+  projectList: ProjectMetadata[];
   isChatOpen: boolean;
-  chatHistory: ChatMessage[];
-  
-  // Project Management
+
+  // Persistence Actions
   fetchProjects: () => Promise<void>;
-  initProject: (id: string, name?: string) => void;
+  initProjectCloud: () => Promise<string>;
+  loadProjectCloud: (id: string) => Promise<void>;
   renameProject: (newName: string) => Promise<void>;
   deleteProject: (id: string) => Promise<void>;
+  togglePin: (id: string) => Promise<void>;
   
-  // Flow Actions
+  // State Modification Actions
+  setActiveLayer: (layer: VibeLayer) => void;
+  setChatOpen: (open: boolean) => void;
+  setStrategyDoc: (doc: string) => void;
+  setNodes: (nodes: Node[]) => void;
+  setEdges: (edges: Edge[]) => void;
+  updateManifest: (partial: Partial<VibeManifest>) => void;
+  
+  // Physics & AI Logic
   onNodesChange: OnNodesChange;
   onEdgesChange: OnEdgesChange;
   onConnect: (connection: Connection) => void;

@@ -45,15 +45,11 @@ const MobileFrameNode = ({ id, data, selected }: NodeProps) => {
   const showFold = height > 812;
   const { setNodes } = useReactFlow();
   const [label, setLabel] = useState(data.label as string);
-  const handleLabelChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setLabel(e.target.value);
-    setNodes((nodes) => nodes.map(n => n.id === id ? { ...n, data: { ...n.data, label: e.target.value } } : n));
-  };
   return (
     <div className="w-full h-full bg-white border-[4px] border-black rounded-xl shadow-2xl relative flex flex-col group min-h-[812px]">
       <NodeResizer isVisible={!!selected} minWidth={375} maxWidth={375} minHeight={812} handleStyle={{ width: 10, height: 10, borderRadius: 5 }} lineStyle={{ border: '1px solid #000' }} />
       <div className="h-10 bg-black flex items-center justify-between px-4 handle cursor-move shrink-0 z-20 rounded-t-lg font-sans">
-        <input className="text-xs font-bold text-white bg-transparent outline-none w-full uppercase tracking-wider placeholder-gray-500" value={label} onChange={handleLabelChange} placeholder="SCREEN NAME" aria-label="Edit Screen Name" />
+        <input className="text-xs font-bold text-white bg-transparent outline-none w-full uppercase tracking-wider placeholder-gray-500" value={label} onChange={(e) => setLabel(e.target.value)} onBlur={() => setNodes(nodes => nodes.map(n => n.id === id ? { ...n, data: { ...n.data, label } } : n))} placeholder="SCREEN NAME" aria-label="Edit Screen Name" />
         <GripHorizontal className="w-4 h-4 text-gray-500" />
       </div>
       <div className="flex-1 bg-white relative overflow-hidden">{showFold && (<div className="absolute top-[812px] left-0 right-0 border-t-2 border-dashed border-blue-400 z-50 flex justify-center pointer-events-none font-sans"><span className="bg-blue-400 text-white text-[9px] px-2 rounded-b font-bold uppercase tracking-widest">The Fold</span></div>)}</div>
@@ -65,10 +61,7 @@ const MobileFrameNode = ({ id, data, selected }: NodeProps) => {
 const GenericComponentNode = ({ data, type }: NodeProps) => (
   <div className="min-w-[120px] min-h-[40px] bg-white border border-purple-200 rounded-lg shadow-sm flex items-center gap-3 px-3 py-2 font-sans text-black">
     <div className="p-1.5 bg-purple-50 rounded text-purple-600"><Box className="w-4 h-4" /></div>
-    <div>
-      <div className="text-xs font-bold">{type}</div>
-      <div className="text-[10px] text-slate-400 truncate max-w-[100px]">{data.label as string}</div>
-    </div>
+    <div><div className="text-xs font-bold">{type}</div><div className="text-[10px] text-slate-400 truncate max-w-[100px]">{data.label as string}</div></div>
   </div>
 );
 
@@ -91,12 +84,13 @@ const Canvas = () => {
   const { 
     activeLayer, layers, onNodesChange, onEdgesChange, onConnect, 
     setActiveLayer, generateLayout, chatHistory, isChatOpen, setChatOpen,
-    project, renameProject, initProject
+    project, renameProject, loadProjectCloud
   } = useVibeStore();
 
+  // --- SECTION D: HYDRATION ---
   useEffect(() => {
-    if (id) initProject(id as string);
-  }, [id, initProject]);
+    if (id) loadProjectCloud(id as string);
+  }, [id, loadProjectCloud]);
 
   const handleSend = async () => {
     if (!chatInput.trim()) return;
@@ -130,15 +124,7 @@ const Canvas = () => {
         <div className="bg-white px-4 py-2 rounded-2xl shadow-xl border border-slate-200 flex flex-col min-w-[200px]">
             <span className="text-[9px] font-black uppercase tracking-widest text-slate-400">Current Project</span>
             {isEditingName ? (
-                <input 
-                    autoFocus 
-                    className="text-xs font-bold text-slate-900 outline-none bg-slate-50 rounded px-1" 
-                    defaultValue={project.name} 
-                    onBlur={handleRename} 
-                    onKeyDown={(e) => e.key === 'Enter' && e.currentTarget.blur()} 
-                    aria-label="Project name"
-                    placeholder="Enter project name..."
-                />
+                <input autoFocus className="text-xs font-bold text-slate-900 outline-none bg-slate-50 rounded px-1" defaultValue={project.name} onBlur={handleRename} onKeyDown={(e) => e.key === 'Enter' && e.currentTarget.blur()} aria-label="Project name" placeholder="Enter name..." />
             ) : (
                 <span onClick={() => setIsEditingName(true)} className="text-xs font-bold text-slate-900 cursor-pointer hover:text-slate-500 transition-colors uppercase">{project.name}</span>
             )}
@@ -167,19 +153,26 @@ const Canvas = () => {
       </div>
 
       {/* CHAT SIDEBAR */}
-      <div className={clsx("fixed top-0 right-0 h-full bg-white border-l border-slate-200 flex flex-col shadow-2xl z-[70] transition-all duration-300 ease-in-out font-sans", isChatOpen ? "w-[450px] translate-x-0" : "w-[450px] translate-x-full")}>
+      <div className={clsx("fixed top-0 right-0 h-full bg-white border-l border-slate-200 flex flex-col shadow-2xl z-[70] transition-all duration-300 font-sans", isChatOpen ? "w-[450px] translate-x-0" : "w-[450px] translate-x-full")}>
         <div className="p-4 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
             <div className="flex items-center gap-3"><div className="w-8 h-8 bg-slate-900 rounded-lg flex items-center justify-center text-white"><MessageSquare className="w-4 h-4" /></div><div><span className="text-[10px] font-black uppercase tracking-widest text-slate-400 block leading-none mb-1">Agentic</span><span className="text-xs font-bold text-slate-900 uppercase">Project Manager</span></div></div>
             <button onClick={() => setChatOpen(false)} aria-label="Close Sidebar" className="p-2 hover:bg-slate-100 rounded-lg"><PanelRightClose className="w-5 h-5 text-slate-400" /></button>
         </div>
         <div className="flex-1 overflow-y-auto p-4 space-y-6 scrollbar-hide">
             {chatHistory.map((msg: {role: string, content: string}, i: number) => (
-                <div key={i} className={clsx("flex flex-col", msg.role === 'user' ? "items-end" : "items-start")}><div className={clsx("max-w-[90%] p-4 rounded-2xl text-sm leading-relaxed shadow-sm", msg.role === 'user' ? "bg-slate-900 text-white rounded-tr-none" : "bg-slate-100 text-slate-800 rounded-tl-none border border-slate-200")}>{msg.content}</div></div>
+                <div key={i} className={clsx("flex flex-col", msg.role === 'user' ? "items-end" : "items-start")}>
+                    <div className={clsx("max-w-[90%] p-4 rounded-2xl text-sm leading-relaxed shadow-sm", msg.role === 'user' ? "bg-slate-900 text-white rounded-tr-none" : "bg-slate-100 text-slate-800 rounded-tl-none border border-slate-200")}>
+                        {msg.content}
+                    </div>
+                </div>
             ))}
-            {isGenerating && <div className="flex items-center gap-2 animate-pulse text-[10px] font-bold uppercase tracking-widest text-slate-400 p-2"><Loader2 className="w-3 h-3 animate-spin" /> Thinking...</div>}
+            {isGenerating && <div className="flex items-center gap-2 animate-pulse text-[10px] font-black uppercase tracking-widest text-slate-400 p-2"><Loader2 className="w-3 h-3 animate-spin" /> Thinking...</div>}
         </div>
         <div className="p-4 bg-slate-50 border-t border-slate-200">
-            <div className="relative bg-white rounded-2xl border border-slate-200 p-2 focus-within:border-slate-400 transition-all"><textarea className="w-full bg-transparent border-none focus:ring-0 text-sm p-3 pb-12 resize-none min-h-[100px]" placeholder="Evolve the vision..." value={chatInput} onChange={(e) => setChatInput(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && (e.preventDefault(), handleSend())} /><div className="absolute bottom-3 left-3 right-3 flex items-center justify-between"><VoiceRecorder onRecordingComplete={handleVoice} /><button onClick={handleSend} aria-label="Send message" disabled={!chatInput.trim() || isGenerating} className="bg-slate-900 text-white p-2.5 rounded-xl disabled:opacity-50 hover:bg-black transition-all shadow-md"><Send className="w-4 h-4" /></button></div></div>
+            <div className="relative bg-white rounded-2xl border border-slate-200 p-2 focus-within:border-slate-400 transition-all">
+                <textarea className="w-full bg-transparent border-none focus:ring-0 text-sm p-3 pb-12 resize-none min-h-[100px]" placeholder="Evolve the vision..." value={chatInput} onChange={(e) => setChatInput(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && (e.preventDefault(), handleSend())} />
+                <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between"><VoiceRecorder onRecordingComplete={handleVoice} /><button onClick={handleSend} aria-label="Send message" disabled={!chatInput.trim() || isGenerating} className="bg-slate-900 text-white p-2.5 rounded-xl disabled:opacity-50 hover:bg-black transition-all shadow-md"><Send className="w-4 h-4" /></button></div>
+            </div>
         </div>
       </div>
     </div>

@@ -33,3 +33,15 @@
 **Entry 035: Baked Config (Docker Build Args)**
 *   **Symptom:** Local frontend talking to Cloud backend or vice-versa.
 *   **Fix:** Next.js environment variables must be passed as `--build-arg` during the Docker build process, as they are baked at build-time.
+
+**Entry 036: The Firestore Index Block**
+*   **Symptom:** Listing projects failed with a 500 error when trying to sort by `is_pinned` and `updated_at`.
+*   **Fix:** Firestore requires a manual composite index for multi-field sorting. Always check logs for the auto-generated index link.
+
+**Entry 037: The Closure Staleness Trap**
+*   **Symptom:** Cards disappearing during long AI requests.
+*   **Fix:** In Zustand/Async functions, never rely on variables captured at the start of the function. Always use the functional update pattern: `set((state) => ({ ...state.data + newPatch }))` to ensure you merge with the absolute latest state.
+
+**Entry 038: Manifest Type Sync**
+*   **Symptom:** TS errors when saving state.
+*   **Fix:** Ensure the `VibeManifest` interface (what we save) and `VibeStore` interface (what we use) are perfectly synchronized. Every property in the store must be explicitly accounted for in the Manifest contract.
