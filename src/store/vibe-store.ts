@@ -1,11 +1,14 @@
+// --- SECTION A: IMPORTS ---
 import { create } from 'zustand';
 import { 
   Node, Edge, addEdge, applyNodeChanges, applyEdgeChanges, 
   NodeChange, EdgeChange, Connection 
 } from '@xyflow/react';
-import { VibeStore, VibeLayer, DeptSlot, StrategyPaper } from '@/types/vibe-core';
+import { VibeStore, VibeLayer, DeptSlot, StrategyPaper, VibeManifest } from '@/types/vibe-core';
 import { getLayoutedElements } from '@/utils/layout-engine';
 
+// --- SECTION B: CONSTANTS & INITIAL STATE ---
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 const NODE_STYLE = { backgroundColor: 'transparent', border: 'none', width: 'auto', boxShadow: 'none' };
 
 const INITIAL_REGISTRY: Record<string, DeptSlot> = {
@@ -20,6 +23,7 @@ const INITIAL_REGISTRY: Record<string, DeptSlot> = {
   measurement_learning: { id: 'measurement_learning', deptId: '9', label: 'Measurement & Learning', icon: 'metrics', status: 'NOT_STARTED', activeVersion: 0, history: [] },
 };
 
+// --- SECTION C: HELPERS ---
 const flattenTree = (node: any, parentId: string | null = null, depth = 0): Node[] => {
     const rfNode: Node = {
         id: node.id, type: node.type, data: { label: node.label, ...node.layout }, 
@@ -38,40 +42,75 @@ const flattenTree = (node: any, parentId: string | null = null, depth = 0): Node
     return [rfNode, ...childrenNodes];
 };
 
+// --- SECTION D: STORE INITIALIZATION ---
 export const useVibeStore = create<VibeStore>((set, get) => ({
-  project: { id: 'demo', name: 'Demo Project' },
+  project: { id: '', name: 'New Project' },
+  projectList: [],
   activeLayer: 'STRATEGY',
   strategyLedger: INITIAL_REGISTRY,
   strategyDoc: "",
   chatHistory: [],
   isChatOpen: true,
   layers: { 
-    STRATEGY: { nodes: [], edges: [] }, 
-    JOURNEY: { nodes: [], edges: [] }, 
-    SITEMAP: { nodes: [], edges: [] }, 
-    WIREFRAME: { nodes: [] , edges: [] } 
+    STRATEGY: { nodes: [], edges: [] }, JOURNEY: { nodes: [], edges: [] }, 
+    SITEMAP: { nodes: [], edges: [] }, WIREFRAME: { nodes: [] , edges: [] } 
   },
 
+  // --- SECTION E: UI ACTIONS ---
   setActiveLayer: (layer: VibeLayer) => set({ activeLayer: layer }),
-  setStrategyDoc: (doc: string) => set({ strategyDoc: doc }),
   setChatOpen: (open: boolean) => set({ isChatOpen: open }),
+  setStrategyDoc: (doc: string) => set({ strategyDoc: doc }),
   setNodes: (nodes: Node[]) => set(state => ({ layers: { ...state.layers, [state.activeLayer]: { ...state.layers[state.activeLayer], nodes } } })),
   setEdges: (edges: Edge[]) => set(state => ({ layers: { ...state.layers, [state.activeLayer]: { ...state.layers[state.activeLayer], edges } } })),
-  updateManifest: (partial) => set((state) => ({ ...state, ...partial })),
-
+  updateManifest: (partial: Partial<VibeManifest>) => set((state) => ({ ...state, ...partial })),
   onNodesChange: (changes: NodeChange[]) => set(state => ({ layers: { ...state.layers, [state.activeLayer]: { ...state.layers[state.activeLayer], nodes: applyNodeChanges(changes, state.layers[state.activeLayer].nodes) } } })),
   onEdgesChange: (changes: EdgeChange[]) => set(state => ({ layers: { ...state.layers, [state.activeLayer]: { ...state.layers[state.activeLayer], edges: applyEdgeChanges(changes, state.layers[state.activeLayer].edges) } } })),
   onConnect: (connection: Connection) => set(state => ({ layers: { ...state.layers, [state.activeLayer]: { ...state.layers[state.activeLayer], edges: addEdge({ ...connection, style: { stroke: '#000', strokeWidth: 2 } }, state.layers[state.activeLayer].edges) } } })),
 
+  // --- SECTION F: PERSISTENCE ---
+  fetchProjects: async () => {
+    try {
+      const res = await fetch(`${API_URL}/agent/projects`);
+      const data = await res.json();
+      set({ projectList: data.projects || [] });
+    } catch (e) { console.error("Failed to fetch projects", e); }
+  },
+
+  initProject: (id: string, name?: string) => {
+    if (get().project.id === id) return;
+    set({ 
+        project: { id, name: name || 'UNTITLED PROJECT' },
+        strategyLedger: INITIAL_REGISTRY,
+        chatHistory: [],
+        layers: { STRATEGY: { nodes: [], edges: [] }, JOURNEY: { nodes: [], edges: [] }, SITEMAP: { nodes: [], edges: [] }, WIREFRAME: { nodes: [] , edges: [] } }
+    });
+  },
+
+  renameProject: async (newName: string) => {
+    const { project } = get();
+    try {
+        await fetch(`${API_URL}/agent/thread/${project.id}/rename`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name: newName }),
+        });
+        set({ project: { ...project, name: newName } });
+    } catch (e) { console.error("Rename failed", e); }
+  },
+
+  deleteProject: async (id: string) => {
+    try {
+        await fetch(`${API_URL}/agent/thread/${id}`, { method: 'DELETE' });
+        await get().fetchProjects();
+    } catch (e) { console.error("Delete failed", e); }
+  },
+
+  // --- SECTION G: THE GENERATOR (LIVING LEDGER LOGIC) ---
   generateLayout: async (input: Blob | string) => {
-    const API_URL = 'http://localhost:8000';
+    const { activeLayer, strategyLedger, chatHistory, project } = get();
     
-    // 1. Snapshot latest state for the request
-    const { activeLayer, chatHistory, strategyLedger } = get();
     const userMsg = typeof input === 'string' ? input : "Voice Command Received";
     const updatedChat = [...chatHistory, { role: 'user' as const, content: userMsg }];
-    
-    // Immediate UI update for chat
     set({ chatHistory: updatedChat });
 
     try {
@@ -80,6 +119,7 @@ export const useVibeStore = create<VibeStore>((set, get) => ({
         else formData.append("prompt", input);
         
         formData.append("layer", activeLayer);
+        formData.append("project_id", project.id);
         formData.append("chat_history", JSON.stringify(updatedChat));
         formData.append("strategy_context", JSON.stringify(strategyLedger));
 
@@ -87,7 +127,7 @@ export const useVibeStore = create<VibeStore>((set, get) => ({
         if (!response.ok) throw new Error(`Agency Error: ${response.status}`);
         const data = await response.json();
 
-        // 2. Functional Update: Ensure we merge with the LATEST state from the store
+        // Use functional state update to prevent data loss during long requests
         set((state) => {
             const nextHistory = [...state.chatHistory, { role: 'assistant' as const, content: data.user_message }];
             let nextLayers = { ...state.layers };
@@ -96,36 +136,19 @@ export const useVibeStore = create<VibeStore>((set, get) => ({
             if (state.activeLayer === 'STRATEGY' && data.patch) {
                 const { dept_id, content, version_note } = data.patch;
                 const currentDept = nextLedger[dept_id];
-                
                 if (currentDept) {
                     const newPaper: StrategyPaper = { 
-                        ...content, 
-                        version_note, 
-                        timestamp: new Date().toISOString(), 
+                        ...content, version_note, timestamp: new Date().toISOString(), 
                         version: (currentDept.history.length + 1).toFixed(1) 
                     };
-
-                    nextLedger[dept_id] = { 
-                        ...currentDept, 
-                        status: 'STABLE' as const, 
-                        history: [...currentDept.history, newPaper], 
-                        activeVersion: currentDept.history.length 
-                    };
-
-                    // Re-calculate all nodes from the updated ledger to maintain sync
-                    const newNodes = (Object.values(nextLedger) as DeptSlot[])
-                        .filter(d => d.history.length > 0)
-                        .map((d, idx) => ({
-                            id: d.id,
-                            type: 'strategy',
-                            position: { x: idx * 600, y: 50 },
-                            data: { ...d.history[d.activeVersion], label: d.label, deptId: d.deptId, icon: d.icon }
-                        }));
-
+                    nextLedger[dept_id] = { ...currentDept, status: 'STABLE' as const, history: [...currentDept.history, newPaper], activeVersion: currentDept.history.length };
+                    const newNodes = (Object.values(nextLedger) as DeptSlot[]).filter(d => d.history.length > 0).map((d, idx) => ({
+                        id: d.id, type: 'strategy', position: { x: idx * 600, y: 50 },
+                        data: { ...d.history[d.activeVersion], label: d.label, deptId: d.deptId, icon: d.icon }
+                    }));
                     nextLayers.STRATEGY = { nodes: newNodes, edges: [] };
                 }
             } else if (data.nodes || data.root) {
-                // Visual Layer Processing (Journey, Sitemap, Wireframe)
                 let newNodes: Node[] = [];
                 let newEdges: Edge[] = [];
                 if (state.activeLayer === 'WIREFRAME' && data.root) {
@@ -138,17 +161,11 @@ export const useVibeStore = create<VibeStore>((set, get) => ({
                 const layout = getLayoutedElements(newNodes, newEdges, direction);
                 nextLayers[state.activeLayer] = { nodes: layout.nodes, edges: layout.edges };
             }
-
-            return {
-                chatHistory: nextHistory,
-                strategyLedger: nextLedger,
-                layers: nextLayers
-            };
+            return { chatHistory: nextHistory, strategyLedger: nextLedger, layers: nextLayers };
         });
-
         return data;
     } catch (e) { 
-        console.error("Critical Store Error:", e);
+        console.error("Critical Connection Error:", e);
         return null; 
     }
   }
