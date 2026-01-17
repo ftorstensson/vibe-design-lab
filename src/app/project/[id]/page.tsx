@@ -12,7 +12,7 @@ import '@xyflow/react/dist/style.css';
 import { 
     GripHorizontal, Box, Map, Network, Layout, Loader2, 
     ArrowLeft, BookOpen, ChevronDown, Send, MessageSquare, 
-    PanelRightClose, PanelRightOpen 
+    PanelRightClose, PanelRightOpen, X, Fingerprint, Zap, BarChart3, Users, TrendingUp, ShieldAlert
 } from 'lucide-react';
 import { JourneyToolbar } from '@/components/JourneyToolbar';
 import { SitemapToolbar } from '@/components/SitemapToolbar';
@@ -52,7 +52,7 @@ const MobileFrameNode = ({ id, data, selected }: NodeProps) => {
         <input className="text-xs font-bold text-white bg-transparent outline-none w-full uppercase tracking-wider placeholder-gray-500" value={label} onChange={(e) => setLabel(e.target.value)} onBlur={() => setNodes(nodes => nodes.map(n => n.id === id ? { ...n, data: { ...n.data, label } } : n))} placeholder="SCREEN NAME" aria-label="Edit Screen Name" />
         <GripHorizontal className="w-4 h-4 text-gray-500" />
       </div>
-      <div className="flex-1 bg-white relative overflow-hidden">{showFold && (<div className="absolute top-[812px] left-0 right-0 border-t-2 border-dashed border-blue-400 z-50 flex justify-center pointer-events-none font-sans"><span className="bg-blue-400 text-white text-[9px] px-2 rounded-b font-bold uppercase tracking-widest">The Fold</span></div>)}</div>
+      <div className="flex-1 bg-white relative overflow-hidden">{showFold && (<div className="absolute top-[812px] left-0 right-0 border-t-2 border-dashed border-blue-400 z-50 flex justify-center pointer-events-none font-sans"><span className="bg-blue-400 text-white text-[9px] px-2 rounded-b font-bold uppercase tracking-widest font-sans">The Fold</span></div>)}</div>
       <NodeResizeControl style={{ opacity: 1, background: 'transparent', border: 'none' }} minWidth={375} minHeight={812} position="bottom"><ResizeIcon /></NodeResizeControl>
     </div>
   );
@@ -84,11 +84,12 @@ const Canvas = () => {
   const { 
     activeLayer, layers, onNodesChange, onEdgesChange, onConnect, 
     setActiveLayer, generateLayout, chatHistory, isChatOpen, setChatOpen,
-    project, renameProject, loadProjectCloud
+    project, renameProject, loadProjectCloud, activeSpecialist, setActiveSpecialist
   } = useVibeStore();
 
   // --- SECTION D: HYDRATION ---
   useEffect(() => {
+    // 🛡️ Synchronously set the ID and start hydration immediately
     if (id) loadProjectCloud(id as string);
   }, [id, loadProjectCloud]);
 
@@ -114,6 +115,17 @@ const Canvas = () => {
 
   const nodes = layers[activeLayer].nodes;
   const edges = layers[activeLayer].edges;
+
+  // SPECIALIST UI MAPPING
+  const specialistMap: Record<string, { label: string, icon: any, color: string }> = {
+    the_big_idea: { label: 'Startup Wizard', icon: Zap, color: 'bg-purple-600' },
+    market_reality: { label: 'Market Scout', icon: BarChart3, color: 'bg-blue-600' },
+    audience_ecosystem: { label: 'Psychologist', icon: Users, color: 'bg-orange-600' },
+    content_structure: { label: 'Information Architect', icon: TrendingUp, color: 'bg-green-600' },
+    ux_feasibility: { label: 'Design Strategist', icon: ShieldAlert, color: 'bg-red-600' },
+  };
+
+  const currentSpecialist = activeSpecialist ? specialistMap[activeSpecialist] : null;
 
   return (
     <div className="flex h-screen w-screen bg-slate-100 overflow-hidden relative font-sans">
@@ -153,25 +165,57 @@ const Canvas = () => {
       </div>
 
       {/* CHAT SIDEBAR */}
-      <div className={clsx("fixed top-0 right-0 h-full bg-white border-l border-slate-200 flex flex-col shadow-2xl z-[70] transition-all duration-300 font-sans", isChatOpen ? "w-[450px] translate-x-0" : "w-[450px] translate-x-full")}>
-        <div className="p-4 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
-            <div className="flex items-center gap-3"><div className="w-8 h-8 bg-slate-900 rounded-lg flex items-center justify-center text-white"><MessageSquare className="w-4 h-4" /></div><div><span className="text-[10px] font-black uppercase tracking-widest text-slate-400 block leading-none mb-1">Agentic</span><span className="text-xs font-bold text-slate-900 uppercase">Project Manager</span></div></div>
-            <button onClick={() => setChatOpen(false)} aria-label="Close Sidebar" className="p-2 hover:bg-slate-100 rounded-lg"><PanelRightClose className="w-5 h-5 text-slate-400" /></button>
+      <div className={clsx(
+          "fixed top-0 right-0 h-full bg-white border-l border-slate-200 flex flex-col shadow-2xl z-[70] transition-all duration-300 font-sans",
+          isChatOpen ? "w-[450px] translate-x-0" : "w-[450px] translate-x-full"
+      )}>
+        <div className={clsx(
+            "p-4 border-b border-slate-100 flex items-center justify-between transition-colors duration-500",
+            currentSpecialist ? "bg-slate-900" : "bg-slate-50/50"
+        )}>
+            <div className="flex items-center gap-3">
+                <div className={clsx(
+                    "w-10 h-10 rounded-xl flex items-center justify-center text-white transition-all shadow-lg",
+                    currentSpecialist ? currentSpecialist.color : "bg-slate-900"
+                )}>
+                    {currentSpecialist ? <currentSpecialist.icon className="w-5 h-5" /> : <MessageSquare className="w-5 h-5" />}
+                </div>
+                <div>
+                    <span className="text-[10px] font-black uppercase tracking-widest block leading-none mb-1 text-slate-400">
+                        {currentSpecialist ? "Direct Access" : "Agency Hub"}
+                    </span>
+                    <span className={clsx("text-xs font-bold uppercase", currentSpecialist ? "text-white" : "text-slate-900")}>
+                        {currentSpecialist ? currentSpecialist.label : "Project Manager"}
+                    </span>
+                </div>
+            </div>
+            <div className="flex items-center gap-1">
+                {currentSpecialist && (
+                    <button onClick={() => setActiveSpecialist(null)} className="p-2 text-slate-400 hover:text-white transition-colors flex items-center gap-1.5" title="Return to PM">
+                        <X className="w-4 h-4" /> <span className="text-[10px] font-bold uppercase tracking-widest">Exit</span>
+                    </button>
+                )}
+                <button onClick={() => setChatOpen(false)} aria-label="Close" className={clsx("p-2 rounded-lg", currentSpecialist ? "text-slate-400 hover:text-white" : "text-slate-400 hover:bg-slate-100")}><PanelRightClose className="w-5 h-5" /></button>
+            </div>
         </div>
+
         <div className="flex-1 overflow-y-auto p-4 space-y-6 scrollbar-hide">
             {chatHistory.map((msg: {role: string, content: string}, i: number) => (
                 <div key={i} className={clsx("flex flex-col", msg.role === 'user' ? "items-end" : "items-start")}>
-                    <div className={clsx("max-w-[90%] p-4 rounded-2xl text-sm leading-relaxed shadow-sm", msg.role === 'user' ? "bg-slate-900 text-white rounded-tr-none" : "bg-slate-100 text-slate-800 rounded-tl-none border border-slate-200")}>
+                    <div className={clsx("max-w-[90%] p-4 rounded-2xl text-sm leading-relaxed shadow-sm", msg.role === 'user' ? "bg-slate-900 text-white rounded-tr-none" : "bg-white text-slate-800 rounded-tl-none border border-slate-100")}>
                         {msg.content}
                     </div>
                 </div>
             ))}
-            {isGenerating && <div className="flex items-center gap-2 animate-pulse text-[10px] font-black uppercase tracking-widest text-slate-400 p-2"><Loader2 className="w-3 h-3 animate-spin" /> Thinking...</div>}
+            {isGenerating && <div className="flex items-center gap-2 animate-pulse text-[10px] font-black uppercase tracking-widest text-slate-400 p-2"><Loader2 className="w-3 h-3 animate-spin" /> {currentSpecialist ? `Consulting ${currentSpecialist.label}...` : "Thinking..."}</div>}
         </div>
         <div className="p-4 bg-slate-50 border-t border-slate-200">
             <div className="relative bg-white rounded-2xl border border-slate-200 p-2 focus-within:border-slate-400 transition-all">
-                <textarea className="w-full bg-transparent border-none focus:ring-0 text-sm p-3 pb-12 resize-none min-h-[100px]" placeholder="Evolve the vision..." value={chatInput} onChange={(e) => setChatInput(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && (e.preventDefault(), handleSend())} />
-                <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between"><VoiceRecorder onRecordingComplete={handleVoice} /><button onClick={handleSend} aria-label="Send message" disabled={!chatInput.trim() || isGenerating} className="bg-slate-900 text-white p-2.5 rounded-xl disabled:opacity-50 hover:bg-black transition-all shadow-md"><Send className="w-4 h-4" /></button></div>
+                <textarea className="w-full bg-transparent border-none focus:ring-0 text-sm p-3 pb-12 resize-none min-h-[100px]" placeholder={currentSpecialist ? `Interview the ${currentSpecialist.label}...` : "Evolve the vision..."} value={chatInput} onChange={(e) => setChatInput(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && (e.preventDefault(), handleSend())} />
+                <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between">
+                    <VoiceRecorder onRecordingComplete={handleVoice} />
+                    <button onClick={handleSend} aria-label="Send" disabled={!chatInput.trim() || isGenerating} className="bg-slate-900 text-white p-2.5 rounded-xl disabled:opacity-50 hover:bg-black transition-all shadow-md"><Send className="w-4 h-4" /></button>
+                </div>
             </div>
         </div>
       </div>

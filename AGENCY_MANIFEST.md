@@ -1,5 +1,24 @@
 # THE VIBE AGENCY MANIFEST
 
+## 1. THE TENSION PROTOCOL
+Every pillar operates with built-in disagreement to avoid consensus bias.
+- **The Researcher:** Domain research and facts.
+- **The Devil's Advocate:** Surface hidden assumptions and failure modes.
+- **The PM:** Synthesizes the tension into the final Position Paper.
+
+## 2. THE SOCIAL GATE
+The PM (Gemini 2.5 Flash) acts as a high-pass filter. 
+- **Rule:** 3 turns of brainstorming required before a Position Paper can be "Printed."
+- **Rule:** Exactly ONE sharp question per turn.
+
+## 3. THE HIRED SPECIALISTS (Verified 2026 IDs)
+- **PROJECT_MANAGER:** `gemini-2.5-flash` (Speed, Warmth, Social).
+- **ARCHITECT / RESEARCHER:** `gemini-2.5-pro` (High Reasoning, JSON logic).
+
+---
+
+# THE VIBE AGENCY MANIFEST
+
 ## 1. THE "LIVING LEDGER" PHILOSOPHY
 The AI does not own the canvas structure. The **"Dumb Code"** owns a Registry of 9 slots. The AI acts as an **Author/Editor**, providing atomic `StrategyPatch` objects to update specific departments.
 

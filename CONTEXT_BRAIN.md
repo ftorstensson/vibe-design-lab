@@ -1,22 +1,23 @@
 # PROJECT BRAIN: VIBE DESIGN LAB
-*Current Status: V2.3 (Unified Persistence & Project Management)*
-*Last Updated: 2026-01-14*
+*Current Status: V2.2 (The Strategic Engine)*
+*Last Updated: 2026-01-18*
 
 ## 1. THE MISSION
-Building a premium Visual IDE where a Human "Director" and an AI "Agency" collaborate to move from a vague "Vibe" to a concrete "Product" via a structured, sequential workflow.
+A premium Visual IDE for "Computational Strategy." The system uses a multi-agent tension loop to author 5 high-density Position Papers that establish the project's DNA before moving to visual design.
 
-## 2. THE ARCHITECTURE (Twin Engines)
-*   **Frontend:** Next.js + XYFlow. Unified "Executive Paper" canvas for Strategy.
-*   **Backend:** FastAPI + Gemini 2.5 Dispatcher. 
-*   **State:** "Unified Manifest" system. The entire project (Ledger, History, Canvas) is stored as a single object in Firestore.
+## 2. THE 5 PILLARS (Executive Papers)
+1. **The Big Idea:** Problem thesis & first-principles reframing.
+2. **Market Reality:** Scale, link-bank, and competitive power maps.
+3. **Audience & Ecosystem:** Buyer types (Achiever/Socializer) & motivation tracks.
+4. **Content & Structure:** IA requirements & discoverability logic.
+5. **UX & Feasibility:** 95/5 conventions & build boundaries.
 
 ## 3. ACTIVE FEATURES
-*   [x] **The Lobby:** Functional "Hey Boss" screen with project listing, creation, and deletion.
-*   [x] **Project Management:** 3-dot meatball menu for Pinning and Deletion. Inline renaming in Lab Header.
-*   [x] **Autosave:** Every AI turn triggers a background sync of the full Manifest to the cloud.
-*   [x] **Hydration:** Lab environment automatically "inhabits" the saved state based on URL ID.
-*   [x] **Humanized PM:** Brainstorm-first social logic. 
+*   [x] **Executive A4 UI:** Tabbed interface (Position vs. Appendix) with premium typography.
+*   [x] **Specialist Interview:** Direct sidebar access to domain experts (Startup Wizard, Scout, etc.).
+*   [x] **Filing Cabinet:** Project registry ("Hey Boss") with Create, List, and Delete capabilities.
+*   [x] **Unified Autosave:** Manifest syncs to Firestore after every turn.
 
 ## 4. NEXT IMMEDIATE GOALS
-1.  **Refinement Loop:** Implement the "Specialist Interview" (Directly questioning a specific paper).
-2.  **Dept 10 (User Journeys):** Triggering visual flows based on approved Strategy DNA.
+1.  **Refinement:** Implement "Version History" badges on the A4 papers.
+2.  **Dept 6 (User Journeys):** Triggering visual flows based on approved Strategy DNA.

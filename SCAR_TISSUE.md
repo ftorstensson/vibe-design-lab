@@ -45,3 +45,16 @@
 **Entry 038: Manifest Type Sync**
 *   **Symptom:** TS errors when saving state.
 *   **Fix:** Ensure the `VibeManifest` interface (what we save) and `VibeStore` interface (what we use) are perfectly synchronized. Every property in the store must be explicitly accounted for in the Manifest contract.
+
+# SCAR TISSUE LEDGER (Lessons Learned)
+
+**Entry 040: The Appendix Mandate**
+*   **Fix:** Harden the Pydantic schema to make the Appendix object mandatory. This forces the model to perform the research before validating the response.
+
+**Entry 041: Async State ID Race**
+*   **Symptom:** `Failed to Fetch: Store has no Project ID` error when sending messages immediately after project creation.
+*   **Fix:** In `vibe-store.ts`, set the `project.id` synchronously at the very start of the hydration/creation logic. Never allow the ID to be null during an active session.
+
+**Entry 042: Pure Setters (RPC Error)**
+*   **Symptom:** "Failed to fetch" errors when putting `fetch()` calls inside a Zustand `set()` block.
+*   **Fix:** Zustand setters must be pure. Move all autosave network calls outside of the `set()` function to prevent race conditions.
