@@ -35,6 +35,7 @@ const flattenTree = (node: any, parentId: string | null = null, depth = 0): Node
 
 // --- SECTION D: STORE INITIALIZATION ---
 export const useVibeStore = create<VibeStore>((set, get) => ({
+  // Manifest State
   project_name: 'New Project',
   strategyLedger: INITIAL_LEDGER,
   chatHistory: [],
@@ -42,8 +43,11 @@ export const useVibeStore = create<VibeStore>((set, get) => ({
   activeLayer: 'STRATEGY',
   activeSpecialist: null,
   layers: { STRATEGY: { nodes: [], edges: [] }, JOURNEY: { nodes: [], edges: [] }, SITEMAP: { nodes: [], edges: [] }, WIREFRAME: { nodes: [] , edges: [] } },
+  
+  // Local Session State
   project: { id: '', name: 'New Project' },
   projectList: [],
+  agencyRoster: [], // <--- FIX: This was missing and caused the TS error
   isChatOpen: true,
 
   // --- SECTION E: UI ACTIONS ---
@@ -51,36 +55,41 @@ export const useVibeStore = create<VibeStore>((set, get) => ({
   setChatOpen: (open: boolean = true) => set({ isChatOpen: open }),
   setActiveSpecialist: (id: string | null) => set({ activeSpecialist: id }),
   setStrategyDoc: (doc: string) => set({ strategyDoc: doc }),
-  setNodes: (nodes: Node[]) => set(state => ({ layers: { ...state.layers, [state.activeLayer]: { ...state.layers[state.activeLayer], nodes } } })),
-  setEdges: (edges: Edge[]) => set(state => ({ layers: { ...state.layers, [state.activeLayer]: { ...state.layers[state.activeLayer], edges } } })),
-  updateManifest: (partial: Partial<VibeManifest>) => set((state) => ({ ...state, ...partial })),
-  onNodesChange: (changes: NodeChange[]) => set(state => ({ layers: { ...state.layers, [state.activeLayer]: { ...state.layers[state.activeLayer], nodes: applyNodeChanges(changes, state.layers[state.activeLayer].nodes) } } })),
-  onEdgesChange: (changes: EdgeChange[]) => set(state => ({ layers: { ...state.layers, [state.activeLayer]: { ...state.layers[state.activeLayer], edges: applyEdgeChanges(changes, state.layers[state.activeLayer].edges) } } })),
-  onConnect: (connection: Connection) => set(state => ({ layers: { ...state.layers, [state.activeLayer]: { ...state.layers[state.activeLayer], edges: addEdge({ ...connection, style: { stroke: '#000', strokeWidth: 2 } }, state.layers[state.activeLayer].edges) } } })),
+  setNodes: (nodes: Node[]) => set((state: VibeStore) => ({ layers: { ...state.layers, [state.activeLayer]: { ...state.layers[state.activeLayer], nodes } } })),
+  setEdges: (edges: Edge[]) => set((state: VibeStore) => ({ layers: { ...state.layers, [state.activeLayer]: { ...state.layers[state.activeLayer], edges } } })),
+  updateManifest: (partial: Partial<VibeManifest>) => set((state: VibeStore) => ({ ...state, ...partial })),
+  onNodesChange: (changes: NodeChange[]) => set((state: VibeStore) => ({ layers: { ...state.layers, [state.activeLayer]: { ...state.layers[state.activeLayer], nodes: applyNodeChanges(changes, state.layers[state.activeLayer].nodes) } } })),
+  onEdgesChange: (changes: EdgeChange[]) => set((state: VibeStore) => ({ layers: { ...state.layers, [state.activeLayer]: { ...state.layers[state.activeLayer], edges: applyEdgeChanges(changes, state.layers[state.activeLayer].edges) } } })),
+  onConnect: (connection: Connection) => set((state: VibeStore) => {
+      const updatedEdges = addEdge({ ...connection, style: { stroke: '#000', strokeWidth: 2 } }, state.layers[state.activeLayer].edges);
+      return { layers: { ...state.layers, [state.activeLayer]: { ...state.layers[state.activeLayer], edges: updatedEdges } } };
+  }),
 
-  // --- SECTION F: PERSISTENCE (THE FILING CABINET) ---
+  // --- SECTION F: PERSISTENCE (HYGIENE) ---
   fetchProjects: async () => {
     try {
       const res = await fetch(`${API_URL}/agent/projects`);
       const data = await res.json();
       set({ projectList: data.projects || [] });
-    } catch (e) { console.error("Fetch projects failed", e); }
+    } catch (e) { console.error(e); }
   },
 
   initProjectCloud: async () => {
     const id = `proj-${Math.random().toString(36).substr(2, 9)}`;
-    try {
-      await fetch(`${API_URL}/agent/projects/init`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ thread_id: id, project_name: 'UNTITLED PROJECT' }) });
-      // Set ID immediately locally to allow instant interaction
-      set(state => ({ project: { ...state.project, id, name: 'UNTITLED PROJECT' } }));
-      return id;
-    } catch (e) { return id; }
+    set((state: VibeStore) => ({ 
+        project: { id, name: 'UNTITLED PROJECT' },
+        project_name: 'UNTITLED PROJECT',
+        strategyLedger: INITIAL_LEDGER,
+        chatHistory: [],
+        activeSpecialist: null,
+        layers: { STRATEGY: { nodes: [], edges: [] }, JOURNEY: { nodes: [], edges: [] }, SITEMAP: { nodes: [], edges: [] }, WIREFRAME: { nodes: [] , edges: [] } }
+    }));
+    await fetch(`${API_URL}/agent/projects/init`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ thread_id: id, project_name: 'UNTITLED PROJECT' }) });
+    return id;
   },
 
   loadProjectCloud: async (id: string) => {
-    // 🛡️ SHIELD: Set the ID synchronously first to prevent "REJECTED" error
-    set(state => ({ project: { ...state.project, id } }));
-
+    set((state: VibeStore) => ({ project: { ...state.project, id }, chatHistory: [], layers: { STRATEGY: { nodes: [], edges: [] }, JOURNEY: { nodes: [], edges: [] }, SITEMAP: { nodes: [], edges: [] }, WIREFRAME: { nodes: [] , edges: [] } } }));
     try {
       const res = await fetch(`${API_URL}/agent/projects/${id}`);
       const data = await res.json();
@@ -98,40 +107,45 @@ export const useVibeStore = create<VibeStore>((set, get) => ({
             layers: m.layers || { STRATEGY: { nodes: [], edges: [] }, JOURNEY: { nodes: [], edges: [] }, SITEMAP: { nodes: [], edges: [] }, WIREFRAME: { nodes: [] , edges: [] } } 
         });
       }
-    } catch (e) { console.error("Hydration failed", e); }
+    } catch (e) { console.error(e); }
   },
 
   renameProject: async (newName: string) => {
     const { project } = get();
-    try {
-      await fetch(`${API_URL}/agent/thread/${project.id}/rename`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name: newName }) });
-      set({ project: { ...project, name: newName }, project_name: newName });
-    } catch (e) { console.error("Rename failed", e); }
+    await fetch(`${API_URL}/agent/thread/${project.id}/rename`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name: newName }) });
+    set((state: VibeStore) => ({ project: { ...state.project, name: newName }, project_name: newName }));
   },
 
   deleteProject: async (id: string) => {
-    try {
-      await fetch(`${API_URL}/agent/thread/${id}`, { method: 'DELETE' });
-      await get().fetchProjects();
-    } catch (e) { console.error("Delete failed", e); }
+    await fetch(`${API_URL}/agent/thread/${id}`, { method: 'DELETE' });
+    await get().fetchProjects();
   },
 
   togglePin: async (id: string) => {
-    try {
-      await fetch(`${API_URL}/agent/thread/${id}/pin`, { method: 'POST' });
-      await get().fetchProjects();
-    } catch (e) { console.error("Pin failed", e); }
+    await fetch(`${API_URL}/agent/thread/${id}/pin`, { method: 'POST' });
+    await get().fetchProjects();
   },
 
-  // --- SECTION G: THE GENERATOR (SYNC & PATCH LOGIC) ---
+  // --- SECTION G: AGENCY LAB ACTIONS ---
+  fetchRoster: async () => {
+    try {
+        const res = await fetch(`${API_URL}/agent/roster`);
+        const data = await res.json();
+        set({ agencyRoster: data.roster || [] });
+    } catch (e) { console.error(e); }
+  },
+
+  updateAgentInDB: async (agentId: string, updates: any) => {
+    try {
+        await fetch(`${API_URL}/agent/roster/${agentId}`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(updates) });
+        await get().fetchRoster();
+    } catch (e) { console.error(e); }
+  },
+
+  // --- SECTION H: THE GENERATOR ---
   generateLayout: async (input: Blob | string) => {
     const { activeLayer, strategyLedger, chatHistory, project, activeSpecialist } = get();
-    
-    // Safety check remains but should no longer trigger due to synchronous ID setting
-    if (!project.id) {
-        console.error("❌ REJECTED: Store has no Project ID.");
-        return null;
-    }
+    if (!project.id) return null;
 
     const userMsg = typeof input === 'string' ? input : "Voice Command Received";
     const updatedChat: ChatMessage[] = [...chatHistory, { role: 'user', content: userMsg }];
@@ -150,23 +164,26 @@ export const useVibeStore = create<VibeStore>((set, get) => ({
       const response = await fetch(`${API_URL}/agent/design/generate`, { method: "POST", body: formData, mode: 'cors' });
       const data = await response.json();
 
-      set((state) => {
+      set((state: VibeStore) => {
         const nextHistory: ChatMessage[] = [...state.chatHistory, { role: 'assistant' as const, content: data.user_message }];
         let nextLedger = { ...state.strategyLedger };
         let nextLayers = { ...state.layers };
+        
+        let nextProjectName = state.project_name;
+        if (data.suggested_project_name) nextProjectName = data.suggested_project_name;
 
         if (state.activeLayer === 'STRATEGY' && data.patch) {
-          const { dept_id, content } = data.patch;
-          const currentDept = nextLedger[dept_id];
-          if (currentDept) {
-            const newPaper = { ...content, timestamp: new Date().toISOString(), version: (currentDept.history.length + 1).toFixed(1) };
-            nextLedger[dept_id] = { ...currentDept, status: 'STABLE' as const, history: [...currentDept.history, newPaper], activeVersion: currentDept.history.length };
-            const newNodes = (Object.values(nextLedger) as DeptSlot[]).filter(d => d.history.length > 0).map((d, idx) => ({
-              id: d.id, type: 'strategy', position: { x: idx * 650, y: 50 },
-              data: { ...d.history[d.activeVersion], label: d.label, deptId: d.deptId, icon: d.icon, version: d.history[d.activeVersion].version }
-            }));
-            nextLayers.STRATEGY = { nodes: newNodes, edges: [] };
-          }
+            const { dept_id, content } = data.patch;
+            const currentDept = nextLedger[dept_id];
+            if (currentDept) {
+                const newPaper = { ...content, timestamp: new Date().toISOString(), version: (currentDept.history.length + 1).toFixed(1) };
+                nextLedger[dept_id] = { ...currentDept, status: 'STABLE' as const, history: [...currentDept.history, newPaper], activeVersion: currentDept.history.length };
+                const newNodes = (Object.values(nextLedger) as DeptSlot[]).filter(d => d.history.length > 0).map((d, idx) => ({
+                    id: d.id, type: 'strategy', position: { x: idx * 650, y: 50 },
+                    data: { ...d.history[d.activeVersion], label: d.label, deptId: d.deptId, icon: d.icon, version: d.history[d.activeVersion].version }
+                }));
+                nextLayers.STRATEGY = { nodes: newNodes, edges: [] };
+            }
         } else if (data.nodes || data.root) {
             let newNodes: Node[] = [];
             let newEdges: Edge[] = [];
@@ -179,13 +196,22 @@ export const useVibeStore = create<VibeStore>((set, get) => ({
             const layout = getLayoutedElements(newNodes, newEdges, direction);
             nextLayers[state.activeLayer] = { nodes: layout.nodes, edges: layout.edges };
         }
-
-        // --- AUTOSAVE MANIFEST ---
-        const manifest: VibeManifest = { project_name: state.project_name, strategyLedger: nextLedger, chatHistory: nextHistory, strategyDoc: state.strategyDoc, activeLayer: state.activeLayer, activeSpecialist: state.activeSpecialist, layers: nextLayers };
-        fetch(`${API_URL}/agent/projects/save`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ thread_id: state.project.id, manifest }) });
-
-        return { chatHistory: nextHistory, strategyLedger: nextLedger, layers: nextLayers };
+        return { chatHistory: nextHistory, strategyLedger: nextLedger, layers: nextLayers, project_name: nextProjectName, project: { ...state.project, name: nextProjectName } };
       });
+
+      // Autosave
+      const latest = get();
+      const manifest: VibeManifest = { 
+          project_name: latest.project_name, 
+          strategyLedger: latest.strategyLedger, 
+          chatHistory: latest.chatHistory, 
+          strategyDoc: latest.strategyDoc, 
+          activeLayer: latest.activeLayer, 
+          activeSpecialist: latest.activeSpecialist, 
+          layers: latest.layers 
+      };
+      await fetch(`${API_URL}/agent/projects/save`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ thread_id: project.id, manifest }) });
+
       return data;
     } catch (e) { return null; }
   }

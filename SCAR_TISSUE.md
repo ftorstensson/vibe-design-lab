@@ -58,3 +58,17 @@
 **Entry 042: Pure Setters (RPC Error)**
 *   **Symptom:** "Failed to fetch" errors when putting `fetch()` calls inside a Zustand `set()` block.
 *   **Fix:** Zustand setters must be pure. Move all autosave network calls outside of the `set()` function to prevent race conditions.
+
+# SCAR TISSUE LEDGER (Lessons Learned)
+
+**Entry 043: The Side-Effect RPC Error**
+*   **Symptom:** "Failed to fetch" errors when putting `fetch()` calls inside a Zustand `set()` block.
+*   **Fix:** Zustand setters must be pure. Move all autosave network calls outside of the `set()` function to prevent race conditions.
+
+**Entry 044: Atomic Name Sync**
+*   **Symptom:** UI Header remained "Untitled" even after the AI named the project.
+*   **Fix:** Ensure the Frontend Store and the Backend Dispatcher perform a "Handshake" where `suggested_project_name` updates the local state and Firestore record in the same turn.
+
+**Entry 045: Literal Role Enforcement**
+*   **Symptom:** TS error: "Type 'string' is not assignable to type 'user' | 'assistant'".
+*   **Fix:** Use `as const` when assigning role strings in TypeScript to satisfy strict literal type checks in the ChatMessage interface.

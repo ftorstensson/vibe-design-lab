@@ -1,3 +1,21 @@
+
+# THE VIBE AGENCY MANIFEST (v3.0 - LIQUID)
+
+## 1. THE ROSTER (Firestore Managed)
+1. master_pm (Social Orchestrator)
+2. the_big_idea (Startup Wizard)
+3. market_reality (Market Scout)
+4. audience_ecosystem (Psychologist)
+5. content_structure (Information Architect)
+6. ux_feasibility (Technical Lead)
+
+## 2. THE DISCOVERY PROTOCOL
+- **Mode 1: Brainstorming.** Focus on Socratic questions. No patches.
+- **Mode 2: Informed Confidence.** Triggered when The Pain, The Magic, and The Buyer are understood.
+- **The Turn:** Name assigned + Pillar 1 printed + User Greeting.
+
+-----
+
 # THE VIBE AGENCY MANIFEST
 
 ## 1. THE TENSION PROTOCOL

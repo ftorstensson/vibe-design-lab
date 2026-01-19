@@ -1,7 +1,7 @@
 // --- SECTION A: IMPORTS ---
 import { Node, Edge, OnNodesChange, OnEdgesChange, Connection } from '@xyflow/react';
 
-// --- SECTION B: CORE TYPES ---
+// --- SECTION B: CORE COMPONENT TYPES ---
 export type VibeLayer = 'STRATEGY' | 'JOURNEY' | 'SITEMAP' | 'WIREFRAME';
 export type DeptStatus = 'NOT_STARTED' | 'DRAFTING' | 'STABLE' | 'EVOLVING';
 
@@ -52,13 +52,14 @@ export interface ChatMessage {
 }
 
 // --- SECTION C: THE UNIFIED MANIFEST ---
+// This is exactly what is stored in the vibe_manifest field in Firestore
 export interface VibeManifest {
   project_name: string;
   strategyLedger: Record<string, DeptSlot>;
   chatHistory: ChatMessage[];
   strategyDoc: string;
   activeLayer: VibeLayer;
-  activeSpecialist: string | null; // <--- NEW: Tracking direct interviews
+  activeSpecialist: string | null;
   layers: {
     STRATEGY: LayerData;
     JOURNEY: LayerData;
@@ -69,24 +70,34 @@ export interface VibeManifest {
 
 // --- SECTION D: THE STORE INTERFACE ---
 export interface VibeStore extends VibeManifest {
+  // App/Session State
   project: { id: string; name: string };
   projectList: ProjectMetadata[];
+  agencyRoster: any[]; // The Liquid Talent List
   isChatOpen: boolean;
+
+  // Management Actions
   fetchProjects: () => Promise<void>;
   initProjectCloud: () => Promise<string>;
   loadProjectCloud: (id: string) => Promise<void>;
   renameProject: (newName: string) => Promise<void>;
   deleteProject: (id: string) => Promise<void>;
   togglePin: (id: string) => Promise<void>;
+  
+  // Agency Lab Actions
+  fetchRoster: () => Promise<void>;
+  updateAgentInDB: (agentId: string, updates: any) => Promise<void>;
+
+  // UI & Physics Actions
   setActiveLayer: (layer: VibeLayer) => void;
   setChatOpen: (open: boolean) => void;
-  setActiveSpecialist: (id: string | null) => void; // <--- NEW
-  onNodesChange: OnNodesChange;
-  onEdgesChange: OnEdgesChange;
-  onConnect: (connection: Connection) => void;
-  generateLayout: (input: Blob | string) => Promise<any>;
+  setActiveSpecialist: (id: string | null) => void;
   updateManifest: (partial: Partial<VibeManifest>) => void;
   setStrategyDoc: (doc: string) => void;
   setNodes: (nodes: Node[]) => void;
   setEdges: (edges: Edge[]) => void;
+  onNodesChange: OnNodesChange;
+  onEdgesChange: OnEdgesChange;
+  onConnect: (connection: Connection) => void;
+  generateLayout: (input: Blob | string) => Promise<any>;
 }
