@@ -23,25 +23,27 @@ export default function AgencyLab() {
   const [selectedAgent, setSelectedAgent] = useState<any>(null);
   const [selectedDept, setSelectedDept] = useState<any>(null);
   const [editorContent, setEditorContent] = useState("");
-  const [expandedTeams, setExpandedTeams] = useState<string[]>([]);
+  const [expandedTeams, setExpandedTeams] = useState<string[]>(DEPT_ORDER);
 
-  useEffect(() => { fetchRoster(); }, [fetchRoster]);
+  useEffect(() => { 
+    fetchRoster(); 
+  }, [fetchRoster]);
 
   // --- SECTION C: HIERARCHY MAPPING ---
   const hierarchy = useMemo(() => {
     const map: any = {};
     agencyRoster.forEach((a: any) => {
-        if (!map[a.level_id]) map[a.level_id] = {};
-        if (!map[a.level_id][a.dept_id]) map[a.level_id][a.dept_id] = [];
-        map[a.level_id][a.dept_id].push(a);
+        const level = a.level_id || 'UNKNOWN';
+        const dept = a.dept_id || 'UNKNOWN';
+        if (!map[level]) map[level] = {};
+        if (!map[level][dept]) map[level][dept] = [];
+        map[level][dept].push(a);
     });
     return map;
   }, [agencyRoster]);
 
   const toggleTeam = (id: string) => {
-    // 1. Toggle expansion
     setExpandedTeams(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]);
-    // 2. Automatically select the lens for this team
     const dept = departmentRegistry.find((d: any) => d.id === id);
     if (dept) {
         setSelectedAgent(null);
@@ -72,7 +74,7 @@ export default function AgencyLab() {
       {/* --- SECTION D: ORDERED SIDEBAR --- */}
       <div className="w-80 h-full bg-white border-r border-slate-200 flex flex-col shadow-xl z-20 overflow-y-auto">
         <div className="p-6 border-b border-slate-100 flex items-center justify-between sticky top-0 bg-white z-10">
-            <button onClick={() => router.push('/')} aria-label="Back" className="p-2 hover:bg-slate-50 rounded-lg transition-colors"><ArrowLeft className="w-5 h-5 text-slate-400" /></button>
+            <button onClick={() => router.push('/')} aria-label="Back" className="p-2 hover:bg-slate-50 rounded-lg transition-colors border border-transparent hover:border-slate-200"><ArrowLeft className="w-5 h-5 text-slate-400" /></button>
             <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-900">Agency Control</span>
         </div>
 
@@ -95,14 +97,14 @@ export default function AgencyLab() {
                                     onClick={() => toggleTeam(deptId)}
                                     className={clsx(
                                         "w-full p-4 border flex items-center justify-between transition-all rounded-xl",
-                                        selectedDept?.id === deptId ? "border-slate-900 bg-slate-900 text-white" : "bg-slate-50 border-slate-100 hover:border-slate-300 text-slate-900"
+                                        selectedDept?.id === deptId ? "border-slate-900 bg-slate-900 text-white shadow-md" : "bg-slate-50 border-slate-100 hover:border-slate-300 text-slate-900"
                                     )}
                                 >
                                     <div className="flex items-center gap-3">
-                                        <Glasses className={clsx("w-3 h-3", selectedDept?.id === deptId ? "text-white" : "opacity-50")} />
+                                        <Glasses className={clsx("w-3 h-3", selectedDept?.id === deptId ? "text-white" : "opacity-30")} />
                                         <span className="text-[10px] font-black uppercase tracking-widest">{deptId.replace(/_TEAM/g, '')}</span>
                                     </div>
-                                    {expandedTeams.includes(deptId) ? <ChevronDown className="w-3 h-3" /> : <ChevronRight className="w-3 h-3 opacity-30" />}
+                                    {expandedTeams.includes(deptId) ? <ChevronDown className="w-3 h-3 opacity-30" /> : <ChevronRight className="w-3 h-3 opacity-30" />}
                                 </button>
                                 
                                 {expandedTeams.includes(deptId) && (
@@ -147,6 +149,7 @@ export default function AgencyLab() {
                         <div className="space-y-6">
                             <ConfigRow label="Type" value={selectedAgent ? "INDIVIDUAL" : "LENS"} />
                             {selectedAgent && <ConfigRow label="Model" value={selectedAgent.model_tier} />}
+                            <ConfigRow label="ID" value={selectedAgent ? selectedAgent.id : selectedDept.id} />
                         </div>
                     </div>
                 </div>
@@ -160,8 +163,8 @@ export default function AgencyLab() {
 }
 
 const ConfigRow = ({ label, value }: { label: string, value: string }) => (
-    <div className="flex flex-col gap-1 items-center">
-        <span className="text-[9px] font-bold text-slate-400 uppercase">{label}</span>
-        <span className="text-[10px] font-black text-slate-900 uppercase">{value}</span>
+    <div className="flex flex-col gap-1 items-center text-center">
+        <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">{label}</span>
+        <span className="text-[10px] font-black text-slate-900 uppercase break-all">{value}</span>
     </div>
 );

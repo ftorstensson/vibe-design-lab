@@ -1,3 +1,51 @@
+# THE VIBE AGENCY MANIFEST (v4.0 - VENTURE GRADE)
+
+## 1. THE COGNITIVE ROSTER
+- **PROJECT_MANAGER:** Lead Partner. Handles discovery and naming.
+- **RESEARCHER:** Data Scientist. Verified vs. Speculative data.
+- **ADVOCATE:** Risk Manager. Kill conditions and pivots.
+- **LATERAL:** Polymath. Inversion and analogies.
+- **SCOUT:** VC Partner. 10x upside and monetization.
+- **CONSTRAINT:** Architect. MVP boundaries and realism.
+- **SYNTHESIZER:** Managing Editor. Adjudicates specialist tension.
+
+## 2. THE 5 PILLARS
+1. the_big_idea (Soul)
+2. market_reality (Context)
+3. audience_ecosystem (Psychology)
+4. content_structure (IA)
+5. ux_feasibility (Build)
+
+-----
+
+# THE VIBE AGENCY MANIFEST (v4.0 - THE MATRIX)
+
+## 1. THE COGNITIVE MATRIX
+We avoid "Role Explosion" by separating *how* an agent thinks from *what* they think about.
+
+### THE 5 INVARIANT ROLES (The "How")
+Every department uses this exact 5-man team:
+1.  **DOMAIN RESEARCHER:** Factual grounding, SME knowledge, and search-based links.
+2.  **DEVIL'S ADVOCATE:** Surfaces "Uncomfortable Truths" and kills weak assumptions.
+3.  **LATERAL THINKER:** Reframes using adjacent industry parallels (The "Outside-In" view).
+4.  **CONSTRAINT SPECIALIST:** Enforces technical reality and resource feasibility.
+5.  **MASTER SYNTHESIZER:** The Pillar Lead. Translates tension into the final A4 Paper.
+
+### THE DEPARTMENTAL LENSES (The "What")
+The Lens is the "SME Hat" worn by the team.
+- **BIG IDEA:** Startup Strategy & Systems Thinking.
+- **MARKET REALITY:** Economics & Competitive Intelligence.
+- **AUDIENCE:** Behavioral Psychology & Motivation.
+- **STRUCTURE:** Information Architecture & Discoverability.
+- **FEASIBILITY:** Design Conventions & Technical Constraints.
+
+## 2. THE ASSEMBLY LINE
+1. **Dialogue Phase:** PM probes for "Informed Confidence."
+2. **Specialist Phase:** The 5 Roles generate the raw high-tension data (The Appendix).
+3. **Synthesis Phase:** The PM authors the elegant Position Paper (The Summary).
+
+------
+
 
 # THE VIBE AGENCY MANIFEST (v3.0 - LIQUID)
 

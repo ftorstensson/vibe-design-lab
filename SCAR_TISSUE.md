@@ -72,3 +72,24 @@
 **Entry 045: Literal Role Enforcement**
 *   **Symptom:** TS error: "Type 'string' is not assignable to type 'user' | 'assistant'".
 *   **Fix:** Use `as const` when assigning role strings in TypeScript to satisfy strict literal type checks in the ChatMessage interface.
+
+
+# SCAR_TISSUE_LEDGER
+
+**Entry 046: The Graph Entrypoint Crash**
+*   **Symptom:** Backend failed to start with `ValueError: Graph must have an entrypoint`.
+*   **Fix:** LangGraph `StateGraph` cannot be compiled as an empty object. It requires at least one node, an edge from START, and an edge to END before `compile()` is called.
+
+**Entry 047: The Alphabetical Layout Bug**
+*   **Symptom:** Departments and Agents appearing in random order in the Lab UI.
+*   **Fix:** Move away from `Object.keys()` mapping. Implement explicit `dept_index` and `role_index` fields in the database and use a hardcoded `DEPT_ORDER` array in the UI.
+
+**Entry 048: Side-Effect RPC Errors**
+*   **Symptom:** `Failed to fetch` error during project creation.
+*   **Fix:** Autosave fetches must be triggered outside of the Zustand `set()` function. Functional updates `set((state) => ...)` must remain pure to avoid race conditions.
+
+# SCAR TISSUE LEDGER (Lessons Learned)
+
+**Entry 049: The Key Name Collision**
+*   **Symptom:** Department Lenses disappeared from the Lab UI after a database update.
+*   **Fix:** The seeder script changed the field name from `lens_profile` to `lens`. The "Dumb Code" in the UI was hardcoded to look for `lens_profile`. **Lesson:** Never change a database key name without updating the entire chain (Store + Backend + Seeder). Always use the full key name provided in the Types.

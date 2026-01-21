@@ -7,7 +7,7 @@ import {
 import { VibeStore, VibeLayer, DeptSlot, StrategyPaper, VibeManifest, ChatMessage, ProjectMetadata } from '@/types/vibe-core';
 import { getLayoutedElements } from '@/utils/layout-engine';
 
-// --- SECTION B: CONSTANTS ---
+// --- SECTION B: CONSTANTS & INITIAL STATE ---
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 const NODE_STYLE = { backgroundColor: 'transparent', border: 'none', width: 'auto', boxShadow: 'none' };
 
@@ -19,8 +19,23 @@ const INITIAL_LEDGER: Record<string, DeptSlot> = {
   ux_feasibility: { id: 'ux_feasibility', deptId: '5', label: 'UX & Feasibility', icon: 'ux_feasibility', status: 'NOT_STARTED', activeVersion: 0, history: [] },
 };
 
+// --- SECTION C: HELPERS ---
+const flattenTree = (node: any, parentId: string | null = null, depth = 0): Node[] => {
+    const rfNode: Node = { id: node.id, type: node.type, data: { label: node.label, ...node.layout }, position: { x: 20, y: (depth * 80) + 60 }, parentId: parentId || undefined, extent: parentId ? 'parent' : undefined, style: NODE_STYLE };
+    let childrenNodes: Node[] = [];
+    if (node.children && Array.isArray(node.children)) {
+        node.children.forEach((child: any, index: number) => {
+            const childNodeList = flattenTree(child, node.id, depth + 1);
+            childNodeList[0].position.y = (index * 80) + 60;
+            childrenNodes = [...childrenNodes, ...childNodeList];
+        });
+    }
+    return [rfNode, ...childrenNodes];
+};
+
 // --- SECTION D: STORE INITIALIZATION ---
-export const useVibeStore = create<VibeStore & any>((set, get) => ({
+export const useVibeStore = create<VibeStore>((set, get) => ({
+  // Manifest State
   project_name: 'New Project',
   strategyLedger: INITIAL_LEDGER,
   chatHistory: [],
@@ -28,17 +43,23 @@ export const useVibeStore = create<VibeStore & any>((set, get) => ({
   activeLayer: 'STRATEGY',
   activeSpecialist: null,
   layers: { STRATEGY: { nodes: [], edges: [] }, JOURNEY: { nodes: [], edges: [] }, SITEMAP: { nodes: [], edges: [] }, WIREFRAME: { nodes: [] , edges: [] } },
+  
+  // Local Session State
   project: { id: '', name: 'New Project' },
   projectList: [],
   agencyRoster: [], 
-  departmentRegistry: [], // <--- NEW: List of Lenses
+  departmentRegistry: [],
   isChatOpen: true,
 
   // --- SECTION E: UI ACTIONS ---
   setActiveLayer: (layer: VibeLayer) => set({ activeLayer: layer }),
   setChatOpen: (open: boolean = true) => set({ isChatOpen: open }),
   setActiveSpecialist: (id: string | null) => set({ activeSpecialist: id }),
+  setStrategyDoc: (doc: string) => set({ strategyDoc: doc }),
+  setNodes: (nodes: Node[]) => set((state: VibeStore) => ({ layers: { ...state.layers, [state.activeLayer]: { ...state.layers[state.activeLayer], nodes } } })),
+  setEdges: (edges: Edge[]) => set((state: VibeStore) => ({ layers: { ...state.layers, [state.activeLayer]: { ...state.layers[state.activeLayer], edges } } })),
   updateManifest: (partial: Partial<VibeManifest>) => set((state: VibeStore) => ({ ...state, ...partial })),
+  
   onNodesChange: (changes: NodeChange[]) => set((state: VibeStore) => ({ layers: { ...state.layers, [state.activeLayer]: { ...state.layers[state.activeLayer], nodes: applyNodeChanges(changes, state.layers[state.activeLayer].nodes) } } })),
   onEdgesChange: (changes: EdgeChange[]) => set((state: VibeStore) => ({ layers: { ...state.layers, [state.activeLayer]: { ...state.layers[state.activeLayer], edges: applyEdgeChanges(changes, state.layers[state.activeLayer].edges) } } })),
   onConnect: (connection: Connection) => set((state: VibeStore) => {
@@ -46,7 +67,7 @@ export const useVibeStore = create<VibeStore & any>((set, get) => ({
       return { layers: { ...state.layers, [state.activeLayer]: { ...state.layers[state.activeLayer], edges: updatedEdges } } };
   }),
 
-  // --- SECTION F: PERSISTENCE (ROSTER & LENSES) ---
+  // --- SECTION F: PERSISTENCE ---
   fetchProjects: async () => {
     try {
       const res = await fetch(`${API_URL}/agent/projects`);
@@ -55,11 +76,64 @@ export const useVibeStore = create<VibeStore & any>((set, get) => ({
     } catch (e) { console.error(e); }
   },
 
+  initProjectCloud: async () => {
+    const id = `proj-${Math.random().toString(36).substr(2, 9)}`;
+    set((state: VibeStore) => ({ 
+        project: { id, name: 'UNTITLED PROJECT' },
+        project_name: 'UNTITLED PROJECT',
+        strategyLedger: INITIAL_LEDGER,
+        chatHistory: [],
+        activeSpecialist: null,
+        layers: { STRATEGY: { nodes: [], edges: [] }, JOURNEY: { nodes: [], edges: [] }, SITEMAP: { nodes: [], edges: [] }, WIREFRAME: { nodes: [] , edges: [] } }
+    }));
+    await fetch(`${API_URL}/agent/projects/init`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ thread_id: id, project_name: 'UNTITLED PROJECT' }) });
+    return id;
+  },
+
+  loadProjectCloud: async (id: string) => {
+    try {
+      set((state: VibeStore) => ({ project: { ...state.project, id }, chatHistory: [], layers: { STRATEGY: { nodes: [], edges: [] }, JOURNEY: { nodes: [], edges: [] }, SITEMAP: { nodes: [], edges: [] }, WIREFRAME: { nodes: [] , edges: [] } } }));
+      const res = await fetch(`${API_URL}/agent/projects/${id}`);
+      const data = await res.json();
+      const dbName = data.project_name || 'UNTITLED';
+      if (data.vibe_manifest) {
+        const m = data.vibe_manifest as VibeManifest;
+        set({ 
+            project: { id, name: dbName }, 
+            project_name: dbName, 
+            strategyLedger: m.strategyLedger || INITIAL_LEDGER, 
+            chatHistory: m.chatHistory || [], 
+            strategyDoc: m.strategyDoc || "", 
+            activeLayer: m.activeLayer || 'STRATEGY', 
+            activeSpecialist: m.activeSpecialist || null, 
+            layers: m.layers || { STRATEGY: { nodes: [], edges: [] }, JOURNEY: { nodes: [], edges: [] }, SITEMAP: { nodes: [], edges: [] }, WIREFRAME: { nodes: [] , edges: [] } } 
+        });
+      }
+    } catch (e) { console.error(e); }
+  },
+
+  renameProject: async (newName: string) => {
+    const { project } = get();
+    await fetch(`${API_URL}/agent/thread/${project.id}/rename`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name: newName }) });
+    set((state: VibeStore) => ({ project: { ...state.project, name: newName }, project_name: newName }));
+  },
+
+  deleteProject: async (id: string) => {
+    await fetch(`${API_URL}/agent/thread/${id}`, { method: 'DELETE' });
+    await get().fetchProjects();
+  },
+
+  togglePin: async (id: string) => {
+    await fetch(`${API_URL}/agent/thread/${id}/pin`, { method: 'POST' });
+    await get().fetchProjects();
+  },
+
+  // --- SECTION G: AGENCY LAB ACTIONS ---
   fetchRoster: async () => {
     try {
         const resA = await fetch(`${API_URL}/agent/roster`);
         const dataA = await resA.json();
-        const resD = await fetch(`${API_URL}/agent/departments`); // <--- NEW Endpoint
+        const resD = await fetch(`${API_URL}/agent/departments`);
         const dataD = await resD.json();
         set({ agencyRoster: dataA.roster || [], departmentRegistry: dataD.departments || [] });
     } catch (e) { console.error(e); }
@@ -79,36 +153,11 @@ export const useVibeStore = create<VibeStore & any>((set, get) => ({
     } catch (e) { console.error(e); }
   },
 
-  initProjectCloud: async () => {
-    const id = `proj-${Math.random().toString(36).substr(2, 9)}`;
-    set((state: VibeStore) => ({ project: { id, name: 'UNTITLED PROJECT' }, project_name: 'UNTITLED PROJECT', strategyLedger: INITIAL_LEDGER, chatHistory: [], activeSpecialist: null, layers: { STRATEGY: { nodes: [], edges: [] }, JOURNEY: { nodes: [], edges: [] }, SITEMAP: { nodes: [], edges: [] }, WIREFRAME: { nodes: [] , edges: [] } } }));
-    await fetch(`${API_URL}/agent/projects/init`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ thread_id: id, project_name: 'UNTITLED PROJECT' }) });
-    return id;
-  },
-
-  loadProjectCloud: async (id: string) => {
-    try {
-      set((state: VibeStore) => ({ project: { ...state.project, id }, chatHistory: [], layers: { STRATEGY: { nodes: [], edges: [] }, JOURNEY: { nodes: [], edges: [] }, SITEMAP: { nodes: [], edges: [] }, WIREFRAME: { nodes: [] , edges: [] } } }));
-      const res = await fetch(`${API_URL}/agent/projects/${id}`);
-      const data = await res.json();
-      const dbName = data.project_name || 'UNTITLED';
-      if (data.vibe_manifest) {
-        const m = data.vibe_manifest as VibeManifest;
-        set({ project: { id, name: dbName }, project_name: dbName, strategyLedger: m.strategyLedger, chatHistory: m.chatHistory, activeLayer: m.activeLayer, layers: m.layers, activeSpecialist: m.activeSpecialist });
-      }
-    } catch (e) { console.error(e); }
-  },
-
-  renameProject: async (newName: string) => {
-    const { project } = get();
-    await fetch(`${API_URL}/agent/thread/${project.id}/rename`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name: newName }) });
-    set((state: VibeStore) => ({ project: { ...state.project, name: newName }, project_name: newName }));
-  },
-
-  // --- SECTION G: THE GENERATOR ---
+  // --- SECTION H: THE GENERATOR ---
   generateLayout: async (input: Blob | string) => {
     const { activeLayer, strategyLedger, chatHistory, project, activeSpecialist } = get();
     if (!project.id) return null;
+
     const userMsg = typeof input === 'string' ? input : "Voice Command Received";
     const updatedChat: ChatMessage[] = [...chatHistory, { role: 'user', content: userMsg }];
     set({ chatHistory: updatedChat });
@@ -130,6 +179,7 @@ export const useVibeStore = create<VibeStore & any>((set, get) => ({
         const nextHistory: ChatMessage[] = [...state.chatHistory, { role: 'assistant' as const, content: data.user_message }];
         let nextLedger = { ...state.strategyLedger };
         let nextLayers = { ...state.layers };
+        
         let nextProjectName = state.project_name;
         if (data.suggested_project_name) nextProjectName = data.suggested_project_name;
 
@@ -139,19 +189,40 @@ export const useVibeStore = create<VibeStore & any>((set, get) => ({
             if (currentDept) {
                 const newPaper = { ...content, timestamp: new Date().toISOString(), version: (currentDept.history.length + 1).toFixed(1) };
                 nextLedger[dept_id] = { ...currentDept, status: 'STABLE' as const, history: [...currentDept.history, newPaper], activeVersion: currentDept.history.length };
-                const newNodes = Object.values(nextLedger).filter((d:any) => d.history.length > 0).map((d:any, idx:number) => ({
+                const newNodes = (Object.values(nextLedger) as DeptSlot[]).filter(d => d.history.length > 0).map((d, idx) => ({
                     id: d.id, type: 'strategy', position: { x: idx * 650, y: 50 },
                     data: { ...d.history[d.activeVersion], label: d.label, deptId: d.deptId, icon: d.icon, version: d.history[d.activeVersion].version }
                 }));
                 nextLayers.STRATEGY = { nodes: newNodes, edges: [] };
             }
+        } else if (data.nodes || data.root) {
+            let newNodes: Node[] = [];
+            let newEdges: Edge[] = [];
+            if (state.activeLayer === 'WIREFRAME' && data.root) newNodes = flattenTree(data.root);
+            else if (data.nodes) {
+                newNodes = data.nodes.map((n: any) => ({ id: n.id, type: n.type, data: { ...n }, position: { x: 0, y: 0 }, style: NODE_STYLE }));
+                if (data.edges) newEdges = data.edges.map((e: any) => ({ id: e.id || `${e.source}-${e.target}`, source: e.source, target: e.target, style: { stroke: '#000', strokeWidth: 2 } }));
+            }
+            const direction = state.activeLayer === 'SITEMAP' ? 'TB' : 'LR';
+            const layout = getLayoutedElements(newNodes, newEdges, direction);
+            nextLayers[state.activeLayer] = { nodes: layout.nodes, edges: layout.edges };
         }
         return { chatHistory: nextHistory, strategyLedger: nextLedger, layers: nextLayers, project_name: nextProjectName, project: { ...state.project, name: nextProjectName } };
       });
 
+      // Autosave
       const latest = get();
-      const manifest = { project_name: latest.project_name, strategyLedger: latest.strategyLedger, chatHistory: latest.chatHistory, strategyDoc: latest.strategyDoc, activeLayer: latest.activeLayer, activeSpecialist: latest.activeSpecialist, layers: latest.layers };
+      const manifest: VibeManifest = { 
+          project_name: latest.project_name, 
+          strategyLedger: latest.strategyLedger, 
+          chatHistory: latest.chatHistory, 
+          strategyDoc: latest.strategyDoc, 
+          activeLayer: latest.activeLayer, 
+          activeSpecialist: latest.activeSpecialist, 
+          layers: latest.layers 
+      };
       await fetch(`${API_URL}/agent/projects/save`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ thread_id: project.id, manifest }) });
+
       return data;
     } catch (e) { return null; }
   }

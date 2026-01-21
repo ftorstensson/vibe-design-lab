@@ -52,7 +52,6 @@ export interface ChatMessage {
 }
 
 // --- SECTION C: THE UNIFIED MANIFEST ---
-// This is exactly what is stored in the vibe_manifest field in Firestore
 export interface VibeManifest {
   project_name: string;
   strategyLedger: Record<string, DeptSlot>;
@@ -68,12 +67,13 @@ export interface VibeManifest {
   };
 }
 
-// --- SECTION D: THE STORE INTERFACE ---
+// --- SECTION D: THE STORE INTERFACE (UPDATED FOR V3.2.1) ---
 export interface VibeStore extends VibeManifest {
-  // App/Session State
+  // App & Session State
   project: { id: string; name: string };
   projectList: ProjectMetadata[];
-  agencyRoster: any[]; // The Liquid Talent List
+  agencyRoster: any[]; 
+  departmentRegistry: any[]; // <--- FIXED: Added missing property
   isChatOpen: boolean;
 
   // Management Actions
@@ -84,13 +84,14 @@ export interface VibeStore extends VibeManifest {
   deleteProject: (id: string) => Promise<void>;
   togglePin: (id: string) => Promise<void>;
   
-  // Agency Lab Actions
+  // Agency Lab Actions (NEW)
   fetchRoster: () => Promise<void>;
   updateAgentInDB: (agentId: string, updates: any) => Promise<void>;
+  updateDeptInDB: (deptId: string, updates: any) => Promise<void>; // <--- FIXED: Added missing action
 
   // UI & Physics Actions
   setActiveLayer: (layer: VibeLayer) => void;
-  setChatOpen: (open: boolean) => void;
+  setChatOpen: (open?: boolean) => void;
   setActiveSpecialist: (id: string | null) => void;
   updateManifest: (partial: Partial<VibeManifest>) => void;
   setStrategyDoc: (doc: string) => void;

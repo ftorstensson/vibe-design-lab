@@ -12,3 +12,15 @@
 | :--- | :--- | :--- | :--- |
 | **UX-DASH-001** | **The-Lobby** | Root URL must display "Hey Boss" with a functional Project List. | 🔒 PINNED |
 | **UX-DASH-002** | **Project-Delete** | Each project row must have a `Trash2` icon with a confirmation prompt. | ✅ ACTIVE |
+
+
+---
+
+# THE UX TRUTH LEDGER
+
+## KINGDOM: UX-AGENCY-LAB (The Control Room)
+| ID | Feature Name | The Law (Guarantees) | Status |
+| :--- | :--- | :--- | :--- |
+| **UX-LAB-001** | **Double-Accordion** | Sidebar must use a nested Dpt -> Team hierarchy to prevent visual clutter. | 🔒 PINNED |
+| **UX-LAB-002** | **Dual-Editor** | One central editor handles both Lenses (Dept level) and Personas (Agent level). | ✅ ACTIVE |
+| **UX-LAB-003** | **Role-Icons** | Specialist agents must be visually distinct based on their Cognitive Role (Researcher vs. Advocate). | 📝 PLANNED |
