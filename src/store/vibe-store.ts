@@ -67,7 +67,7 @@ export const useVibeStore = create<VibeStore>((set, get) => ({
       return { layers: { ...state.layers, [state.activeLayer]: { ...state.layers[state.activeLayer], edges: updatedEdges } } };
   }),
 
-  // --- SECTION F: PERSISTENCE ---
+  // --- SECTION F: PERSISTENCE (HYGIENE) ---
   fetchProjects: async () => {
     try {
       const res = await fetch(`${API_URL}/agent/projects`);
@@ -128,7 +128,6 @@ export const useVibeStore = create<VibeStore>((set, get) => ({
     await get().fetchProjects();
   },
 
-  // --- SECTION G: AGENCY LAB ACTIONS ---
   fetchRoster: async () => {
     try {
         const resA = await fetch(`${API_URL}/agent/roster`);
@@ -153,7 +152,7 @@ export const useVibeStore = create<VibeStore>((set, get) => ({
     } catch (e) { console.error(e); }
   },
 
-  // --- SECTION H: THE GENERATOR ---
+  // --- SECTION G: THE GENERATOR (EDITORIAL & SYNC) ---
   generateLayout: async (input: Blob | string) => {
     const { activeLayer, strategyLedger, chatHistory, project, activeSpecialist } = get();
     if (!project.id) return null;
@@ -166,6 +165,7 @@ export const useVibeStore = create<VibeStore>((set, get) => ({
       const formData = new FormData();
       if (input instanceof Blob) formData.append("file", input, "voice.webm");
       else formData.append("prompt", input);
+      
       formData.append("layer", activeLayer);
       formData.append("project_id", project.id);
       formData.append("chat_history", JSON.stringify(updatedChat));
@@ -187,8 +187,19 @@ export const useVibeStore = create<VibeStore>((set, get) => ({
             const { dept_id, content } = data.patch;
             const currentDept = nextLedger[dept_id];
             if (currentDept) {
-                const newPaper = { ...content, timestamp: new Date().toISOString(), version: (currentDept.history.length + 1).toFixed(1) };
-                nextLedger[dept_id] = { ...currentDept, status: 'STABLE' as const, history: [...currentDept.history, newPaper], activeVersion: currentDept.history.length };
+                const newPaper = { 
+                  ...content, 
+                  timestamp: new Date().toISOString(), 
+                  version: (currentDept.history.length + 1).toFixed(1) 
+                };
+                
+                nextLedger[dept_id] = { 
+                  ...currentDept, 
+                  status: 'STABLE' as const, 
+                  history: [...currentDept.history, newPaper], 
+                  activeVersion: currentDept.history.length 
+                };
+                
                 const newNodes = (Object.values(nextLedger) as DeptSlot[]).filter(d => d.history.length > 0).map((d, idx) => ({
                     id: d.id, type: 'strategy', position: { x: idx * 650, y: 50 },
                     data: { ...d.history[d.activeVersion], label: d.label, deptId: d.deptId, icon: d.icon, version: d.history[d.activeVersion].version }
@@ -198,8 +209,9 @@ export const useVibeStore = create<VibeStore>((set, get) => ({
         } else if (data.nodes || data.root) {
             let newNodes: Node[] = [];
             let newEdges: Edge[] = [];
-            if (state.activeLayer === 'WIREFRAME' && data.root) newNodes = flattenTree(data.root);
-            else if (data.nodes) {
+            if (state.activeLayer === 'WIREFRAME' && data.root) {
+                newNodes = flattenTree(data.root);
+            } else if (data.nodes) {
                 newNodes = data.nodes.map((n: any) => ({ id: n.id, type: n.type, data: { ...n }, position: { x: 0, y: 0 }, style: NODE_STYLE }));
                 if (data.edges) newEdges = data.edges.map((e: any) => ({ id: e.id || `${e.source}-${e.target}`, source: e.source, target: e.target, style: { stroke: '#000', strokeWidth: 2 } }));
             }
@@ -207,6 +219,7 @@ export const useVibeStore = create<VibeStore>((set, get) => ({
             const layout = getLayoutedElements(newNodes, newEdges, direction);
             nextLayers[state.activeLayer] = { nodes: layout.nodes, edges: layout.edges };
         }
+
         return { chatHistory: nextHistory, strategyLedger: nextLedger, layers: nextLayers, project_name: nextProjectName, project: { ...state.project, name: nextProjectName } };
       });
 
@@ -221,7 +234,12 @@ export const useVibeStore = create<VibeStore>((set, get) => ({
           activeSpecialist: latest.activeSpecialist, 
           layers: latest.layers 
       };
-      await fetch(`${API_URL}/agent/projects/save`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ thread_id: project.id, manifest }) });
+      
+      await fetch(`${API_URL}/agent/projects/save`, { 
+          method: 'POST', 
+          headers: { 'Content-Type': 'application/json' }, 
+          body: JSON.stringify({ thread_id: project.id, manifest }) 
+      });
 
       return data;
     } catch (e) { return null; }

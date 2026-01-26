@@ -15,10 +15,12 @@ export interface StrategyPaper {
   uncomfortable_truths: string[];
   risky_assumptions: string[];
   appendix: {
-    researcher_notes: string;
-    devils_advocate_teardown: string;
-    outside_thinker_reframing: string;
-    rejected_alternatives: string[];
+    domain_research: string;
+    critical_teardown: string;
+    lateral_reframing: string;
+    opportunity_scout: string;
+    build_constraints: string;
+    synthesis_logic: string;
     link_bank: string[];
   };
   version_note: string;
@@ -34,6 +36,7 @@ export interface DeptSlot {
   history: StrategyPaper[];
 }
 
+// FIX: Explicitly exported ProjectMetadata
 export interface ProjectMetadata {
   thread_id: string;
   project_name: string;
@@ -67,13 +70,13 @@ export interface VibeManifest {
   };
 }
 
-// --- SECTION D: THE STORE INTERFACE (UPDATED FOR V3.2.1) ---
+// --- SECTION D: THE STORE INTERFACE ---
 export interface VibeStore extends VibeManifest {
   // App & Session State
   project: { id: string; name: string };
   projectList: ProjectMetadata[];
   agencyRoster: any[]; 
-  departmentRegistry: any[]; // <--- FIXED: Added missing property
+  departmentRegistry: any[]; 
   isChatOpen: boolean;
 
   // Management Actions
@@ -84,10 +87,10 @@ export interface VibeStore extends VibeManifest {
   deleteProject: (id: string) => Promise<void>;
   togglePin: (id: string) => Promise<void>;
   
-  // Agency Lab Actions (NEW)
+  // Agency Lab Actions
   fetchRoster: () => Promise<void>;
   updateAgentInDB: (agentId: string, updates: any) => Promise<void>;
-  updateDeptInDB: (deptId: string, updates: any) => Promise<void>; // <--- FIXED: Added missing action
+  updateDeptInDB: (deptId: string, updates: any) => Promise<void>;
 
   // UI & Physics Actions
   setActiveLayer: (layer: VibeLayer) => void;
