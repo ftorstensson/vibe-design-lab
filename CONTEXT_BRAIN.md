@@ -1,3 +1,28 @@
+
+# PROJECT BRAIN: VIBE DESIGN LAB
+*Current Status: V2.7 (Multi-Agent Assembly Line)*
+*Last Updated: 2026-01-26*
+
+## 1. THE MISSION
+Transitioning from a single-agent summary tool to a true "Assembly Line" where 6 watertight specialists (Researcher, Advocate, Lateral, Scout, Constraint, Synthesizer) collaborate via sequential API calls to build high-fidelity strategy DNA.
+
+## 2. THE ASSEMBLY LINE (The Physics)
+- **Sequential Hiring:** Each paper triggers 6 distinct LLM calls.
+- **Tension Management:** The Advocate specifically reviews the Researcher's work. The Synthesizer adjudicates the final tension.
+- **Informed Confidence Gate:** Authoring is blocked until Turn 3+ of dialogue to ensure the "Soul" of the project is understood.
+
+## 3. ACTIVE FEATURES
+*   [x] **Watertight Agents:** Specialists have discrete prompts and no "leaking" logic.
+*   [x] **Search Grounding:** Researcher role uses real-time Google Search (Vertex AI).
+*   [x] **A4 Editorial UI:** Full-bleed Substack/Medium aesthetic with Position/Appendix tabs.
+*   [x] **Liquid Roster:** 30+ specialists managed entirely via the Agency Lab DB.
+
+## 4. NEXT IMMEDIATE GOALS
+1.  **Context Inspector:** Visual toggle to see the "Worldview" (decision ledger) fed to agents.
+2.  **Dept 6-10 (Visual Design):** Transition the Strategy DNA into visual Flowcharts.
+
+----
+
 # PROJECT BRAIN: VIBE DESIGN LAB
 *Current Status: V2.4 (The Venture-Grade Agency)*
 *Last Updated: 2026-01-20*

@@ -93,3 +93,17 @@
 **Entry 049: The Key Name Collision**
 *   **Symptom:** Department Lenses disappeared from the Lab UI after a database update.
 *   **Fix:** The seeder script changed the field name from `lens_profile` to `lens`. The "Dumb Code" in the UI was hardcoded to look for `lens_profile`. **Lesson:** Never change a database key name without updating the entire chain (Store + Backend + Seeder). Always use the full key name provided in the Types.
+
+# SCAR TISSUE LEDGER (Lessons Learned)
+
+**Entry 050: The Google Search Tool Pivot**
+*   **Symptom:** Backend 400 error: `google_search_retrieval is not supported`.
+*   **Fix:** As of Jan 2026, Google has consolidated the tool name to `google_search`. The configuration must be a dictionary: `{"google_search": {}}` instead of a string.
+
+**Entry 051: The Vertex AI Content Mandate**
+*   **Symptom:** 400 error: `at least one contents field is required`.
+*   **Fix:** Gemini on Vertex AI forbids sending a request containing only a `SystemMessage`. Every specialist call must include a `HumanMessage` (even if generic) to satisfy the API structure.
+
+**Entry 052: The "Placeholder" Trap**
+*   **Symptom:** AI returned text saying "Logic for authoring loop continues here..."
+*   **Fix:** Avoid providing "lean" or "simplified" code snippets in the dispatcher. Always implement the full iteration loop over the specialist roster to prevent the AI from generating its own placeholder text.
