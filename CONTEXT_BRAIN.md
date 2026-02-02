@@ -1,3 +1,22 @@
+# PROJECT BRAIN: VIBE DESIGN LAB
+*Current Status: V2.8 (Adversarial Strike Teams)*
+*Last Updated: 2026-02-02*
+
+## 1. THE MISSION
+Transitioning from a 6-man analytical committee to a "Product Architect Trio" (Visionary, Commercial Lead, Technical Realist). The Goal is to generate a high-velocity "Venture Brief" that acts as the strategic compiler for all visual layers.
+
+## 2. THE STRIKE TEAM ARCHITECTURE
+- **Sequential Tension:** The Visionary defines the "Magic," the Commercial Lead defines the "Economic Logic," and the Realist defines the "Sacrifices."
+- **DeTax Anchoring:** Every agent is now governed by an Optimization Target and a Loss Function (Rule: If the output is polite/generic, the agent has failed).
+- **Ambition DNA:** The system is now hard-coded to recognize "Vibe Coding" as the build reality (Code is fast, Logic is the bottleneck).
+
+## 3. ACTIVE FEATURES
+- [x] **Triple-Accordion Agency Lab:** Layer -> Dept -> Specialist hierarchy.
+- [x] **Venture Brief A4 UI:** New McKinsey/IDEO-inspired layout (Soul, Bet, Wedge, Non-Goals).
+- [x] **Partner-Law PM:** Socratic Discovery (1 Suggestion + 1 Question pacing).
+- [x] **ELI Protocol:** Forced depth (Evidence, Logic, Implication) in specialist reports.
+
+-------
 
 # PROJECT BRAIN: VIBE DESIGN LAB
 *Current Status: V2.7 (Multi-Agent Assembly Line)*

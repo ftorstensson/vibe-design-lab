@@ -1,3 +1,4 @@
+// src/types/vibe-core.ts
 // --- SECTION A: IMPORTS ---
 import { Node, Edge, OnNodesChange, OnEdgesChange, Connection } from '@xyflow/react';
 
@@ -36,7 +37,6 @@ export interface DeptSlot {
   history: StrategyPaper[];
 }
 
-// FIX: Explicitly exported ProjectMetadata
 export interface ProjectMetadata {
   thread_id: string;
   project_name: string;
@@ -52,6 +52,23 @@ export interface LayerData {
 export interface ChatMessage {
   role: 'user' | 'assistant';
   content: string;
+}
+
+// --- NEW: DETAX AGENT INTERFACE (Adversarial DNA) ---
+export interface SpecialistAgent {
+  id: string;
+  display_name: string;
+  role: string;
+  layer_id: VibeLayer; 
+  dept_id: string;
+  role_index: number;
+  model_tier: 'FLASH' | 'PRO';
+  system_prompt: string;
+  
+  // DeTax Metadata fields
+  optimization_target?: string; 
+  loss_function?: string;
+  physics_constraints?: string; 
 }
 
 // --- SECTION C: THE UNIFIED MANIFEST ---
@@ -72,14 +89,12 @@ export interface VibeManifest {
 
 // --- SECTION D: THE STORE INTERFACE ---
 export interface VibeStore extends VibeManifest {
-  // App & Session State
   project: { id: string; name: string };
   projectList: ProjectMetadata[];
-  agencyRoster: any[]; 
+  agencyRoster: SpecialistAgent[]; 
   departmentRegistry: any[]; 
   isChatOpen: boolean;
 
-  // Management Actions
   fetchProjects: () => Promise<void>;
   initProjectCloud: () => Promise<string>;
   loadProjectCloud: (id: string) => Promise<void>;
@@ -87,17 +102,14 @@ export interface VibeStore extends VibeManifest {
   deleteProject: (id: string) => Promise<void>;
   togglePin: (id: string) => Promise<void>;
   
-  // Agency Lab Actions
   fetchRoster: () => Promise<void>;
-  updateAgentInDB: (agentId: string, updates: any) => Promise<void>;
+  updateAgentInDB: (agentId: string, updates: Partial<SpecialistAgent>) => Promise<void>;
   updateDeptInDB: (deptId: string, updates: any) => Promise<void>;
 
-  // UI & Physics Actions
   setActiveLayer: (layer: VibeLayer) => void;
   setChatOpen: (open?: boolean) => void;
   setActiveSpecialist: (id: string | null) => void;
   updateManifest: (partial: Partial<VibeManifest>) => void;
-  setStrategyDoc: (doc: string) => void;
   setNodes: (nodes: Node[]) => void;
   setEdges: (edges: Edge[]) => void;
   onNodesChange: OnNodesChange;

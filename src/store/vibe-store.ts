@@ -164,6 +164,10 @@ export const useVibeStore = create<VibeStore>((set, get) => ({
     // Immediate UI feedback
     set({ chatHistory: updatedChat });
 
+    // --- NEW: THE AMBITION DNA (Ground Truth) ---
+    // This anchors the AI to our Vibe Coding reality.
+    const ambitionDNA = "Mode: Vibe Coding (AI-First). Ambition: Venture-Grade. Team: 1 Human Director + AI. Goal: Scale and logic-driven defensibility.";
+
     try {
       const formData = new FormData();
       if (input instanceof Blob) formData.append("file", input, "voice.webm");
@@ -173,6 +177,8 @@ export const useVibeStore = create<VibeStore>((set, get) => ({
       formData.append("project_id", project.id);
       formData.append("chat_history", JSON.stringify(updatedChat));
       formData.append("strategy_context", JSON.stringify(strategyLedger));
+      formData.append("ambition_dna", ambitionDNA); // SENDING THE DNA
+      
       if (activeSpecialist) formData.append("specialist_id", activeSpecialist);
 
       const response = await fetch(`${API_URL}/agent/design/generate`, { method: "POST", body: formData, mode: 'cors' });

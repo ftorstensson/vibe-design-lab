@@ -107,3 +107,15 @@
 **Entry 052: The "Placeholder" Trap**
 *   **Symptom:** AI returned text saying "Logic for authoring loop continues here..."
 *   **Fix:** Avoid providing "lean" or "simplified" code snippets in the dispatcher. Always implement the full iteration loop over the specialist roster to prevent the AI from generating its own placeholder text.
+
+**Entry 053: The Firestore Client Case-Sensitivity**
+- **Symptom:** `AttributeError: module 'google.cloud.firestore' has no attribute 'client'`.
+- **Fix:** Use `firestore.Client()` (Capitalized) for the constructor.
+
+**Entry 054: The Schema Import Ghost**
+- **Symptom:** `ImportError: cannot import name 'StrategySpatialOutput'`.
+- **Fix:** Ensure the Pydantic schema file includes the top-level wrapper classes (`StrategySpatialOutput` and `StrategyPatch`) required by the dispatcher, even if the primary content schema changes.
+
+**Entry 055: The Accessibility Linter Wall**
+- **Symptom:** Build fails on "Element has no title attribute" for textareas.
+- **Fix:** Every `textarea` and icon-only `button` in the Agency Lab must have a `title` and `aria-label`.

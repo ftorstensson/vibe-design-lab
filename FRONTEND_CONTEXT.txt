@@ -1,0 +1,3089 @@
+# FRONTEND GROUND TRUTH: THE BODY
+
+
+--- START: AGENCY_MANIFEST.md ---
+# THE VIBE AGENCY MANIFEST (v4.0 - VENTURE GRADE)
+
+## 1. THE COGNITIVE ROSTER
+- **PROJECT_MANAGER:** Lead Partner. Handles discovery and naming.
+- **RESEARCHER:** Data Scientist. Verified vs. Speculative data.
+- **ADVOCATE:** Risk Manager. Kill conditions and pivots.
+- **LATERAL:** Polymath. Inversion and analogies.
+- **SCOUT:** VC Partner. 10x upside and monetization.
+- **CONSTRAINT:** Architect. MVP boundaries and realism.
+- **SYNTHESIZER:** Managing Editor. Adjudicates specialist tension.
+
+## 2. THE 5 PILLARS
+1. the_big_idea (Soul)
+2. market_reality (Context)
+3. audience_ecosystem (Psychology)
+4. content_structure (IA)
+5. ux_feasibility (Build)
+
+-----
+
+# THE VIBE AGENCY MANIFEST (v4.0 - THE MATRIX)
+
+## 1. THE COGNITIVE MATRIX
+We avoid "Role Explosion" by separating *how* an agent thinks from *what* they think about.
+
+### THE 5 INVARIANT ROLES (The "How")
+Every department uses this exact 5-man team:
+1.  **DOMAIN RESEARCHER:** Factual grounding, SME knowledge, and search-based links.
+2.  **DEVIL'S ADVOCATE:** Surfaces "Uncomfortable Truths" and kills weak assumptions.
+3.  **LATERAL THINKER:** Reframes using adjacent industry parallels (The "Outside-In" view).
+4.  **CONSTRAINT SPECIALIST:** Enforces technical reality and resource feasibility.
+5.  **MASTER SYNTHESIZER:** The Pillar Lead. Translates tension into the final A4 Paper.
+
+### THE DEPARTMENTAL LENSES (The "What")
+The Lens is the "SME Hat" worn by the team.
+- **BIG IDEA:** Startup Strategy & Systems Thinking.
+- **MARKET REALITY:** Economics & Competitive Intelligence.
+- **AUDIENCE:** Behavioral Psychology & Motivation.
+- **STRUCTURE:** Information Architecture & Discoverability.
+- **FEASIBILITY:** Design Conventions & Technical Constraints.
+
+## 2. THE ASSEMBLY LINE
+1. **Dialogue Phase:** PM probes for "Informed Confidence."
+2. **Specialist Phase:** The 5 Roles generate the raw high-tension data (The Appendix).
+3. **Synthesis Phase:** The PM authors the elegant Position Paper (The Summary).
+
+------
+
+
+# THE VIBE AGENCY MANIFEST (v3.0 - LIQUID)
+
+## 1. THE ROSTER (Firestore Managed)
+1. master_pm (Social Orchestrator)
+2. the_big_idea (Startup Wizard)
+3. market_reality (Market Scout)
+4. audience_ecosystem (Psychologist)
+5. content_structure (Information Architect)
+6. ux_feasibility (Technical Lead)
+
+## 2. THE DISCOVERY PROTOCOL
+- **Mode 1: Brainstorming.** Focus on Socratic questions. No patches.
+- **Mode 2: Informed Confidence.** Triggered when The Pain, The Magic, and The Buyer are understood.
+- **The Turn:** Name assigned + Pillar 1 printed + User Greeting.
+
+-----
+
+# THE VIBE AGENCY MANIFEST
+
+## 1. THE TENSION PROTOCOL
+Every pillar operates with built-in disagreement to avoid consensus bias.
+- **The Researcher:** Domain research and facts.
+- **The Devil's Advocate:** Surface hidden assumptions and failure modes.
+- **The PM:** Synthesizes the tension into the final Position Paper.
+
+## 2. THE SOCIAL GATE
+The PM (Gemini 2.5 Flash) acts as a high-pass filter. 
+- **Rule:** 3 turns of brainstorming required before a Position Paper can be "Printed."
+- **Rule:** Exactly ONE sharp question per turn.
+
+## 3. THE HIRED SPECIALISTS (Verified 2026 IDs)
+- **PROJECT_MANAGER:** `gemini-2.5-flash` (Speed, Warmth, Social).
+- **ARCHITECT / RESEARCHER:** `gemini-2.5-pro` (High Reasoning, JSON logic).
+
+---
+
+# THE VIBE AGENCY MANIFEST
+
+## 1. THE "LIVING LEDGER" PHILOSOPHY
+The AI does not own the canvas structure. The **"Dumb Code"** owns a Registry of 9 slots. The AI acts as an **Author/Editor**, providing atomic `StrategyPatch` objects to update specific departments.
+
+## 2. THE 2026 HIRING HALL (GA Stable)
+- **PROJECT_MANAGER:** `gemini-2.5-flash` (Speed, Warmth, Social).
+- **ARCHITECT / RESEARCHER:** `gemini-2.5-pro` (High Reasoning, JSON/Markdown logic).
+- **TRANSPORT:** All Vertex AI clients must use `transport="rest"` for stability.
+
+## 3. THE 9 POSITION PAPERS
+1. Product Strategy, 2. Growth & Lifecycle, 3. Audience & Research, 4. Category & Convention, 5. Value Prop, 6. Experience Principles, 7. IA & Discoverability, 8. Content Systems, 9. Measurement & Learning.
+
+## 4. COMMUNICATION LAWS
+- **Handshake:** Every request includes `chat_history` and `strategy_context`.
+- **Response:** The PM must separate `user_message` (chat) from `patch` (canvas).
+- **Negative Constraint:** NO META-TALK in the social bubble.
+
+------
+
+
+# THE VIBE AGENCY MANIFEST (v2.1)
+
+## 1. THE STRATEGY ORG CHART
+The Agency authors 9 **Executive Position Papers** in a sequential, validated loop.
+
+| Dept # | Name | Core Responsibility |
+| :--- | :--- | :--- |
+| **1** | **Product Strategy** | Intent, Problem, Market, Success Criteria, Non-Goals. |
+| **2** | **Growth & Lifecycle** | AARRR readiness, return loops, entry points. |
+| **3** | **Audience & Research** | Buyer Types (Achievers/Socializers), behavioral mapping. |
+| **4** | **Category & Convention** | The 95% Rule. Norms, expectations, anti-patterns. |
+| **5** | **Value Prop & Messaging** | Pillars, proof strategy, CTA logic by buyer type. |
+| **6** | **Experience & Principles** | Guardrails, complexity threshold, error philosophy. |
+| **7** | **IA & Discoverability** | Silos, linking logic, SEO/LLM legibility. |
+| **8** | **Content Systems** | Cadence, types, evergreen vs dynamic logic. |
+| **9** | **Measurement & Learning** | Qual/Quant loops, indicators per lifecycle stage. |
+
+## 2. THE SEQUENTIAL GATEKEEPING
+The **Project Manager (PM)** is the Orchestrator. 
+- **Rule:** Departments 1-4 are **Mandatory** and must be authored/approved in sequence.
+- **Rule:** Departments 5-9 are **Activated** based on project complexity.
+
+## 3. THE DATA HANDSHAKE
+Every Strategy Paper must be returned as a **Structured Object**:
+- `paper_id`: (1-8)
+- `version`: (string)
+- `department`: (string)
+- `context_paragraph`: (string)
+- `structured_findings`: (JSON list of key-value pairs)
+- `deep_dive_report`: (Markdown)
+
+--------
+
+# THE VIBE AGENCY MANIFEST
+*The Intelligence Architecture for The Design Lab*
+
+## 1. THE PHILOSOPHY: "The Sequential Assembly Line"
+We do not build everything at once. We build in layers, where each layer creates the **Source of Truth** for the next.
+
+**Flow:**
+1.  **STRATEGY DEPT** -> Outputs **User Journey** (Logic & Emotion).
+2.  **INFORMATION DEPT** -> Outputs **Sitemap** (Structure & SEO).
+3.  **DESIGN DEPT** -> Outputs **Wireframes** (Layout & Physics).
+
+---
+
+## 2. THE DEPARTMENT STRUCTURE (The Roundtable)
+Each Department is a self-contained unit with a **Manager** and a **Team of Specialists**.
+
+**The Manager's Job:**
+1.  **Listen:** Receive the User's Intent.
+2.  **The Roundtable:** Consult *every* Specialist in the department for their specific constraints/ideas.
+3.  **Synthesis:** Resolve conflicts (e.g., SEO vs. UX).
+4.  **Execution:** Output the strict JSON required by the Frontend.
+
+---
+
+## 3. THE ROSTERS (Who works here?)
+
+### DEPT 1: STRATEGY (User Journey Layer)
+*Goal: Define the Flow. Why are we here?*
+*   **The Behavioral Psychologist:** Focuses on Player Types (Achiever/Explorer), Motivation, and Hooks.
+*   **The Skeptic (Edge Case Engineer):** Focuses on "Sad Paths," Errors, and Friction.
+*   **The Business Analyst:** Focuses on Conversion, Monetization, and Value Proposition.
+
+### DEPT 2: INFORMATION (Sitemap Layer)
+*Goal: Define the Structure. Where do things live?*
+*   **The Storyteller:** Ensures the flow tells a narrative (Intro -> Climax -> Resolution).
+*   **The SEO/GEO Wizard:** Optimizes structure for Search Engines and LLMs (Generative Engine Optimization).
+*   **The OOUX Modeler:** Identifies the "Nouns" (Objects) and their relationships.
+*   **The Pattern Matcher:** Identifies reusable templates (e.g., "This needs a Feed Template").
+
+### DEPT 3: DESIGN (Wireframe Layer)
+*Goal: Define the Surface. How does it look/feel?*
+*   **The Ergonomist:** Fitts's Law, Thumb Zones, Touch Targets.
+*   **The Brutalist:** Enforces the Visual Design System (Black/White, High Contrast).
+*   **The Accessibility Officer:** Contrast ratios, Screen Reader labels, Font sizes.
+
+---
+
+## 4. THE CODE ARCHITECTURE (The Hiring Hall)
+We organize code to allow "Hiring" (adding new agents) without breaking the machine.
+
+**Directory Structure:**
+```text
+app/agency/
+├── director.py                <-- The Lobby (Routes to Depts)
+└── departments/
+    ├── strategy/
+    │   ├── manager.py         <-- The Orchestrator
+    │   └── personas.py        <-- The Team Registry (Add new hires here)
+    ├── information/
+    │   ├── manager.py
+    │   └── personas.py
+    └── design/
+        ├── manager.py
+        └── personas.py
+
+## 5. THE HIRING PROTOCOL
+To add a new skill to the team:
+Open the personas.py file for the relevant Department.
+Add a new entry to the SPECIALISTS dictionary.
+Name: e.g., "COPYWRITER"
+Prompt: Define their specific mental model and constraints.
+Save. The Manager automatically includes them in the next Roundtable.
+
+--- END: AGENCY_MANIFEST.md ---
+
+
+--- START: next-env.d.ts ---
+/// <reference types="next" />
+/// <reference types="next/image-types/global" />
+import "./.next/dev/types/routes.d.ts";
+
+// NOTE: This file should not be edited
+// see https://nextjs.org/docs/app/api-reference/config/typescript for more information.
+
+--- END: next-env.d.ts ---
+
+
+--- START: README.md ---
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+
+## Getting Started
+
+First, run the development server:
+
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+
+## Learn More
+
+To learn more about Next.js, take a look at the following resources:
+
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+--- END: README.md ---
+
+
+--- START: UX_LEDGER.md ---
+# THE UX TRUTH LEDGER (Vibe Taxonomy)
+
+## KINGDOM: UX-STRATEGY (The Executive Suite)
+| ID | Feature Name | The Law (Guarantees) | Status |
+| :--- | :--- | :--- | :--- |
+| **UX-VIS-008** | **Executive-Paper** | White A4 doc, Serif headers (Playfair), `shadow-2xl`, zero rounded corners. | 🔒 PINNED |
+| **UX-INT-010** | **Patch-Merger** | UI must re-render the entire ledger upon receiving a single-department patch. | 🔒 PINNED |
+| **UX-INT-011** | **Inline-Rename** | Clicking the project name in the Lab Header must trigger an instant rename input. | ✅ ACTIVE |
+
+## KINGDOM: UX-DASHBOARD (The Front Door)
+| ID | Feature Name | The Law (Guarantees) | Status |
+| :--- | :--- | :--- | :--- |
+| **UX-DASH-001** | **The-Lobby** | Root URL must display "Hey Boss" with a functional Project List. | 🔒 PINNED |
+| **UX-DASH-002** | **Project-Delete** | Each project row must have a `Trash2` icon with a confirmation prompt. | ✅ ACTIVE |
+
+
+---
+
+# THE UX TRUTH LEDGER
+
+## KINGDOM: UX-AGENCY-LAB (The Control Room)
+| ID | Feature Name | The Law (Guarantees) | Status |
+| :--- | :--- | :--- | :--- |
+| **UX-LAB-001** | **Double-Accordion** | Sidebar must use a nested Dpt -> Team hierarchy to prevent visual clutter. | 🔒 PINNED |
+| **UX-LAB-002** | **Dual-Editor** | One central editor handles both Lenses (Dept level) and Personas (Agent level). | ✅ ACTIVE |
+| **UX-LAB-003** | **Role-Icons** | Specialist agents must be visually distinct based on their Cognitive Role (Researcher vs. Advocate). | 📝 PLANNED |
+--- END: UX_LEDGER.md ---
+
+
+--- START: package.json ---
+{
+  "name": "vibe-design-lab",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "@types/dagre": "^0.7.53",
+    "@xyflow/react": "^12.10.0",
+    "clsx": "^2.1.1",
+    "dagre": "^0.8.5",
+    "lucide-react": "^0.561.0",
+    "next": "16.0.10",
+    "react": "19.2.1",
+    "react-dom": "19.2.1",
+    "react-markdown": "^10.1.0",
+    "tailwind-merge": "^3.4.0",
+    "zustand": "^5.0.9"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.0.10",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}
+
+--- END: package.json ---
+
+
+--- START: tsconfig.json ---
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "react-jsx",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts",
+    "**/*.mts"
+  ],
+  "exclude": ["node_modules"]
+}
+
+--- END: tsconfig.json ---
+
+
+--- START: SCAR_TISSUE.md ---
+# SCAR TISSUE LEDGER (Lessons Learned)
+
+**Entry 028: The 404 Model Registry Ghost**
+*   **Symptom:** Backend threw 404 when calling `gemini-3.0-pro`.
+*   **Lesson:** Never assume upcoming model IDs. **Always verify against the Vertex AI registry.** Reverted to `gemini-2.5-pro` (stable) and `gemini-2.0-flash-001`.
+
+**Entry 029: The Silent Uvicorn Buffer**
+*   **Symptom:** `print()` logs were invisible in the terminal.
+*   **Fix:** Use `logging.getLogger("uvicorn.error")`. It forces logs to terminal immediately.
+
+**Entry 030: The Schema Leak (Self-Talk)**
+*   **Symptom:** LLM put its internal reasoning ("I have analyzed the request...") into the user chat bubble.
+*   **Fix:** Strictly separate `user_message` (social) from `thought_process` (internal) in Pydantic schemas. Use "Negative Constraints" in prompts: "NO META-TALK."
+
+**Entry 031: The 422 Handshake Error**
+*   **Symptom:** Frontend fetch fails with "Unprocessable Entity."
+*   **Fix:** Ensure FastAPI parameters (Form vs Body) match exactly between Frontend `FormData` and Backend endpoint signatures.
+
+**Entry 032: The Truncation Trap (Merging Logic)**
+*   **Symptom:** Refactoring major UI components led to 200+ lines of specialized visual logic being deleted, breaking all layers except the one being worked on.
+*   **Fix:** Never "lean out" the page logic during a refactor. Always merge new architectural changes into the existing production code to preserve resizable frames and custom node types. Use explicit typing (e.g. `DeptSlot`) to satisfy the TS compiler during ledger-to-node mapping.
+
+
+
+**Entry 033: The Truncation Trap**
+*   **Symptom:** Refactoring major UI components led to 200+ lines of visual logic being deleted.
+*   **Fix:** Never "lean out" production files during a refactor. Always merge new logic into the existing production code.
+
+**Entry 034: The Middleware Gate**
+*   **Symptom:** Production Handshake failed with "Access-Control-Allow-Origin" errors.
+*   **Fix:** CORSMiddleware must be added **before** routes are mounted. Use `allow_origins=["*"]` for Cloud Run MVPs to handle shifting service URLs.
+
+**Entry 035: Baked Config (Docker Build Args)**
+*   **Symptom:** Local frontend talking to Cloud backend or vice-versa.
+*   **Fix:** Next.js environment variables must be passed as `--build-arg` during the Docker build process, as they are baked at build-time.
+
+**Entry 036: The Firestore Index Block**
+*   **Symptom:** Listing projects failed with a 500 error when trying to sort by `is_pinned` and `updated_at`.
+*   **Fix:** Firestore requires a manual composite index for multi-field sorting. Always check logs for the auto-generated index link.
+
+**Entry 037: The Closure Staleness Trap**
+*   **Symptom:** Cards disappearing during long AI requests.
+*   **Fix:** In Zustand/Async functions, never rely on variables captured at the start of the function. Always use the functional update pattern: `set((state) => ({ ...state.data + newPatch }))` to ensure you merge with the absolute latest state.
+
+**Entry 038: Manifest Type Sync**
+*   **Symptom:** TS errors when saving state.
+*   **Fix:** Ensure the `VibeManifest` interface (what we save) and `VibeStore` interface (what we use) are perfectly synchronized. Every property in the store must be explicitly accounted for in the Manifest contract.
+
+# SCAR TISSUE LEDGER (Lessons Learned)
+
+**Entry 040: The Appendix Mandate**
+*   **Fix:** Harden the Pydantic schema to make the Appendix object mandatory. This forces the model to perform the research before validating the response.
+
+**Entry 041: Async State ID Race**
+*   **Symptom:** `Failed to Fetch: Store has no Project ID` error when sending messages immediately after project creation.
+*   **Fix:** In `vibe-store.ts`, set the `project.id` synchronously at the very start of the hydration/creation logic. Never allow the ID to be null during an active session.
+
+**Entry 042: Pure Setters (RPC Error)**
+*   **Symptom:** "Failed to fetch" errors when putting `fetch()` calls inside a Zustand `set()` block.
+*   **Fix:** Zustand setters must be pure. Move all autosave network calls outside of the `set()` function to prevent race conditions.
+
+# SCAR TISSUE LEDGER (Lessons Learned)
+
+**Entry 043: The Side-Effect RPC Error**
+*   **Symptom:** "Failed to fetch" errors when putting `fetch()` calls inside a Zustand `set()` block.
+*   **Fix:** Zustand setters must be pure. Move all autosave network calls outside of the `set()` function to prevent race conditions.
+
+**Entry 044: Atomic Name Sync**
+*   **Symptom:** UI Header remained "Untitled" even after the AI named the project.
+*   **Fix:** Ensure the Frontend Store and the Backend Dispatcher perform a "Handshake" where `suggested_project_name` updates the local state and Firestore record in the same turn.
+
+**Entry 045: Literal Role Enforcement**
+*   **Symptom:** TS error: "Type 'string' is not assignable to type 'user' | 'assistant'".
+*   **Fix:** Use `as const` when assigning role strings in TypeScript to satisfy strict literal type checks in the ChatMessage interface.
+
+
+# SCAR_TISSUE_LEDGER
+
+**Entry 046: The Graph Entrypoint Crash**
+*   **Symptom:** Backend failed to start with `ValueError: Graph must have an entrypoint`.
+*   **Fix:** LangGraph `StateGraph` cannot be compiled as an empty object. It requires at least one node, an edge from START, and an edge to END before `compile()` is called.
+
+**Entry 047: The Alphabetical Layout Bug**
+*   **Symptom:** Departments and Agents appearing in random order in the Lab UI.
+*   **Fix:** Move away from `Object.keys()` mapping. Implement explicit `dept_index` and `role_index` fields in the database and use a hardcoded `DEPT_ORDER` array in the UI.
+
+**Entry 048: Side-Effect RPC Errors**
+*   **Symptom:** `Failed to fetch` error during project creation.
+*   **Fix:** Autosave fetches must be triggered outside of the Zustand `set()` function. Functional updates `set((state) => ...)` must remain pure to avoid race conditions.
+
+# SCAR TISSUE LEDGER (Lessons Learned)
+
+**Entry 049: The Key Name Collision**
+*   **Symptom:** Department Lenses disappeared from the Lab UI after a database update.
+*   **Fix:** The seeder script changed the field name from `lens_profile` to `lens`. The "Dumb Code" in the UI was hardcoded to look for `lens_profile`. **Lesson:** Never change a database key name without updating the entire chain (Store + Backend + Seeder). Always use the full key name provided in the Types.
+
+# SCAR TISSUE LEDGER (Lessons Learned)
+
+**Entry 050: The Google Search Tool Pivot**
+*   **Symptom:** Backend 400 error: `google_search_retrieval is not supported`.
+*   **Fix:** As of Jan 2026, Google has consolidated the tool name to `google_search`. The configuration must be a dictionary: `{"google_search": {}}` instead of a string.
+
+**Entry 051: The Vertex AI Content Mandate**
+*   **Symptom:** 400 error: `at least one contents field is required`.
+*   **Fix:** Gemini on Vertex AI forbids sending a request containing only a `SystemMessage`. Every specialist call must include a `HumanMessage` (even if generic) to satisfy the API structure.
+
+**Entry 052: The "Placeholder" Trap**
+*   **Symptom:** AI returned text saying "Logic for authoring loop continues here..."
+*   **Fix:** Avoid providing "lean" or "simplified" code snippets in the dispatcher. Always implement the full iteration loop over the specialist roster to prevent the AI from generating its own placeholder text.
+--- END: SCAR_TISSUE.md ---
+
+
+--- START: FEATURES.md ---
+# FEATURE LEDGER
+
+## CORE CAPABILITIES
+- [x] **Dispatcher Factory:** Multi-model routing (Flash/Pro).
+- [x] **The Context Snowball:** Cascading JSON/Markdown context.
+- [x] **Search Grounding:** Agents research the live web for Landscape Analysis.
+
+## INTERFACE
+- [x] **Right-Side PM Workspace:** Collapsible brainstorming drawer.
+- [x] **Infinite Layers:** 4 layers of zoomable, pannable design space.
+- [ ] **Spatial Strategy:** Strategy represented as nodes rather than a doc. (Next)
+
+
+-------
+
+# FEATURE LEDGER
+
+## CORE CAPABILITIES (PROTECTED)
+- [x] **Voice-to-Canvas:** The "Architect" Agent generates diagrams from speech.
+- [x] **Twin-Engine Backend:** Dedicated `/agent/design` router.
+- [x] **3-Layer State:** Journey, Sitemap, Wireframe.
+
+## INTERFACE (MOBILE FIRST)
+- [x] **Schematic Nodes:** specialized, icon-free shapes for Flowcharts.
+- [x] **Miro-Style Connections:** Drag-to-connect any point. Drag-off-to-delete.
+- [x] **Center Stage UI:** Single-column chat layout.
+- [x] **Responsive Drawer:** Sidebar slides in on mobile.
+
+## WIREFRAME KIT (BATCH 1-3)
+- **Containers:** Resizable Mobile Screen.
+- **Nav:** Header, Tab Bar, Search Bar.
+- **Actions:** Primary/Secondary Buttons, FAB, Link.
+- **Inputs:** Input Field, Text Area, Checkbox, Switch.
+- **Media:** Image, Avatar, Video, Map.
+- **Content:** List Item, Card, Heading, Paragraph, Badge, Divider, Accordion.
+
+## INTERNAL TOOLS
+- **The Design Lab:** (`/design-lab`)
+    - **Wireframe Toggle:** Switch between "Skeleton" and "Vibe" modes.
+--- END: FEATURES.md ---
+
+
+--- START: VISION_MANIFEST.md ---
+# VISION MANIFEST: THE 3-LAYER ENGINE
+
+To prevent "Context Decay" and "Layout Hallucination," the Design Lab uses a 3-Lens approach on a single shared state.
+
+## LAYER 1: THE USER JOURNEY (Logic)
+*   **Purpose:** Define *Flow* and *Why*.
+*   **Visuals:** Standard Flowchart Nodes (Start, Decision, Action, End).
+*   **Data:** Nodes = Steps. Edges = User Choices.
+*   **AI Role:** "Map out a sign-up flow." (Generates abstract nodes).
+
+## LAYER 2: THE SITEMAP (Structure)
+*   **Purpose:** Define *Inventory* and *Hierarchy*.
+*   **Visuals:** Tree Diagram / Org Chart.
+*   **Data:** Nodes = Screens. Edges = Navigation paths.
+*   **Sync Rule:** If a Screen is deleted here, it must warn the user before deleting the Wireframe in Layer 3.
+
+## LAYER 3: THE WIREFRAMES (Surface)
+*   **Purpose:** Define *Layout* and *Content*.
+*   **Visuals:** `MobileFrameNode` containers populated with `ComponentNode` children.
+*   **Constraint:** Components snap to Frames. They cannot float in the void (orphans).
+
+## TECHNICAL STRATEGY
+*   **Store:** `Zustand` (Global State).
+*   **Layout:** `Dagre` (Deterministic X/Y calculation).
+*   **Output:** A unified `manifest.json` that acts as the "Contract" for the eventual Coding Agent.
+--- END: VISION_MANIFEST.md ---
+
+
+--- START: CONTEXT_BRAIN.md ---
+
+# PROJECT BRAIN: VIBE DESIGN LAB
+*Current Status: V2.7 (Multi-Agent Assembly Line)*
+*Last Updated: 2026-01-26*
+
+## 1. THE MISSION
+Transitioning from a single-agent summary tool to a true "Assembly Line" where 6 watertight specialists (Researcher, Advocate, Lateral, Scout, Constraint, Synthesizer) collaborate via sequential API calls to build high-fidelity strategy DNA.
+
+## 2. THE ASSEMBLY LINE (The Physics)
+- **Sequential Hiring:** Each paper triggers 6 distinct LLM calls.
+- **Tension Management:** The Advocate specifically reviews the Researcher's work. The Synthesizer adjudicates the final tension.
+- **Informed Confidence Gate:** Authoring is blocked until Turn 3+ of dialogue to ensure the "Soul" of the project is understood.
+
+## 3. ACTIVE FEATURES
+*   [x] **Watertight Agents:** Specialists have discrete prompts and no "leaking" logic.
+*   [x] **Search Grounding:** Researcher role uses real-time Google Search (Vertex AI).
+*   [x] **A4 Editorial UI:** Full-bleed Substack/Medium aesthetic with Position/Appendix tabs.
+*   [x] **Liquid Roster:** 30+ specialists managed entirely via the Agency Lab DB.
+
+## 4. NEXT IMMEDIATE GOALS
+1.  **Context Inspector:** Visual toggle to see the "Worldview" (decision ledger) fed to agents.
+2.  **Dept 6-10 (Visual Design):** Transition the Strategy DNA into visual Flowcharts.
+
+----
+
+# PROJECT BRAIN: VIBE DESIGN LAB
+*Current Status: V2.4 (The Venture-Grade Agency)*
+*Last Updated: 2026-01-20*
+
+## 1. THE MISSION
+Building a premium Visual IDE for "Computational Strategy." The system utilizes a 6-man specialist team per pillar to author high-density venture strategy.
+
+## 2. THE 6-ROLE VENTURE MATRIX
+Every department now employs:
+1. **Researcher:** Factual grounding/Search.
+2. **Advocate:** Critical de-risking/Red-teaming.
+3. **Lateral:** Cross-industry reframing.
+4. **Scout:** Value capture/Monetization logic.
+5. **Constraint:** Technical/Resource realism.
+6. **Synthesizer:** Executive resolution.
+
+## 3. ACTIVE FEATURES
+*   [x] **Full Brain Inhabitation (V12):** All 31 agents have high-density, professional prompts.
+*   [x] **Liquid Command Center:** Hierarchical Sidebar and Dual-Mode Editor (Lens vs. Persona).
+*   [x] **Automated Handshake:** PM auto-names projects in Firestore on Turn 2.
+*   [x] **Unified Persistence:** Manifest autosave to Firestore.
+
+## 4. NEXT IMMEDIATE GOALS
+1. **Context Inspector:** Implement a "View Worldview" toggle to see exact context passed to agents.
+2. **Visual Snowball:** Triggering visual Journey flows based on the authored Strategy.
+
+-----
+
+
+# PROJECT BRAIN: VIBE DESIGN LAB
+*Current Status: V2.5 (The Liquid Agency & Cognitive Matrix)*
+*Last Updated: 2026-01-20*
+
+## 1. THE MISSION
+Building a premium Visual IDE for "Computational Strategy." The system utilizes a 5-pillar high-density strategy engine governed by a hierarchical "Control Room" where every agent's persona and departmental lens is engineered in real-time.
+
+## 2. THE ARCHITECTURE (The Liquid Agency)
+*   **The Brain:** Prompts, Roles, and Lenses are entirely data-driven (Firestore).
+*   **The Control Room:** Administrative UI at `/agency-lab` features a hierarchical "Double-Accordion" sidebar (Dpt -> Team -> Agent).
+*   **The Cognitive Matrix:** Every department employs the exact same 5 functional roles looking through a specific Departmental Lens.
+
+## 3. ACTIVE FEATURES
+*   [x] **Hierarchical Agency Lab:** Dpt -> Team -> Agent selector with Index-based sorting.
+*   [x] **Dual-Mode Editor:** Separate editing for "Departmental Lenses" and "Agent Personas."
+*   [x] **Informed Confidence Gate:** 3-5 turns of Socratic discovery before authoring.
+*   [x] **A4 Position Papers:** Tabbed Executive/Appendix UI with auto-autosave.
+
+## 4. NEXT IMMEDIATE GOALS
+1.  **Brain Inhabitation:** Replace placeholder prompts with world-class "Tension-Based" instructions.
+2.  **Context Inspector (Worldview):** Implement visual transparency of the "intel" fed to agents.
+3.  **The Scribe:** Implement background summarization to protect the token-window.
+--- END: CONTEXT_BRAIN.md ---
+
+
+--- START: next.config.ts ---
+import type { NextConfig } from "next";
+
+const nextConfig: any = {
+  output: "standalone",
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+};
+
+export default nextConfig;
+--- END: next.config.ts ---
+
+
+--- START: src/types/vibe-core.ts ---
+// --- SECTION A: IMPORTS ---
+import { Node, Edge, OnNodesChange, OnEdgesChange, Connection } from '@xyflow/react';
+
+// --- SECTION B: CORE COMPONENT TYPES ---
+export type VibeLayer = 'STRATEGY' | 'JOURNEY' | 'SITEMAP' | 'WIREFRAME';
+export type DeptStatus = 'NOT_STARTED' | 'DRAFTING' | 'STABLE' | 'EVOLVING';
+
+export interface StrategyPaper {
+  version: string;
+  timestamp: string;
+  masthead: string;
+  headline: string;
+  context: string;
+  position_narrative: string;
+  uncomfortable_truths: string[];
+  risky_assumptions: string[];
+  appendix: {
+    domain_research: string;
+    critical_teardown: string;
+    lateral_reframing: string;
+    opportunity_scout: string;
+    build_constraints: string;
+    synthesis_logic: string;
+    link_bank: string[];
+  };
+  version_note: string;
+}
+
+export interface DeptSlot {
+  id: string;
+  deptId: string;
+  label: string;
+  icon: string;
+  status: DeptStatus;
+  activeVersion: number;
+  history: StrategyPaper[];
+}
+
+// FIX: Explicitly exported ProjectMetadata
+export interface ProjectMetadata {
+  thread_id: string;
+  project_name: string;
+  updated_at: string;
+  is_pinned?: boolean;
+}
+
+export interface LayerData {
+  nodes: Node[];
+  edges: Edge[];
+}
+
+export interface ChatMessage {
+  role: 'user' | 'assistant';
+  content: string;
+}
+
+// --- SECTION C: THE UNIFIED MANIFEST ---
+export interface VibeManifest {
+  project_name: string;
+  strategyLedger: Record<string, DeptSlot>;
+  chatHistory: ChatMessage[];
+  strategyDoc: string;
+  activeLayer: VibeLayer;
+  activeSpecialist: string | null;
+  layers: {
+    STRATEGY: LayerData;
+    JOURNEY: LayerData;
+    SITEMAP: LayerData;
+    WIREFRAME: LayerData;
+  };
+}
+
+// --- SECTION D: THE STORE INTERFACE ---
+export interface VibeStore extends VibeManifest {
+  // App & Session State
+  project: { id: string; name: string };
+  projectList: ProjectMetadata[];
+  agencyRoster: any[]; 
+  departmentRegistry: any[]; 
+  isChatOpen: boolean;
+
+  // Management Actions
+  fetchProjects: () => Promise<void>;
+  initProjectCloud: () => Promise<string>;
+  loadProjectCloud: (id: string) => Promise<void>;
+  renameProject: (newName: string) => Promise<void>;
+  deleteProject: (id: string) => Promise<void>;
+  togglePin: (id: string) => Promise<void>;
+  
+  // Agency Lab Actions
+  fetchRoster: () => Promise<void>;
+  updateAgentInDB: (agentId: string, updates: any) => Promise<void>;
+  updateDeptInDB: (deptId: string, updates: any) => Promise<void>;
+
+  // UI & Physics Actions
+  setActiveLayer: (layer: VibeLayer) => void;
+  setChatOpen: (open?: boolean) => void;
+  setActiveSpecialist: (id: string | null) => void;
+  updateManifest: (partial: Partial<VibeManifest>) => void;
+  setStrategyDoc: (doc: string) => void;
+  setNodes: (nodes: Node[]) => void;
+  setEdges: (edges: Edge[]) => void;
+  onNodesChange: OnNodesChange;
+  onEdgesChange: OnEdgesChange;
+  onConnect: (connection: Connection) => void;
+  generateLayout: (input: Blob | string) => Promise<any>;
+}
+--- END: src/types/vibe-core.ts ---
+
+
+--- START: src/types/design-system.ts ---
+// src/types/design-system.ts
+
+export type ComponentCategory = 'Layout' | 'Navigation' | 'Inputs' | 'Buttons' | 'Media' | 'Display' | 'Annotation';
+
+export type ComponentType = 
+  // Containers
+  | 'MobileScreen'
+  // Layout
+  | 'Card' | 'Divider' | 'Stack'
+  // Navigation
+  | 'Header' | 'TabBar'
+  // Inputs
+  | 'InputField' | 'Checkbox' | 'Switch'
+  // Buttons
+  | 'PrimaryButton' | 'SecondaryButton'
+  // Media
+  | 'ImagePlaceholder' | 'Avatar'
+  // Display
+  | 'TextLabel' | 'ListItem' | 'Badge'
+  // Annotation
+  | 'StickyNote' | 'Arrow' | 'CommentBadge' | 'HighlightBox';
+
+export interface ComponentSchema {
+  id: string;
+  type: ComponentType;
+  label: string;
+  category: ComponentCategory;
+  icon: string; // Lucide icon name
+  defaultProps?: Record<string, any>;
+}
+
+// THE VIBE STANDARD LIBRARY
+export const COMPONENT_LIBRARY: ComponentSchema[] = [
+  // --- LAYOUT ---
+  { id: 'card', type: 'Card', label: 'Card', category: 'Layout', icon: 'Square', defaultProps: { shadow: true } },
+  { id: 'divider', type: 'Divider', label: 'Divider', category: 'Layout', icon: 'Minus', defaultProps: { orientation: 'horizontal' } },
+  { id: 'stack', type: 'Stack', label: 'Stack / Group', category: 'Layout', icon: 'Layers', defaultProps: { direction: 'column', spacing: 16 } },
+
+  // --- NAVIGATION ---
+  { id: 'header', type: 'Header', label: 'Page Header', category: 'Navigation', icon: 'PanelTop', defaultProps: { title: 'Header' } },
+  { id: 'tabbar', type: 'TabBar', label: 'Tab Bar', category: 'Navigation', icon: 'PanelBottom', defaultProps: { activeTab: 0 } },
+
+  // --- INPUTS ---
+  { id: 'input', type: 'InputField', label: 'Input Field', category: 'Inputs', icon: 'Type', defaultProps: { placeholder: 'Enter text...' } },
+  { id: 'checkbox', type: 'Checkbox', label: 'Checkbox', category: 'Inputs', icon: 'CheckSquare', defaultProps: { checked: false } },
+  { id: 'switch', type: 'Switch', label: 'Switch', category: 'Inputs', icon: 'ToggleRight', defaultProps: { enabled: false } },
+
+  // --- BUTTONS ---
+  { id: 'btn-primary', type: 'PrimaryButton', label: 'Primary Button', category: 'Buttons', icon: 'MousePointerClick', defaultProps: { label: 'Button', variant: 'filled' } },
+  { id: 'btn-secondary', type: 'SecondaryButton', label: 'Secondary Button', category: 'Buttons', icon: 'MousePointer2', defaultProps: { label: 'Cancel', variant: 'outlined' } },
+
+  // --- MEDIA ---
+  { id: 'image', type: 'ImagePlaceholder', label: 'Image Box', category: 'Media', icon: 'Image', defaultProps: { width: 100, height: 100 } },
+  { id: 'avatar', type: 'Avatar', label: 'User Avatar', category: 'Media', icon: 'CircleUser', defaultProps: { size: 40, shape: 'circle' } },
+
+  // --- DISPLAY ---
+  { id: 'text', type: 'TextLabel', label: 'Text Label', category: 'Display', icon: 'AlignLeft', defaultProps: { text: 'Label', fontSize: 16 } },
+  { id: 'listitem', type: 'ListItem', label: 'List Item', category: 'Display', icon: 'List', defaultProps: { title: 'Title', subtitle: 'Subtitle', chevron: true } },
+  { id: 'badge', type: 'Badge', label: 'Notification Badge', category: 'Display', icon: 'Bell', defaultProps: { text: '1', color: 'red' } },
+
+  // --- ANNOTATIONS (Meta Layer) ---
+  { id: 'sticky', type: 'StickyNote', label: 'Sticky Note', category: 'Annotation', icon: 'StickyNote', defaultProps: { text: 'Comment...', color: '#FFFF99' } },
+  { id: 'highlight', type: 'HighlightBox', label: 'Highlight Area', category: 'Annotation', icon: 'Focus', defaultProps: { color: 'yellow', opacity: 0.3 } },
+];
+--- END: src/types/design-system.ts ---
+
+
+--- START: src/app/layout.tsx ---
+import type { Metadata } from "next";
+import { Inter, Playfair_Display } from "next/font/google";
+import "./globals.css";
+
+// Premium Sans-Serif for professional body text and UI
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
+});
+
+// Executive Serif for Strategy Papers and high-end headers
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  variable: "--font-playfair",
+  display: "swap",
+  style: ["normal", "italic"],
+});
+
+export const metadata: Metadata = {
+  title: "Vibe Design Lab",
+  description: "The Agentic Service Bureau for App Design",
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang="en">
+      <body
+        className={`${inter.variable} ${playfair.variable} antialiased font-sans`}
+      >
+        {children}
+      </body>
+    </html>
+  );
+}
+--- END: src/app/layout.tsx ---
+
+
+--- START: src/app/page.tsx ---
+"use client";
+// --- SECTION A: IMPORTS ---
+import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { Plus, MoreVertical, Trash2, Pin } from 'lucide-react';
+import { useVibeStore } from '@/store/vibe-store';
+
+export default function ProjectLobby() {
+  const router = useRouter();
+  const { projectList, fetchProjects, deleteProject, togglePin, initProjectCloud } = useVibeStore();
+  const [activeMenu, setActiveMenu] = useState<string | null>(null);
+
+  useEffect(() => { 
+    fetchProjects(); 
+  }, [fetchProjects]);
+
+  const handleCreate = async () => {
+    const id = await initProjectCloud();
+    router.push(`/project/${id}`);
+  };
+
+  return (
+    <div className="min-h-screen bg-white flex flex-col items-center pt-24 font-sans">
+      <div className="text-center mb-16 animate-in fade-in slide-in-from-top-4 duration-1000">
+        <h1 className="font-playfair text-6xl font-black text-slate-900 mb-4 italic tracking-tight tracking-tighter">Hey Boss.</h1>
+        <p className="text-slate-400 font-medium text-lg tracking-tight">I'm ready to build. What's the vision today?</p>
+      </div>
+
+      <div className="w-full max-w-xl flex flex-col gap-4 px-6 mb-20">
+        <button onClick={handleCreate} className="w-full bg-[#249264] hover:bg-[#1c7a52] text-white py-6 rounded-3xl text-xl font-bold flex items-center justify-center gap-3 shadow-2xl shadow-green-200 transition-all active:scale-95">
+          <Plus className="w-6 h-6" /><span>Start New Project</span>
+        </button>
+      </div>
+
+      <div className="w-full max-w-xl px-6 pb-20">
+        <h2 className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-300 mb-8 px-4">Recent Projects</h2>
+        <div className="space-y-3">
+          {projectList.map((p: any) => (
+            <div key={p.thread_id} className="group relative flex items-center justify-between p-6 bg-slate-50/50 hover:bg-white border border-transparent hover:border-slate-100 rounded-[2rem] transition-all cursor-pointer" onClick={() => router.push(`/project/${p.thread_id}`)}>
+              <div className="flex flex-col">
+                <span className="text-lg font-bold text-slate-800 flex items-center gap-2">
+                  {p.is_pinned && <Pin className="w-3 h-3 text-blue-500 fill-blue-500" />}
+                  {p.project_name}
+                </span>
+                <span className="text-[10px] font-medium text-slate-400 uppercase tracking-widest">Edited {new Date(p.updated_at).toLocaleDateString()}</span>
+              </div>
+              
+              <div className="relative">
+                <button 
+                  onClick={(e) => { e.stopPropagation(); setActiveMenu(activeMenu === p.thread_id ? null : p.thread_id); }} 
+                  aria-label="Project actions"
+                  title="Project actions"
+                  className="p-2 hover:bg-slate-100 rounded-full transition-colors"
+                >
+                  <MoreVertical className="w-5 h-5 text-slate-300" />
+                </button>
+                {activeMenu === p.thread_id && (
+                  <div className="absolute right-0 top-10 w-48 bg-white border border-slate-100 shadow-2xl rounded-2xl z-50 overflow-hidden animate-in fade-in zoom-in-95 duration-200" onMouseLeave={() => setActiveMenu(null)}>
+                    <MenuAction icon={Pin} label={p.is_pinned ? "Unpin Project" : "Pin Project"} onClick={() => togglePin(p.thread_id)} />
+                    <MenuAction icon={Trash2} label="Delete Project" color="text-red-500" onClick={() => { if (confirm(`Delete "${p.project_name}"?`)) deleteProject(p.thread_id); }} />
+                  </div>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+const MenuAction = ({ icon: Icon, label, onClick, color = "text-slate-600" }: any) => (
+  <button onClick={(e) => { e.stopPropagation(); onClick(); }} className={`w-full flex items-center gap-3 px-4 py-4 hover:bg-slate-50 transition-colors text-xs font-bold ${color}`}>
+    <Icon className="w-4 h-4" /><span>{label}</span>
+  </button>
+);
+--- END: src/app/page.tsx ---
+
+
+--- START: src/app/globals.css ---
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+--- END: src/app/globals.css ---
+
+
+--- START: src/app/project/[id]/page.tsx ---
+"use client";
+
+// --- SECTION A: IMPORTS ---
+import React, { useCallback, useRef, useState, useMemo, useEffect } from 'react';
+import { 
+  ReactFlow, Background, Controls, Connection, Edge, Node, 
+  BackgroundVariant, ReactFlowProvider, useReactFlow, NodeProps, 
+  Panel, MarkerType, reconnectEdge, ConnectionMode, NodeResizer, 
+  NodeResizeControl, useStore 
+} from '@xyflow/react';
+import '@xyflow/react/dist/style.css';
+import { 
+    GripHorizontal, Box, Map, Network, Layout, Loader2, 
+    ArrowLeft, BookOpen, ChevronDown, Send, MessageSquare, 
+    PanelRightClose, PanelRightOpen, X, Fingerprint, Zap, BarChart3, Users, TrendingUp, ShieldAlert
+} from 'lucide-react';
+import { JourneyToolbar } from '@/components/JourneyToolbar';
+import { SitemapToolbar } from '@/components/SitemapToolbar';
+import { WireframeToolbar } from '@/components/WireframeToolbar';
+import { useVibeStore } from '@/store/vibe-store';
+import VoiceRecorder from '@/components/VoiceRecorder';
+import { StrategyNode } from '@/components/StrategyNodes';
+import { clsx } from 'clsx';
+import { useRouter, useParams } from 'next/navigation';
+
+// --- SECTION B: NODE TYPES & HELPERS ---
+import { DecisionNode, StartNode, EndNode, ActionNode } from '@/components/FlowNodes';
+import { PageNode, PurposeNode } from '@/components/SitemapNodes';
+import { 
+    HeaderNode, TabBarNode, SearchBarNode, PrimaryButtonNode, 
+    SecondaryButtonNode, FABNode, LinkNode, InputFieldNode,
+    TextAreaNode, CheckboxNode, SwitchNode, ImageNode, 
+    AvatarNode, VideoNode, MapNode, ListItemNode, HeadingNode,
+    ParagraphNode, BadgeNode, CardNode, DividerNode, AccordionNode 
+} from '@/components/WireframeNodes';
+
+const ResizeIcon = () => (
+    <div className="w-full flex justify-center cursor-ns-resize py-1 bg-slate-100 hover:bg-slate-200 border-t border-slate-300">
+        <ChevronDown className="w-4 h-4 text-slate-400" />
+    </div>
+);
+
+const MobileFrameNode = ({ id, data, selected }: NodeProps) => {
+  const height = useStore((s) => s.nodeLookup.get(id)?.measured?.height || 812);
+  const showFold = height > 812;
+  const { setNodes } = useReactFlow();
+  const [label, setLabel] = useState(data.label as string);
+  return (
+    <div className="w-full h-full bg-white border-[4px] border-black rounded-xl shadow-2xl relative flex flex-col group min-h-[812px]">
+      <NodeResizer isVisible={!!selected} minWidth={375} maxWidth={375} minHeight={812} handleStyle={{ width: 10, height: 10, borderRadius: 5 }} lineStyle={{ border: '1px solid #000' }} />
+      <div className="h-10 bg-black flex items-center justify-between px-4 handle cursor-move shrink-0 z-20 rounded-t-lg font-sans">
+        <input className="text-xs font-bold text-white bg-transparent outline-none w-full uppercase tracking-wider placeholder-gray-500" value={label} onChange={(e) => setLabel(e.target.value)} onBlur={() => setNodes(nodes => nodes.map(n => n.id === id ? { ...n, data: { ...n.data, label } } : n))} placeholder="SCREEN NAME" aria-label="Edit Screen Name" />
+        <GripHorizontal className="w-4 h-4 text-gray-500" />
+      </div>
+      <div className="flex-1 bg-white relative overflow-hidden">{showFold && (<div className="absolute top-[812px] left-0 right-0 border-t-2 border-dashed border-blue-400 z-50 flex justify-center pointer-events-none font-sans"><span className="bg-blue-400 text-white text-[9px] px-2 rounded-b font-bold uppercase tracking-widest font-sans">The Fold</span></div>)}</div>
+      <NodeResizeControl style={{ opacity: 1, background: 'transparent', border: 'none' }} minWidth={375} minHeight={812} position="bottom"><ResizeIcon /></NodeResizeControl>
+    </div>
+  );
+};
+
+const GenericComponentNode = ({ data, type }: NodeProps) => (
+  <div className="min-w-[120px] min-h-[40px] bg-white border border-purple-200 rounded-lg shadow-sm flex items-center gap-3 px-3 py-2 font-sans text-black">
+    <div className="p-1.5 bg-purple-50 rounded text-purple-600"><Box className="w-4 h-4" /></div>
+    <div><div className="text-xs font-bold">{type}</div><div className="text-[10px] text-slate-400 truncate max-w-[100px]">{data.label as string}</div></div>
+  </div>
+);
+
+const nodeTypes = { 
+    strategy: StrategyNode, MobileScreen: MobileFrameNode, Header: HeaderNode, TabBar: TabBarNode, SearchBar: SearchBarNode, PrimaryButton: PrimaryButtonNode, SecondaryButton: SecondaryButtonNode,
+    FAB: FABNode, Link: LinkNode, InputField: InputFieldNode, TextArea: TextAreaNode, Checkbox: CheckboxNode, Switch: SwitchNode, Image: ImageNode, ImagePlaceholder: ImageNode,
+    Avatar: AvatarNode, List: ListItemNode, ListItem: ListItemNode, Heading: HeadingNode, Paragraph: ParagraphNode, Badge: BadgeNode, Card: CardNode, Divider: DividerNode,
+    Accordion: AccordionNode, decision: DecisionNode, input: StartNode, output: EndNode, default: ActionNode, page: PageNode, purpose: PurposeNode,
+    StickyNote: GenericComponentNode,
+};
+
+// --- SECTION C: MAIN PAGE COMPONENT ---
+const Canvas = () => {
+  const router = useRouter();
+  const { id } = useParams();
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [chatInput, setChatInput] = useState("");
+  const [isEditingName, setIsEditingName] = useState(false);
+  
+  const { 
+    activeLayer, layers, onNodesChange, onEdgesChange, onConnect, 
+    setActiveLayer, generateLayout, chatHistory, isChatOpen, setChatOpen,
+    project, renameProject, loadProjectCloud, activeSpecialist, setActiveSpecialist
+  } = useVibeStore();
+
+  // --- SECTION D: HYDRATION ---
+  useEffect(() => {
+    // 🛡️ Synchronously set the ID and start hydration immediately
+    if (id) loadProjectCloud(id as string);
+  }, [id, loadProjectCloud]);
+
+  const handleSend = async () => {
+    if (!chatInput.trim()) return;
+    setIsGenerating(true);
+    const msg = chatInput;
+    setChatInput("");
+    await generateLayout(msg);
+    setIsGenerating(false);
+  };
+
+  const handleVoice = async (blob: Blob) => {
+    setIsGenerating(true);
+    await generateLayout(blob);
+    setIsGenerating(false);
+  };
+
+  const handleRename = (e: React.FocusEvent<HTMLInputElement>) => {
+    setIsEditingName(false);
+    if (e.target.value !== project.name) renameProject(e.target.value);
+  };
+
+  const nodes = layers[activeLayer].nodes;
+  const edges = layers[activeLayer].edges;
+
+  // SPECIALIST UI MAPPING
+  const specialistMap: Record<string, { label: string, icon: any, color: string }> = {
+    the_big_idea: { label: 'Startup Wizard', icon: Zap, color: 'bg-purple-600' },
+    market_reality: { label: 'Market Scout', icon: BarChart3, color: 'bg-blue-600' },
+    audience_ecosystem: { label: 'Psychologist', icon: Users, color: 'bg-orange-600' },
+    content_structure: { label: 'Information Architect', icon: TrendingUp, color: 'bg-green-600' },
+    ux_feasibility: { label: 'Design Strategist', icon: ShieldAlert, color: 'bg-red-600' },
+  };
+
+  const currentSpecialist = activeSpecialist ? specialistMap[activeSpecialist] : null;
+
+  return (
+    <div className="flex h-screen w-screen bg-slate-100 overflow-hidden relative font-sans">
+      
+      {/* TOP LEFT HEADER */}
+      <div className="absolute top-6 left-6 z-[60] flex items-center gap-4">
+        <button onClick={() => router.push('/')} aria-label="Back to Lobby" className="p-3 bg-white hover:bg-slate-50 rounded-2xl shadow-xl border border-slate-200 transition-all active:scale-95 text-slate-400"><ArrowLeft className="w-5 h-5" /></button>
+        <div className="bg-white px-4 py-2 rounded-2xl shadow-xl border border-slate-200 flex flex-col min-w-[200px]">
+            <span className="text-[9px] font-black uppercase tracking-widest text-slate-400">Current Project</span>
+            {isEditingName ? (
+                <input autoFocus className="text-xs font-bold text-slate-900 outline-none bg-slate-50 rounded px-1" defaultValue={project.name} onBlur={handleRename} onKeyDown={(e) => e.key === 'Enter' && e.currentTarget.blur()} aria-label="Project name" placeholder="Enter name..." />
+            ) : (
+                <span onClick={() => setIsEditingName(true)} className="text-xs font-bold text-slate-900 cursor-pointer hover:text-slate-500 transition-colors uppercase">{project.name}</span>
+            )}
+        </div>
+      </div>
+
+      <div className={clsx("flex-1 h-full relative bg-white transition-all duration-300 ease-in-out", isChatOpen ? "mr-[450px]" : "mr-0")}>
+        <div className="absolute top-6 left-1/2 -translate-x-1/2 z-50">
+            <div className="bg-white/90 backdrop-blur-md p-1.5 rounded-full shadow-2xl border flex gap-1">
+                <LayerTab label="Strategy" icon={BookOpen} isActive={activeLayer === 'STRATEGY'} onClick={() => setActiveLayer('STRATEGY')} />
+                <LayerTab label="Journey" icon={Map} isActive={activeLayer === 'JOURNEY'} onClick={() => setActiveLayer('JOURNEY')} />
+                <LayerTab label="Sitemap" icon={Network} isActive={activeLayer === 'SITEMAP'} onClick={() => setActiveLayer('SITEMAP')} />
+                <LayerTab label="Wireframes" icon={Layout} isActive={activeLayer === 'WIREFRAME'} onClick={() => setActiveLayer('WIREFRAME')} />
+            </div>
+        </div>
+
+        <ReactFlow nodes={nodes} edges={edges} onNodesChange={onNodesChange} onEdgesChange={onEdgesChange} onConnect={onConnect} nodeTypes={nodeTypes} fitView snapToGrid connectionMode={ConnectionMode.Loose}>
+            <Background color="#ccc" variant={BackgroundVariant.Dots} gap={20} size={1} />
+            <Controls className="!bg-white !shadow-xl !rounded-lg overflow-hidden" />
+            {activeLayer === 'JOURNEY' && <JourneyToolbar />}
+            {activeLayer === 'SITEMAP' && <SitemapToolbar />}
+            {activeLayer === 'WIREFRAME' && <WireframeToolbar />}
+        </ReactFlow>
+
+        {!isChatOpen && (<button onClick={() => setChatOpen(true)} aria-label="Open Project Manager" className="absolute top-6 right-6 z-[60] p-3 bg-slate-900 text-white rounded-2xl shadow-2xl hover:bg-black transition-all"><MessageSquare className="w-6 h-6" /></button>)}
+      </div>
+
+      {/* CHAT SIDEBAR */}
+      <div className={clsx(
+          "fixed top-0 right-0 h-full bg-white border-l border-slate-200 flex flex-col shadow-2xl z-[70] transition-all duration-300 font-sans",
+          isChatOpen ? "w-[450px] translate-x-0" : "w-[450px] translate-x-full"
+      )}>
+        <div className={clsx(
+            "p-4 border-b border-slate-100 flex items-center justify-between transition-colors duration-500",
+            currentSpecialist ? "bg-slate-900" : "bg-slate-50/50"
+        )}>
+            <div className="flex items-center gap-3">
+                <div className={clsx(
+                    "w-10 h-10 rounded-xl flex items-center justify-center text-white transition-all shadow-lg",
+                    currentSpecialist ? currentSpecialist.color : "bg-slate-900"
+                )}>
+                    {currentSpecialist ? <currentSpecialist.icon className="w-5 h-5" /> : <MessageSquare className="w-5 h-5" />}
+                </div>
+                <div>
+                    <span className="text-[10px] font-black uppercase tracking-widest block leading-none mb-1 text-slate-400">
+                        {currentSpecialist ? "Direct Access" : "Agency Hub"}
+                    </span>
+                    <span className={clsx("text-xs font-bold uppercase", currentSpecialist ? "text-white" : "text-slate-900")}>
+                        {currentSpecialist ? currentSpecialist.label : "Project Manager"}
+                    </span>
+                </div>
+            </div>
+            <div className="flex items-center gap-1">
+                {currentSpecialist && (
+                    <button onClick={() => setActiveSpecialist(null)} className="p-2 text-slate-400 hover:text-white transition-colors flex items-center gap-1.5" title="Return to PM">
+                        <X className="w-4 h-4" /> <span className="text-[10px] font-bold uppercase tracking-widest">Exit</span>
+                    </button>
+                )}
+                <button onClick={() => setChatOpen(false)} aria-label="Close" className={clsx("p-2 rounded-lg", currentSpecialist ? "text-slate-400 hover:text-white" : "text-slate-400 hover:bg-slate-100")}><PanelRightClose className="w-5 h-5" /></button>
+            </div>
+        </div>
+
+        <div className="flex-1 overflow-y-auto p-4 space-y-6 scrollbar-hide">
+            {chatHistory.map((msg: {role: string, content: string}, i: number) => (
+                <div key={i} className={clsx("flex flex-col", msg.role === 'user' ? "items-end" : "items-start")}>
+                    <div className={clsx("max-w-[90%] p-4 rounded-2xl text-sm leading-relaxed shadow-sm", msg.role === 'user' ? "bg-slate-900 text-white rounded-tr-none" : "bg-white text-slate-800 rounded-tl-none border border-slate-100")}>
+                        {msg.content}
+                    </div>
+                </div>
+            ))}
+            {isGenerating && <div className="flex items-center gap-2 animate-pulse text-[10px] font-black uppercase tracking-widest text-slate-400 p-2"><Loader2 className="w-3 h-3 animate-spin" /> {currentSpecialist ? `Consulting ${currentSpecialist.label}...` : "Thinking..."}</div>}
+        </div>
+        <div className="p-4 bg-slate-50 border-t border-slate-200">
+            <div className="relative bg-white rounded-2xl border border-slate-200 p-2 focus-within:border-slate-400 transition-all">
+                <textarea className="w-full bg-transparent border-none focus:ring-0 text-sm p-3 pb-12 resize-none min-h-[100px]" placeholder={currentSpecialist ? `Interview the ${currentSpecialist.label}...` : "Evolve the vision..."} value={chatInput} onChange={(e) => setChatInput(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && (e.preventDefault(), handleSend())} />
+                <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between">
+                    <VoiceRecorder onRecordingComplete={handleVoice} />
+                    <button onClick={handleSend} aria-label="Send" disabled={!chatInput.trim() || isGenerating} className="bg-slate-900 text-white p-2.5 rounded-xl disabled:opacity-50 hover:bg-black transition-all shadow-md"><Send className="w-4 h-4" /></button>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const LayerTab = ({ label, icon: Icon, isActive, onClick }: { label: string, icon: any, isActive: boolean, onClick: () => void }) => (
+    <button onClick={onClick} className={clsx("flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold transition-all", isActive ? "bg-slate-900 text-white shadow-lg" : "text-slate-500 hover:bg-slate-100")}><Icon className="w-3.5 h-3.5" /><span>{label}</span></button>
+);
+
+export default function DesignLabApp() { return <ReactFlowProvider><Canvas /></ReactFlowProvider>; }
+--- END: src/app/project/[id]/page.tsx ---
+
+
+--- START: src/app/agency-lab/page.tsx ---
+"use client";
+
+// --- SECTION A: IMPORTS ---
+import React, { useEffect, useState, useMemo } from 'react';
+import { useRouter } from 'next/navigation';
+import { ArrowLeft, Save, Shield, Zap, Cpu, ChevronDown, ChevronRight, MessageSquare, Glasses, Box } from 'lucide-react';
+import { useVibeStore } from '@/store/vibe-store';
+import { clsx } from 'clsx';
+
+// --- SECTION B: MASTER ORDER CONFIG ---
+const DEPT_ORDER = [
+  "BIG_IDEA_TEAM",
+  "MARKET_TEAM",
+  "AUDIENCE_TEAM",
+  "STRUCTURE_TEAM",
+  "FEASIBILITY_TEAM"
+];
+
+export default function AgencyLab() {
+  const router = useRouter();
+  const { agencyRoster, departmentRegistry, fetchRoster, updateAgentInDB, updateDeptInDB } = useVibeStore();
+  
+  const [selectedAgent, setSelectedAgent] = useState<any>(null);
+  const [selectedDept, setSelectedDept] = useState<any>(null);
+  const [editorContent, setEditorContent] = useState("");
+  const [expandedTeams, setExpandedTeams] = useState<string[]>(DEPT_ORDER);
+
+  useEffect(() => { 
+    fetchRoster(); 
+  }, [fetchRoster]);
+
+  // --- SECTION C: HIERARCHY MAPPING ---
+  const hierarchy = useMemo(() => {
+    const map: any = {};
+    agencyRoster.forEach((a: any) => {
+        const level = a.level_id || 'UNKNOWN';
+        const dept = a.dept_id || 'UNKNOWN';
+        if (!map[level]) map[level] = {};
+        if (!map[level][dept]) map[level][dept] = [];
+        map[level][dept].push(a);
+    });
+    return map;
+  }, [agencyRoster]);
+
+  const toggleTeam = (id: string) => {
+    setExpandedTeams(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]);
+    const dept = departmentRegistry.find((d: any) => d.id === id);
+    if (dept) {
+        setSelectedAgent(null);
+        setSelectedDept(dept);
+        setEditorContent(dept.lens_profile);
+    }
+  };
+
+  const handleSelectAgent = (agent: any) => {
+    setSelectedDept(null);
+    setSelectedAgent(agent);
+    setEditorContent(agent.system_prompt);
+  };
+
+  const handleSave = async () => {
+    if (selectedAgent) {
+        await updateAgentInDB(selectedAgent.id, { ...selectedAgent, system_prompt: editorContent });
+        alert("Persona Saved.");
+    } else if (selectedDept) {
+        await updateDeptInDB(selectedDept.id, { ...selectedDept, lens_profile: editorContent });
+        alert("Lens Saved.");
+    }
+  };
+
+  return (
+    <div className="flex h-screen w-screen bg-slate-50 overflow-hidden font-sans">
+      
+      {/* --- SECTION D: ORDERED SIDEBAR --- */}
+      <div className="w-80 h-full bg-white border-r border-slate-200 flex flex-col shadow-xl z-20 overflow-y-auto">
+        <div className="p-6 border-b border-slate-100 flex items-center justify-between sticky top-0 bg-white z-10">
+            <button onClick={() => router.push('/')} aria-label="Back" className="p-2 hover:bg-slate-50 rounded-lg transition-colors border border-transparent hover:border-slate-200"><ArrowLeft className="w-5 h-5 text-slate-400" /></button>
+            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-900">Agency Control</span>
+        </div>
+
+        <div className="p-4 space-y-4">
+            {/* 1. GLOBAL PM */}
+            {hierarchy['GLOBAL']?.['HUB']?.map((pm: any) => (
+                <button key={pm.id} onClick={() => handleSelectAgent(pm)} aria-label="Select PM" className={clsx("w-full p-5 border-2 flex items-center gap-3 transition-all rounded-xl", selectedAgent?.id === pm.id ? "border-slate-900 bg-slate-900 text-white shadow-lg" : "border-slate-100 hover:border-slate-300 text-slate-600")}>
+                    <MessageSquare className="w-4 h-4" /><span className="text-xs font-black uppercase tracking-widest">{pm.display_name}</span>
+                </button>
+            ))}
+
+            {/* 2. STRATEGY DEPARTMENT (Ordered) */}
+            <div className="pt-4 border-t border-slate-50">
+                <span className="px-4 text-[9px] font-black text-slate-300 uppercase tracking-widest block mb-4">Strategy Department</span>
+                <div className="space-y-2">
+                    {DEPT_ORDER.map(deptId => (
+                        hierarchy['STRATEGY_DPT']?.[deptId] && (
+                            <div key={deptId} className="space-y-1">
+                                <button 
+                                    onClick={() => toggleTeam(deptId)}
+                                    className={clsx(
+                                        "w-full p-4 border flex items-center justify-between transition-all rounded-xl",
+                                        selectedDept?.id === deptId ? "border-slate-900 bg-slate-900 text-white shadow-md" : "bg-slate-50 border-slate-100 hover:border-slate-300 text-slate-900"
+                                    )}
+                                >
+                                    <div className="flex items-center gap-3">
+                                        <Glasses className={clsx("w-3 h-3", selectedDept?.id === deptId ? "text-white" : "opacity-30")} />
+                                        <span className="text-[10px] font-black uppercase tracking-widest">{deptId.replace(/_TEAM/g, '')}</span>
+                                    </div>
+                                    {expandedTeams.includes(deptId) ? <ChevronDown className="w-3 h-3 opacity-30" /> : <ChevronRight className="w-3 h-3 opacity-30" />}
+                                </button>
+                                
+                                {expandedTeams.includes(deptId) && (
+                                    <div className="pl-4 py-1 space-y-1 animate-in fade-in slide-in-from-top-1 duration-200">
+                                        {hierarchy['STRATEGY_DPT'][deptId].sort((a:any, b:any) => a.role_index - b.role_index).map((agent: any) => (
+                                            <button key={agent.id} onClick={() => handleSelectAgent(agent)} className={clsx("w-full text-left p-3 rounded-xl text-xs font-bold transition-all border", selectedAgent?.id === agent.id ? "bg-white border-slate-900 shadow-md translate-x-1 text-slate-900" : "bg-transparent border-transparent text-slate-400 hover:text-slate-600")}>
+                                                {agent.display_name}
+                                            </button>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+                        )
+                    ))}
+                </div>
+            </div>
+        </div>
+      </div>
+
+      {/* --- SECTION E: THE EDITOR --- */}
+      <div className="flex-1 h-full flex flex-col bg-slate-50">
+        {(selectedAgent || selectedDept) ? (
+            <div className="flex-1 flex flex-col p-12 max-w-6xl mx-auto w-full animate-in fade-in duration-500">
+                <header className="flex justify-between items-end mb-12">
+                    <div>
+                        <h1 className="font-playfair text-6xl font-black text-slate-900 italic mb-4 tracking-tighter">{selectedAgent ? selectedAgent.display_name : selectedDept.label}</h1>
+                        <p className="text-slate-400 font-medium uppercase tracking-[0.4em] text-[10px]">{selectedAgent ? `Cognitive Persona // ${selectedAgent.role}` : `Departmental Lens // Worldview`}</p>
+                    </div>
+                    <button onClick={handleSave} aria-label="Commit changes" className="flex items-center gap-4 bg-slate-900 text-white px-10 py-5 rounded-2xl shadow-2xl hover:bg-black transition-all active:scale-95"><Save className="w-5 h-5" /><span className="font-bold text-sm uppercase tracking-widest text-center">Commit Changes</span></button>
+                </header>
+
+                <div className="grid grid-cols-4 gap-12 flex-1">
+                    <div className="col-span-3 flex flex-col bg-white rounded-[2.5rem] border border-slate-200 shadow-sm overflow-hidden ring-1 ring-black/5">
+                        <div className="p-8 border-b border-slate-50 bg-slate-50/50 flex items-center gap-3">
+                            <Cpu className="w-5 h-5 text-slate-400" />
+                            <span className="text-[10px] font-black uppercase tracking-[0.4em] text-slate-400">{selectedAgent ? "Agent Instructions" : "Departmental Worldview Lens"}</span>
+                        </div>
+                        <textarea className="flex-1 p-10 text-lg font-medium text-slate-700 leading-relaxed outline-none resize-none bg-transparent" title="Editor" placeholder="Draft..." value={editorContent} onChange={(e) => setEditorContent(e.target.value)} />
+                    </div>
+                    <div className="bg-white p-8 h-fit rounded-[2rem] border border-slate-200 shadow-sm">
+                        <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-300 mb-8 border-b pb-4 text-center">Specs</h3>
+                        <div className="space-y-6">
+                            <ConfigRow label="Type" value={selectedAgent ? "INDIVIDUAL" : "LENS"} />
+                            {selectedAgent && <ConfigRow label="Model" value={selectedAgent.model_tier} />}
+                            <ConfigRow label="ID" value={selectedAgent ? selectedAgent.id : selectedDept.id} />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        ) : (
+            <div className="flex-1 flex items-center justify-center text-slate-300 flex-col gap-4 opacity-30 animate-pulse"><Box className="w-12 h-12" /><p className="text-[11px] font-black uppercase tracking-[0.4em]">Select a unit to engineer</p></div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+const ConfigRow = ({ label, value }: { label: string, value: string }) => (
+    <div className="flex flex-col gap-1 items-center text-center">
+        <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">{label}</span>
+        <span className="text-[10px] font-black text-slate-900 uppercase break-all">{value}</span>
+    </div>
+);
+--- END: src/app/agency-lab/page.tsx ---
+
+
+--- START: src/utils/layout-engine.ts ---
+import dagre from 'dagre';
+import { Node, Edge, Position } from '@xyflow/react';
+
+const NODE_WIDTH = 200;
+const NODE_HEIGHT = 150;
+
+/**
+ * SPINE + RIBS LAYOUT ENGINE
+ * Replaces Dagre for Journey Flows to ensure the "Happy Path" is a straight line.
+ */
+export const getLayoutedElements = (nodes: Node[], edges: Edge[], direction = 'TB') => {
+  const isHorizontal = direction === 'LR';
+
+  // 1. Fallback to Dagre for Sitemap/Wireframes (Tree structures)
+  if (!isHorizontal) {
+    return runDagreLayout(nodes, edges);
+  }
+
+  // 2. SPINE LAYOUT (For User Journeys)
+  // Logic: Hero nodes go on Y=0. Others go above/below.
+  
+  const heroNodes = nodes.filter(n => n.data.variant === 'hero');
+  const otherNodes = nodes.filter(n => n.data.variant !== 'hero');
+
+  // Sort heroes by logic (simplistic assumption: ID order or connection order)
+  // In a real graph traverse, we'd follow the edges. For now, we assume AI output order roughly matches flow.
+  
+  // Position Spine (Heroes)
+  let currentX = 0;
+  heroNodes.forEach((node) => {
+    node.position = { x: currentX, y: 0 };
+    node.targetPosition = Position.Left;
+    node.sourcePosition = Position.Right;
+    currentX += 350; // Wide spacing
+  });
+
+  // Position Ribs (Others) relative to their source
+  otherNodes.forEach((node, i) => {
+    // Find who connects to this node
+    const sourceEdge = edges.find(e => e.target === node.id);
+    const parent = nodes.find(n => n.id === sourceEdge?.source);
+
+    if (parent) {
+      // Alternate Top/Bottom
+      const offset = (i % 2 === 0) ? -250 : 250; 
+      node.position = { 
+          x: parent.position.x, 
+          y: parent.position.y + offset 
+      };
+    } else {
+      // Orphan: Put it at the end
+      node.position = { x: currentX, y: 200 };
+      currentX += 200;
+    }
+    
+    node.targetPosition = Position.Left;
+    node.sourcePosition = Position.Right;
+  });
+
+  // Smart Edges
+  const layoutedEdges = edges.map((edge) => ({
+      ...edge,
+      sourceHandle: 'right',
+      targetHandle: 'left',
+      type: 'bezier'
+  }));
+
+  return { nodes, edges: layoutedEdges };
+};
+
+// --- DAGRE FALLBACK (For Sitemaps) ---
+const runDagreLayout = (nodes: Node[], edges: Edge[]) => {
+    const dagreGraph = new dagre.graphlib.Graph();
+    dagreGraph.setDefaultEdgeLabel(() => ({}));
+    dagreGraph.setGraph({ rankdir: 'TB', nodesep: 100, ranksep: 100 });
+
+    nodes.forEach((node) => {
+        dagreGraph.setNode(node.id, { width: 250, height: 100 });
+    });
+
+    edges.forEach((edge) => {
+        dagreGraph.setEdge(edge.source, edge.target);
+    });
+
+    dagre.layout(dagreGraph);
+
+    return {
+        nodes: nodes.map((node) => {
+            const pos = dagreGraph.node(node.id);
+            return {
+                ...node,
+                targetPosition: Position.Top,
+                sourcePosition: Position.Bottom,
+                position: { x: pos.x - 125, y: pos.y - 50 }
+            };
+        }),
+        edges: edges.map(e => ({ ...e, type: 'step', sourceHandle: 'bottom', targetHandle: 'top' }))
+    };
+};
+--- END: src/utils/layout-engine.ts ---
+
+
+--- START: src/components/WireframeNodes.tsx ---
+"use client";
+import React, { useState, useEffect } from 'react';
+import { NodeProps, useReactFlow, NodeResizer } from '@xyflow/react';
+import { 
+  Menu, ChevronLeft, Search, Home, User, Bell, 
+  Plus, ExternalLink, Check, Play, MapPin, Image as ImageIcon,
+  ChevronRight, ChevronDown // <--- ADDED THIS IMPORT
+} from 'lucide-react';
+import { clsx } from 'clsx';
+
+// --- SHARED UTILS ---
+
+const Resizer = ({ isVisible = false, minWidth = 40, minHeight = 20 }) => (
+    <NodeResizer 
+        isVisible={isVisible} 
+        minWidth={minWidth} 
+        minHeight={minHeight} 
+        handleStyle={{ width: 8, height: 8, borderRadius: 0, border: '1px solid black', background: 'white' }}
+        lineStyle={{ border: '1px dashed #000' }}
+    />
+);
+
+const EditableLabel = ({ id, label, className, multiline = false }: { id: string, label: string, className?: string, multiline?: boolean }) => {
+  const { setNodes } = useReactFlow();
+  const [text, setText] = useState(label);
+  useEffect(() => { setText(label); }, [label]);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setText(e.target.value);
+  };
+
+  const handleBlur = () => {
+    setNodes((nodes) => nodes.map(n => n.id === id ? { ...n, data: { ...n.data, label: text } } : n));
+  };
+
+  if (multiline) {
+      return (
+        <textarea 
+            className={clsx("bg-transparent outline-none w-full border-none p-0 focus:ring-0 cursor-text pointer-events-auto resize-none", className)}
+            value={text}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            aria-label="Edit text"
+        />
+      );
+  }
+
+  return (
+    <input 
+        className={clsx("bg-transparent outline-none w-full border-none p-0 focus:ring-0 cursor-text pointer-events-auto text-center font-mono", className)}
+        value={text}
+        onChange={handleChange}
+        onBlur={handleBlur}
+        aria-label="Edit text"
+    />
+  );
+};
+
+// =============================================================================
+// BATCH 1: NAVIGATION & ACTIONS
+// =============================================================================
+
+export const HeaderNode = ({ id, data, selected }: NodeProps) => {
+  return (
+    <div className="w-full h-full bg-white border-b-[3px] border-black flex items-center justify-between px-4 min-w-[200px] min-h-[50px]">
+      <Resizer isVisible={!!selected} minWidth={200} minHeight={40} />
+      <ChevronLeft className="w-6 h-6 text-black" />
+      <div className="flex-1">
+        <EditableLabel id={id} label={data.label as string || "PAGE TITLE"} className="font-bold text-lg text-black uppercase tracking-widest" />
+      </div>
+      <Menu className="w-6 h-6 text-black" />
+    </div>
+  );
+};
+
+export const TabBarNode = ({ id, data, selected }: NodeProps) => {
+    return (
+      <div className="w-full h-full bg-white border-t-[3px] border-black flex items-center justify-around px-2 min-w-[200px] min-h-[60px]">
+        <Resizer isVisible={!!selected} minWidth={200} minHeight={50} />
+        <Home className="w-6 h-6 text-black" />
+        <Search className="w-6 h-6 text-slate-400" />
+        <Bell className="w-6 h-6 text-slate-400" />
+        <User className="w-6 h-6 text-slate-400" />
+      </div>
+    );
+};
+
+export const SearchBarNode = ({ id, data, selected }: NodeProps) => {
+    return (
+        <div className="w-full h-full min-w-[150px] min-h-[40px] bg-white border-[2px] border-black flex items-center px-3 gap-2">
+            <Resizer isVisible={!!selected} />
+            <Search className="w-4 h-4 text-black" />
+            <EditableLabel id={id} label={data.label as string || "Search..."} className="text-sm text-slate-500 text-left italic" />
+        </div>
+    );
+};
+
+export const PrimaryButtonNode = ({ id, data, selected }: NodeProps) => {
+    return (
+        <div className="w-full h-full bg-black flex items-center justify-center px-4 min-w-[100px] min-h-[40px] shadow-[4px_4px_0px_0px_rgba(0,0,0,0.2)]">
+            <Resizer isVisible={!!selected} />
+            <EditableLabel id={id} label={data.label as string || "ACTION"} className="font-bold text-sm text-white uppercase tracking-wider" />
+        </div>
+    );
+};
+
+export const SecondaryButtonNode = ({ id, data, selected }: NodeProps) => {
+    return (
+        <div className="w-full h-full bg-white border-[2px] border-black flex items-center justify-center px-4 min-w-[100px] min-h-[40px]">
+            <Resizer isVisible={!!selected} />
+            <EditableLabel id={id} label={data.label as string || "CANCEL"} className="font-bold text-sm text-black uppercase tracking-wider" />
+        </div>
+    );
+};
+
+export const FABNode = ({ id, data, selected }: NodeProps) => {
+    return (
+        <div className="w-full h-full min-w-[50px] min-h-[50px] bg-black rounded-full flex items-center justify-center shadow-lg">
+            <Resizer isVisible={!!selected} minWidth={40} minHeight={40} />
+            <Plus className="w-8 h-8 text-white" />
+        </div>
+    );
+};
+
+export const LinkNode = ({ id, data, selected }: NodeProps) => {
+    return (
+        <div className="w-auto h-auto min-w-[50px] min-h-[20px] flex items-center justify-center border-b-[2px] border-black pb-0.5">
+            <Resizer isVisible={!!selected} />
+            <EditableLabel id={id} label={data.label as string || "Read More"} className="font-bold text-sm text-black" />
+            <ExternalLink className="w-3 h-3 text-black ml-1" />
+        </div>
+    );
+};
+
+// =============================================================================
+// BATCH 2: INPUTS & FORMS
+// =============================================================================
+
+export const InputFieldNode = ({ id, data, selected }: NodeProps) => {
+    return (
+        <div className="w-full h-full min-w-[150px] min-h-[50px] flex flex-col justify-start">
+            <Resizer isVisible={!!selected} />
+            <div className="text-[10px] font-bold text-black mb-1 ml-1 uppercase tracking-wider">LABEL</div>
+            <div className="w-full flex-1 bg-white border-[2px] border-black flex items-center px-3">
+                <EditableLabel id={id} label={data.label as string || "Placeholder..."} className="text-sm text-slate-400 text-left font-mono" />
+            </div>
+        </div>
+    );
+};
+
+export const TextAreaNode = ({ id, data, selected }: NodeProps) => {
+    return (
+        <div className="w-full h-full min-w-[150px] min-h-[80px] flex flex-col justify-start">
+            <Resizer isVisible={!!selected} />
+            <div className="text-[10px] font-bold text-black mb-1 ml-1 uppercase tracking-wider">MESSAGE</div>
+            <div className="w-full flex-1 bg-white border-[2px] border-black p-2">
+                <EditableLabel id={id} label={data.label as string || "Type here..."} className="text-sm text-slate-400 text-left font-mono h-full" multiline />
+            </div>
+        </div>
+    );
+};
+
+export const CheckboxNode = ({ id, data, selected }: NodeProps) => {
+    return (
+        <div className="w-full h-full min-w-[150px] min-h-[30px] flex items-center gap-3">
+            <Resizer isVisible={!!selected} />
+            <div className="w-6 h-6 border-[2px] border-black flex items-center justify-center bg-white">
+                <Check className="w-4 h-4 text-black" />
+            </div>
+            <EditableLabel id={id} label={data.label as string || "Accept Terms"} className="text-sm font-bold text-black text-left" />
+        </div>
+    );
+};
+
+export const SwitchNode = ({ id, data, selected }: NodeProps) => {
+    return (
+        <div className="w-[50px] h-[30px] border-[2px] border-black rounded-full flex items-center px-1 bg-black">
+            <Resizer isVisible={!!selected} />
+            <div className="w-5 h-5 bg-white rounded-full ml-auto" />
+        </div>
+    );
+};
+
+// =============================================================================
+// BATCH 3: MEDIA
+// =============================================================================
+
+export const ImageNode = ({ id, data, selected }: NodeProps) => {
+    return (
+        <div className="w-full h-full min-w-[100px] min-h-[100px] bg-slate-50 border-[2px] border-black flex flex-col items-center justify-center relative overflow-hidden">
+            <Resizer isVisible={!!selected} />
+            <svg className="absolute inset-0 w-full h-full text-slate-300 pointer-events-none" strokeWidth="2">
+                <line x1="0" y1="0" x2="100%" y2="100%" stroke="currentColor" />
+                <line x1="100%" y1="0" x2="0" y2="100%" stroke="currentColor" />
+            </svg>
+            <div className="z-10 bg-white border-2 border-black px-2 py-1 flex items-center gap-2">
+                <ImageIcon className="w-4 h-4 text-black" />
+                <span className="text-xs font-bold text-black uppercase">IMG</span>
+            </div>
+        </div>
+    );
+};
+
+export const AvatarNode = ({ id, data, selected }: NodeProps) => {
+    return (
+        <div className="w-full h-full min-w-[50px] min-h-[50px] bg-slate-200 border-[2px] border-black rounded-full flex items-center justify-center">
+            <Resizer isVisible={!!selected} />
+            <User className="w-1/2 h-1/2 text-black" />
+        </div>
+    );
+};
+
+export const VideoNode = ({ id, data, selected }: NodeProps) => {
+    return (
+        <div className="w-full h-full min-w-[150px] min-h-[100px] bg-black border-[2px] border-black flex items-center justify-center">
+            <Resizer isVisible={!!selected} />
+            <div className="w-12 h-12 rounded-full border-2 border-white flex items-center justify-center">
+                <Play className="w-5 h-5 text-white fill-current ml-1" />
+            </div>
+        </div>
+    );
+};
+
+export const MapNode = ({ id, data, selected }: NodeProps) => {
+    return (
+        <div className="w-full h-full min-w-[150px] min-h-[100px] bg-slate-100 border-[2px] border-black flex items-center justify-center relative">
+            <Resizer isVisible={!!selected} />
+            <div className="absolute inset-0 grid grid-cols-4 grid-rows-4 gap-px">
+                {[...Array(16)].map((_, i) => <div key={i} className="border-r border-b border-slate-300/50" />)}
+            </div>
+            <MapPin className="w-8 h-8 text-black z-10" />
+        </div>
+    );
+};
+
+// =============================================================================
+// BATCH 4: CONTENT & STRUCTURE
+// =============================================================================
+
+export const ListItemNode = ({ id, data, selected }: NodeProps) => {
+    return (
+        <div className="w-full h-full min-w-[200px] min-h-[50px] bg-white border-b-[2px] border-black flex items-center px-2 gap-3">
+            <Resizer isVisible={!!selected} />
+            <div className="w-8 h-8 bg-slate-200 border border-black rounded-full flex-shrink-0" />
+            <div className="flex-1 flex flex-col justify-center">
+                <EditableLabel id={id} label={data.label as string || "List Item Title"} className="text-sm font-bold text-black text-left w-full" />
+                <div className="h-2 w-1/2 bg-slate-300 mt-1" />
+            </div>
+            <ChevronRight className="w-5 h-5 text-black" />
+        </div>
+    );
+};
+
+export const HeadingNode = ({ id, data, selected }: NodeProps) => {
+    return (
+        <div className="w-full h-full min-w-[100px] min-h-[40px] flex items-center">
+            <Resizer isVisible={!!selected} />
+            <EditableLabel 
+                id={id} 
+                label={data.label as string || "HEADING"} 
+                className="text-2xl font-black text-black text-left w-full uppercase leading-none" 
+            />
+        </div>
+    );
+};
+
+export const ParagraphNode = ({ id, data, selected }: NodeProps) => {
+    const lorem = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.";
+    
+    return (
+        <div className="w-full h-full min-w-[150px] min-h-[60px] p-2 overflow-hidden bg-transparent">
+            <Resizer isVisible={!!selected} />
+            <p className="text-xs font-mono text-slate-600 text-justify leading-relaxed pointer-events-none">
+                {lorem} {lorem}
+            </p>
+        </div>
+    );
+};
+
+export const BadgeNode = ({ id, data, selected }: NodeProps) => {
+    return (
+        <div className="w-auto h-auto min-w-[30px] min-h-[20px] bg-black text-white px-2 py-0.5 rounded-full flex items-center justify-center">
+            <Resizer isVisible={!!selected} />
+            <EditableLabel id={id} label={data.label as string || "NEW"} className="text-[10px] font-bold text-white uppercase" />
+        </div>
+    );
+};
+
+export const CardNode = ({ id, data, selected }: NodeProps) => {
+    return (
+        <div className="w-full h-full min-w-[150px] min-h-[100px] p-4 bg-white border-[2px] border-black rounded-xl shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+             <Resizer isVisible={!!selected} />
+             <EditableLabel 
+                id={id} 
+                label={data.label as string || "Card Title"} 
+                className="text-sm font-bold text-black text-left mb-2 block" 
+            />
+            <div className="space-y-2 opacity-20">
+                <div className="w-full h-2 bg-black rounded-full" />
+                <div className="w-full h-2 bg-black rounded-full" />
+                <div className="w-2/3 h-2 bg-black rounded-full" />
+            </div>
+        </div>
+    );
+};
+
+// FIX: Divider is now a proper line
+export const DividerNode = ({ id, selected }: NodeProps) => {
+    return (
+        <div className="w-full h-4 flex items-center justify-center min-w-[100px] group">
+             <Resizer isVisible={!!selected} minHeight={4} />
+             <div className="w-full h-[2px] bg-black group-hover:bg-slate-700" />
+        </div>
+    );
+};
+
+// FIX: Accordion Component
+export const AccordionNode = ({ id, data, selected }: NodeProps) => {
+    const [isOpen, setIsOpen] = useState(false);
+    return (
+        <div className="w-full h-auto min-w-[200px] bg-white border-2 border-black rounded-lg overflow-hidden">
+             <Resizer isVisible={!!selected} />
+             <div 
+                className="flex items-center justify-between p-2 bg-slate-50 cursor-pointer border-b-2 border-transparent hover:bg-slate-100"
+                onClick={() => setIsOpen(!isOpen)}
+             >
+                <EditableLabel id={id} label={data.label as string || "FAQ Item"} className="text-sm font-bold text-black text-left" />
+                {isOpen ? <ChevronDown className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
+             </div>
+             {isOpen && (
+                 <div className="p-2 text-[10px] font-mono text-slate-500 leading-relaxed border-t-2 border-black">
+                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Expand for more details.
+                 </div>
+             )}
+        </div>
+    );
+};
+--- END: src/components/WireframeNodes.tsx ---
+
+
+--- START: src/components/FlowNodes.tsx ---
+"use client";
+
+import React, { useState, useEffect } from 'react';
+import { Handle, Position, NodeProps, useReactFlow } from '@xyflow/react';
+import { clsx } from 'clsx';
+
+// --- VISUAL STYLES ---
+const handleStyle = { width: 10, height: 10, background: '#000', border: 'none', zIndex: 50 };
+
+const EditableLabel = ({ id, label }: { id: string, label: string }) => {
+  const { setNodes } = useReactFlow();
+  const [text, setText] = useState(label);
+  useEffect(() => { setText(label); }, [label]);
+
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setText(e.target.value);
+  };
+
+  const handleBlur = () => {
+    setNodes((nodes) => nodes.map(n => n.id === id ? { ...n, data: { ...n.data, label: text } } : n));
+  };
+
+  return (
+    <textarea 
+        className="text-[10px] font-bold text-black text-center bg-transparent outline-none w-full border-none p-0 focus:ring-0 cursor-text pointer-events-auto resize-none overflow-hidden"
+        value={text}
+        onChange={handleChange}
+        onBlur={handleBlur}
+        rows={3}
+        aria-label="Edit Node Label"
+    />
+  );
+};
+
+// HELPER: Get Border Style based on Variant
+const getVariantStyle = (data: any) => {
+    if (data.variant === 'hero') return "border-[4px] border-black shadow-lg"; // Thick
+    if (data.variant === 'sad') return "border-2 border-slate-400 border-dashed text-slate-500"; // Ghost
+    return "border-2 border-black"; // Default
+};
+
+// 1. DECISION NODE
+export const DecisionNode = ({ id, data }: NodeProps) => {
+  const style = getVariantStyle(data);
+  return (
+    <div className="relative w-32 h-32 flex items-center justify-center group">
+      <div className={clsx("absolute inset-0 bg-white transform rotate-45 z-0 shadow-sm", style)}></div>
+      <div className="relative z-10 flex flex-col items-center justify-center w-20 pointer-events-auto pb-1">
+        <EditableLabel id={id} label={data.label as string} />
+      </div>
+      <Handle type="source" position={Position.Top} id="top" style={{ ...handleStyle, top: -6, left: '50%', transform: 'translateX(-50%)' }} />
+      <Handle type="source" position={Position.Right} id="right" style={{ ...handleStyle, right: -6, top: '50%', transform: 'translateY(-50%)' }} />
+      <Handle type="source" position={Position.Bottom} id="bottom" style={{ ...handleStyle, bottom: -6, left: '50%', transform: 'translateX(-50%)' }} />
+      <Handle type="source" position={Position.Left} id="left" style={{ ...handleStyle, left: -6, top: '50%', transform: 'translateY(-50%)' }} />
+    </div>
+  );
+};
+
+// 2. START NODE
+export const StartNode = ({ id, data }: NodeProps) => {
+  const style = getVariantStyle(data);
+  return (
+    <div className={clsx("relative px-4 py-3 bg-white rounded-full min-w-[120px] text-center shadow-sm flex items-center justify-center", style)}>
+      <div className="relative z-10 w-full flex items-center justify-center gap-2">
+        <div className="flex-1">
+            <EditableLabel id={id} label={data.label as string} />
+        </div>
+      </div>
+      <Handle type="source" position={Position.Top} id="top" style={handleStyle} />
+      <Handle type="source" position={Position.Right} id="right" style={handleStyle} />
+      <Handle type="source" position={Position.Bottom} id="bottom" style={handleStyle} />
+      <Handle type="source" position={Position.Left} id="left" style={handleStyle} />
+    </div>
+  );
+};
+
+// 3. END NODE
+export const EndNode = ({ id, data }: NodeProps) => {
+  const style = getVariantStyle(data);
+  return (
+    <div className={clsx("relative w-24 h-24 bg-white rounded-full flex items-center justify-center text-center shadow-sm", style)}>
+      <div className="relative z-10 w-16 flex flex-col items-center gap-1">
+        <EditableLabel id={id} label={data.label as string} />
+      </div>
+      <Handle type="source" position={Position.Top} id="top" style={handleStyle} />
+      <Handle type="source" position={Position.Left} id="left" style={handleStyle} />
+      <Handle type="source" position={Position.Right} id="right" style={handleStyle} />
+    </div>
+  );
+};
+
+// 4. ACTION NODE
+export const ActionNode = ({ id, data }: NodeProps) => {
+  const style = getVariantStyle(data);
+  return (
+    <div className={clsx("relative w-32 h-32 bg-white flex items-center justify-center text-center shadow-sm rounded-xl", style)}>
+      <div className="relative z-10 w-24">
+        <EditableLabel id={id} label={data.label as string} />
+      </div>
+      <Handle type="source" position={Position.Top} id="top" style={handleStyle} />
+      <Handle type="source" position={Position.Right} id="right" style={handleStyle} />
+      <Handle type="source" position={Position.Bottom} id="bottom" style={handleStyle} />
+      <Handle type="source" position={Position.Left} id="left" style={handleStyle} />
+    </div>
+  );
+};
+--- END: src/components/FlowNodes.tsx ---
+
+
+--- START: src/components/BlueprintReviewModal.tsx ---
+"use client";
+import React, { useState, useEffect } from 'react';
+import { X, Save, FileText } from 'lucide-react';
+
+interface BlueprintReviewModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  initialContent: string;
+  onSave: (content: string) => void;
+  title?: string;
+}
+
+export default function BlueprintReviewModal({ isOpen, onClose, initialContent, onSave, title = "Review Blueprint" }: BlueprintReviewModalProps) {
+  const [content, setContent] = useState(initialContent);
+
+  useEffect(() => {
+    setContent(initialContent);
+  }, [initialContent]);
+
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-sm">
+      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl flex flex-col max-h-[85vh] border border-slate-200">
+        
+        <div className="p-4 border-b border-slate-100 flex justify-between items-center bg-white rounded-t-2xl">
+          <div className="flex items-center gap-2 text-slate-800">
+            <div className="p-2 bg-emerald-100 rounded-lg">
+                <FileText className="w-5 h-5 text-emerald-600" />
+            </div>
+            <span className="font-bold text-lg">{title}</span>
+          </div>
+          <button 
+            onClick={onClose} 
+            className="p-2 hover:bg-slate-100 rounded-full transition-colors text-slate-400 hover:text-slate-600"
+            aria-label="Close Modal"
+          >
+            <X className="w-5 h-5" />
+          </button>
+        </div>
+
+        <div className="flex-1 p-0 overflow-hidden relative group">
+          <textarea
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+            className="w-full h-full p-6 text-sm font-mono text-slate-700 bg-slate-50 focus:outline-none focus:bg-white transition-colors resize-none leading-relaxed"
+            spellCheck={false}
+            aria-label="Strategy Content Editor"
+          />
+        </div>
+
+        <div className="p-4 border-t border-slate-100 bg-white rounded-b-2xl flex justify-between items-center">
+          <span className="text-xs text-slate-400 italic">Review the strategy before committing.</span>
+          <div className="flex gap-2">
+            <button 
+                onClick={onClose}
+                className="px-4 py-2 text-sm font-bold text-slate-500 hover:bg-slate-100 rounded-lg transition-colors"
+            >
+                Cancel
+            </button>
+            <button
+                onClick={() => onSave(content)}
+                className="flex items-center gap-2 px-6 py-2 bg-black hover:bg-slate-800 text-white rounded-xl font-bold transition-all shadow-lg shadow-slate-200 active:scale-95"
+            >
+                <Save className="w-4 h-4" />
+                Approve & Save
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+--- END: src/components/BlueprintReviewModal.tsx ---
+
+
+--- START: src/components/SitemapToolbar.tsx ---
+import React from 'react';
+import { FileText, CircleDot } from 'lucide-react';
+
+export const SitemapToolbar = () => {
+  const onDragStart = (event: React.DragEvent, nodeType: string, label: string) => {
+    event.dataTransfer.setData('application/reactflow/type', nodeType);
+    event.dataTransfer.setData('application/reactflow/props', JSON.stringify({ label }));
+    event.dataTransfer.effectAllowed = 'move';
+  };
+
+  return (
+    <div className="absolute top-20 left-4 flex flex-col gap-2 z-40 animate-in slide-in-from-left-6">
+      
+      <div className="bg-white p-2 rounded-2xl shadow-xl border border-slate-200 flex flex-col gap-2">
+        <div className="pb-2 border-b border-slate-100 text-center">
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Sitemap</span>
+        </div>
+
+        <ToolItem 
+            icon={FileText} 
+            label="Page" 
+            color="text-slate-900"
+            onDragStart={(e: React.DragEvent) => onDragStart(e, 'page', 'New Page')} 
+        />
+        
+        <ToolItem 
+            icon={CircleDot} 
+            label="Purpose" 
+            color="text-emerald-600"
+            onDragStart={(e: React.DragEvent) => onDragStart(e, 'purpose', 'Purpose...')} 
+        />
+      </div>
+
+    </div>
+  );
+};
+
+// Helper
+const ToolItem = ({ icon: Icon, label, color, onDragStart }: any) => (
+  <div 
+    className="p-3 hover:bg-slate-50 rounded-xl cursor-grab active:cursor-grabbing flex flex-col items-center gap-1 group transition-colors"
+    onDragStart={onDragStart}
+    draggable
+  >
+    <Icon className={`w-5 h-5 ${color} transition-transform group-hover:scale-110`} />
+    <span className="text-[9px] text-slate-500 font-bold">{label}</span>
+  </div>
+);
+--- END: src/components/SitemapToolbar.tsx ---
+
+
+--- START: src/components/WireframeToolbar.tsx ---
+"use client";
+import React, { useState } from 'react';
+import { 
+  Layout, Type, Image, MousePointerClick, 
+  PanelTop, PanelBottom, Square, List, Minus, 
+  Heading, AlignLeft, CircleUser, StickyNote,
+  ChevronDown, ChevronRight, Smartphone, Layers, CheckSquare, ToggleRight, MousePointer2, Bell, Focus,
+  Search, Link as LinkIcon, PlusCircle, Video, MapPin, BadgeAlert, AlignJustify
+} from 'lucide-react';
+import { ComponentType } from '@/types/design-system';
+import { clsx } from 'clsx';
+
+const IconMap: Record<string, React.ElementType> = {
+  Layout, Type, Image, MousePointerClick, 
+  PanelTop, PanelBottom, Square, List, Minus, 
+  Heading, AlignLeft, CircleUser, StickyNote, 
+  Layers, CheckSquare, ToggleRight, MousePointer2, Bell, Focus,
+  Search, LinkIcon, PlusCircle, Video, MapPin, BadgeAlert, AlignJustify
+};
+
+export const WireframeToolbar = () => {
+  const [openCategory, setOpenCategory] = useState<string | null>("Layout & Nav");
+
+  const onDragStart = (event: React.DragEvent, nodeType: ComponentType, defaultProps: any) => {
+    event.dataTransfer.setData('application/reactflow/type', nodeType);
+    event.dataTransfer.setData('application/reactflow/props', JSON.stringify(defaultProps));
+    event.dataTransfer.effectAllowed = 'move';
+  };
+
+  const categories = {
+    'Layout & Nav': [
+        { id: 'header', type: 'Header', label: 'Header', icon: 'PanelTop' },
+        { id: 'tabbar', type: 'TabBar', label: 'Tab Bar', icon: 'PanelBottom' },
+        { id: 'search', type: 'SearchBar', label: 'Search', icon: 'Search' },
+        { id: 'divider', type: 'Divider', label: 'Divider', icon: 'Minus' },
+    ],
+    'Inputs & Forms': [
+        { id: 'input', type: 'InputField', label: 'Input', icon: 'Type' },
+        { id: 'textarea', type: 'TextArea', label: 'Text Area', icon: 'AlignLeft' },
+        { id: 'checkbox', type: 'Checkbox', label: 'Checkbox', icon: 'CheckSquare' },
+        { id: 'switch', type: 'Switch', label: 'Switch', icon: 'ToggleRight' },
+    ],
+    'Actions': [
+        { id: 'btn-pri', type: 'PrimaryButton', label: 'Primary', icon: 'MousePointerClick' },
+        { id: 'btn-sec', type: 'SecondaryButton', label: 'Secondary', icon: 'MousePointer2' },
+        { id: 'fab', type: 'FAB', label: 'FAB', icon: 'PlusCircle' },
+        { id: 'link', type: 'Link', label: 'Link', icon: 'LinkIcon' },
+    ],
+    'Content': [
+        { id: 'heading', type: 'Heading', label: 'Heading', icon: 'Heading' },
+        { id: 'para', type: 'Paragraph', label: 'Paragraph', icon: 'AlignLeft' },
+        { id: 'list', type: 'ListItem', label: 'List Item', icon: 'List' },
+        { id: 'card', type: 'Card', label: 'Card', icon: 'Square' },
+        { id: 'accordion', type: 'Accordion', label: 'Accordion', icon: 'AlignJustify' }, // NEW
+        { id: 'badge', type: 'Badge', label: 'Badge', icon: 'BadgeAlert' },
+    ],
+    'Media': [
+        { id: 'img', type: 'Image', label: 'Image', icon: 'Image' },
+        { id: 'video', type: 'Video', label: 'Video', icon: 'Video' },
+        { id: 'map', type: 'Map', label: 'Map', icon: 'MapPin' },
+        { id: 'avatar', type: 'Avatar', label: 'Avatar', icon: 'CircleUser' },
+    ]
+  };
+
+  return (
+    <div className="absolute top-20 left-4 flex flex-col gap-2 z-40 animate-in slide-in-from-left-6">
+      <div className="bg-white p-2 rounded-2xl shadow-xl border border-slate-200 flex flex-col w-56 max-h-[75vh] overflow-y-auto">
+        <div className="pb-2 border-b border-slate-100 text-center mb-1">
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Wireframe Kit</span>
+        </div>
+
+        <div
+          onDragStart={(e) => onDragStart(e, 'MobileScreen', { label: 'New Screen' })}
+          draggable
+          className="flex items-center gap-3 p-3 bg-slate-50 border-2 border-slate-200 rounded-xl cursor-grab hover:bg-slate-100 hover:border-slate-400 transition-all active:cursor-grabbing mb-2 group"
+        >
+          <div className="p-1 bg-white border border-slate-300 rounded group-hover:border-slate-500">
+             <Smartphone className="w-4 h-4 text-slate-700" />
+          </div>
+          <span className="text-xs font-bold text-slate-700">Phone Screen</span>
+        </div>
+
+        {Object.entries(categories).map(([cat, items]) => {
+            const isOpen = openCategory === cat;
+            return (
+                <div key={cat} className="border-b border-slate-100 last:border-0">
+                    <button 
+                        onClick={() => setOpenCategory(isOpen ? null : cat)}
+                        className={clsx(
+                            "w-full flex items-center justify-between p-3 text-xs font-bold transition-colors",
+                            isOpen ? "text-slate-900" : "text-slate-500 hover:text-slate-700"
+                        )}
+                        aria-label={`Toggle ${cat}`}
+                    >
+                        <span>{cat}</span>
+                        {isOpen ? <ChevronDown className="w-3 h-3" /> : <ChevronRight className="w-3 h-3" />}
+                    </button>
+
+                    {isOpen && (
+                        <div className="grid grid-cols-2 gap-2 p-2 bg-slate-50 rounded-lg mb-2">
+                            {items.map((item) => {
+                                const Icon = IconMap[item.icon] || Square;
+                                return (
+                                <div
+                                    key={item.id}
+                                    onDragStart={(e) => onDragStart(e, item.type as ComponentType, {})}
+                                    draggable
+                                    className="flex flex-col items-center justify-center p-2 bg-white border border-slate-200 rounded-lg cursor-grab hover:border-black hover:shadow-sm transition-all active:cursor-grabbing group aspect-square"
+                                    title={item.label}
+                                >
+                                    <Icon className="w-5 h-5 text-slate-400 group-hover:text-black mb-1" />
+                                    <span className="text-[9px] font-medium text-slate-500 group-hover:text-black leading-tight text-center">
+                                        {item.label}
+                                    </span>
+                                </div>
+                                );
+                            })}
+                        </div>
+                    )}
+                </div>
+            );
+        })}
+
+      </div>
+    </div>
+  );
+};
+--- END: src/components/WireframeToolbar.tsx ---
+
+
+--- START: src/components/VoiceRecorder.tsx ---
+"use client";
+import { useState, useRef } from "react";
+import { Mic, Square, Loader2 } from "lucide-react";
+import { clsx } from "clsx";
+
+interface VoiceRecorderProps {
+  onRecordingComplete: (audioBlob: Blob) => void;
+  disabled?: boolean;
+}
+
+export default function VoiceRecorder({ onRecordingComplete, disabled }: VoiceRecorderProps) {
+  const [isRecording, setIsRecording] = useState(false);
+  const mediaRecorderRef = useRef<MediaRecorder | null>(null);
+  const chunksRef = useRef<Blob[]>([]);
+
+  const startRecording = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const mediaRecorder = new MediaRecorder(stream);
+      mediaRecorderRef.current = mediaRecorder;
+      chunksRef.current = [];
+
+      mediaRecorder.ondataavailable = (e) => {
+        if (e.data.size > 0) {
+          chunksRef.current.push(e.data);
+        }
+      };
+
+      mediaRecorder.onstop = () => {
+        const blob = new Blob(chunksRef.current, { type: "audio/webm" }); // Default to webm for Chrome/Firefox
+        onRecordingComplete(blob);
+        stream.getTracks().forEach((track) => track.stop()); // Turn off mic
+      };
+
+      mediaRecorder.start();
+      setIsRecording(true);
+    } catch (err) {
+      console.error("Error accessing microphone:", err);
+      alert("Could not access microphone. Please allow permissions.");
+    }
+  };
+
+  const stopRecording = () => {
+    if (mediaRecorderRef.current && isRecording) {
+      mediaRecorderRef.current.stop();
+      setIsRecording(false);
+    }
+  };
+
+  return (
+    <button
+      type="button"
+      onClick={isRecording ? stopRecording : startRecording}
+      disabled={disabled}
+      className={clsx(
+        "p-3 rounded-xl transition-all shadow-sm flex items-center justify-center",
+        isRecording 
+          ? "bg-red-500 text-white animate-pulse hover:bg-red-600" 
+          : "bg-slate-100 text-slate-500 hover:bg-slate-200 hover:text-slate-700",
+        disabled && "opacity-50 cursor-not-allowed"
+      )}
+      title={isRecording ? "Stop Recording" : "Start Voice Note"}
+    >
+      {isRecording ? <Square className="w-4 h-4 fill-current" /> : <Mic className="w-4 h-4" />}
+    </button>
+  );
+}
+--- END: src/components/VoiceRecorder.tsx ---
+
+
+--- START: src/components/StrategyView.tsx ---
+"use client";
+import React from 'react';
+import { useVibeStore } from '@/store/vibe-store';
+import { Edit2 } from 'lucide-react';
+
+export default function StrategyView({ onEdit }: { onEdit: () => void }) {
+  const { strategyDoc } = useVibeStore();
+
+  return (
+    <div className="w-full h-full bg-slate-50 overflow-y-auto p-8 flex justify-center">
+      <div className="max-w-3xl w-full bg-white min-h-[80vh] shadow-sm border border-slate-200 rounded-xl p-12 relative group">
+        
+        <button 
+            onClick={onEdit}
+            className="absolute top-8 right-8 p-3 rounded-full bg-slate-100 text-slate-400 hover:text-slate-900 hover:bg-slate-200 transition-all opacity-0 group-hover:opacity-100"
+            title="Edit Strategy"
+            aria-label="Edit Strategy"
+        >
+            <Edit2 className="w-4 h-4" />
+        </button>
+
+        <div className="prose prose-slate max-w-none">
+            {strategyDoc.split('\n').map((line, i) => {
+                if (line.startsWith('# ')) return <h1 key={i} className="text-4xl font-black tracking-tight mb-6 mt-2 text-slate-900">{line.replace('# ', '')}</h1>
+                if (line.startsWith('## ')) return <h2 key={i} className="text-2xl font-bold mt-8 mb-4 text-slate-800 border-b border-slate-100 pb-2">{line.replace('## ', '')}</h2>
+                if (line.startsWith('### ')) return <h3 key={i} className="text-xl font-bold mt-6 mb-3 text-slate-800">{line.replace('### ', '')}</h3>
+                // FIX: Use div instead of li to avoid validation error
+                if (line.startsWith('- ')) return (
+                    <div key={i} className="ml-4 flex items-start gap-2 mb-1 text-slate-600">
+                        <span className="text-emerald-500 mt-1.5">•</span>
+                        <span>{line.replace('- ', '')}</span>
+                    </div>
+                );
+                if (line.trim() === '') return <div key={i} className="h-4" />
+                return <p key={i} className="text-slate-600 leading-relaxed mb-2">{line}</p>
+            })}
+        </div>
+
+      </div>
+    </div>
+  );
+}
+--- END: src/components/StrategyView.tsx ---
+
+
+--- START: src/components/JourneyToolbar.tsx ---
+import React from 'react';
+import { GitFork, Play, CircleDot, Square } from 'lucide-react';
+
+export const JourneyToolbar = () => {
+  const onDragStart = (event: React.DragEvent, nodeType: string, label: string) => {
+    event.dataTransfer.setData('application/reactflow/type', nodeType);
+    event.dataTransfer.setData('application/reactflow/props', JSON.stringify({ label }));
+    event.dataTransfer.effectAllowed = 'move';
+  };
+
+  return (
+    <div className="absolute top-20 left-4 flex flex-col gap-2 z-40 animate-in slide-in-from-left-6">
+      
+      {/* TOOLKIT CONTAINER */}
+      <div className="bg-white p-2 rounded-2xl shadow-xl border border-slate-200 flex flex-col gap-2">
+        <div className="pb-2 border-b border-slate-100 text-center">
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Tools</span>
+        </div>
+
+        <ToolItem 
+            icon={Play} 
+            label="Start" 
+            color="text-emerald-600"
+            onDragStart={(e: React.DragEvent) => onDragStart(e, 'input', 'Start')} 
+        />
+        <ToolItem 
+            icon={Square} 
+            label="Action" 
+            color="text-slate-700"
+            onDragStart={(e: React.DragEvent) => onDragStart(e, 'default', 'Action')} 
+        />
+        <ToolItem 
+            icon={GitFork} 
+            label="Decision" 
+            color="text-amber-600"
+            onDragStart={(e: React.DragEvent) => onDragStart(e, 'decision', 'Decision?')} 
+        />
+        <ToolItem 
+            icon={CircleDot} 
+            label="End" 
+            color="text-slate-400"
+            onDragStart={(e: React.DragEvent) => onDragStart(e, 'output', 'End')} 
+        />
+      </div>
+
+    </div>
+  );
+};
+
+// Helper
+const ToolItem = ({ icon: Icon, label, color, onDragStart }: any) => (
+  <div 
+    className="p-3 hover:bg-slate-50 rounded-xl cursor-grab active:cursor-grabbing flex flex-col items-center gap-1 group transition-colors"
+    onDragStart={onDragStart}
+    draggable
+  >
+    <Icon className={`w-5 h-5 ${color} transition-transform group-hover:scale-110`} />
+    <span className="text-[9px] text-slate-500 font-bold">{label}</span>
+  </div>
+);
+--- END: src/components/JourneyToolbar.tsx ---
+
+
+--- START: src/components/SitemapNodes.tsx ---
+"use client";
+import React, { useState, useEffect } from 'react';
+import { Handle, Position, NodeProps, useReactFlow } from '@xyflow/react';
+import { ChevronDown, ChevronUp, Plus, X, Target, Info } from 'lucide-react'; // Added missing imports
+import { clsx } from 'clsx';
+
+// Shared Handle Style (Solid Black, High Visibility)
+const handleCommon = { width: 10, height: 10, background: '#000', border: 'none', zIndex: 50 };
+
+// --- EDITABLE LABEL ---
+const EditableLabel = ({ id, label, field, className, placeholder }: { id: string, label: string, field: string, className?: string, placeholder?: string }) => {
+  const { setNodes } = useReactFlow();
+  const [text, setText] = useState(label);
+  useEffect(() => { setText(label); }, [label]);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setText(e.target.value);
+  };
+
+  const handleBlur = () => {
+    setNodes((nodes) => nodes.map(n => {
+      if (n.id === id) {
+        return { ...n, data: { ...n.data, [field]: text } };
+      }
+      return n;
+    }));
+  };
+
+  return (
+    <input 
+        className={clsx("bg-transparent outline-none w-full border-none p-0 focus:ring-0 cursor-text pointer-events-auto", className)}
+        value={text}
+        placeholder={placeholder}
+        onChange={handleChange}
+        onBlur={handleBlur}
+        aria-label={`Edit ${field}`}
+    />
+  );
+};
+
+// --- EDITABLE LIST ---
+const EditableList = ({ id, items }: { id: string, items: string[] }) => {
+  const { setNodes } = useReactFlow();
+  
+  const updateItem = (index: number, value: string) => {
+    const newItems = [...items];
+    newItems[index] = value;
+    setNodes((nodes) => nodes.map(n => n.id === id ? { ...n, data: { ...n.data, content: newItems } } : n));
+  };
+
+  const addItem = () => {
+    const newItems = [...items, "New Item"];
+    setNodes((nodes) => nodes.map(n => n.id === id ? { ...n, data: { ...n.data, content: newItems } } : n));
+  };
+
+  const removeItem = (index: number) => {
+    const newItems = items.filter((_, i) => i !== index);
+    setNodes((nodes) => nodes.map(n => n.id === id ? { ...n, data: { ...n.data, content: newItems } } : n));
+  };
+
+  return (
+    <div className="space-y-1">
+      {items.map((item, i) => (
+        <div key={i} className="flex items-center gap-1 group/item">
+          <span className="text-[10px] font-bold text-slate-400 mr-1">{i + 1}.</span>
+          <input 
+            className="text-xs bg-transparent border-b border-transparent focus:border-black outline-none w-full font-mono text-slate-700"
+            value={item}
+            onChange={(e) => updateItem(i, e.target.value)}
+            aria-label={`Edit Item ${i + 1}`}
+          />
+          <button 
+            onClick={() => removeItem(i)} 
+            className="opacity-0 group-hover/item:opacity-100 p-0.5 hover:bg-slate-200 rounded"
+            aria-label="Remove Item"
+          >
+            <X className="w-3 h-3 text-slate-400" />
+          </button>
+        </div>
+      ))}
+      <button 
+        onClick={addItem}
+        className="flex items-center gap-1 text-[10px] font-bold text-slate-400 hover:text-black mt-2 uppercase tracking-wider"
+      >
+        + Add Content
+      </button>
+    </div>
+  );
+};
+
+// 1. RICH PAGE CARD (Clean Header)
+export const PageNode = ({ id, data }: NodeProps) => {
+  const [isExpanded, setIsExpanded] = useState(true);
+  
+  const template = typeof data.template === 'string' ? data.template : "VIEW";
+  const label = typeof data.label === 'string' ? data.label : "UNTITLED";
+  const contentList = Array.isArray(data.content) ? data.content : [];
+  const goal = typeof data.goal === 'string' ? data.goal : null;
+  
+  const isContext = template.toLowerCase().includes('sheet') || template.toLowerCase().includes('modal');
+
+  return (
+    <div className={clsx(
+        "relative w-64 bg-white border-[2px] shadow-sm transition-all group hover:shadow-lg flex flex-col overflow-visible",
+        "rounded-lg",
+        isContext ? "border-dashed border-slate-600" : "border-black"
+    )}>
+      
+      {/* HEADER: Clean, Title Only */}
+      <div className="p-3 border-b-[2px] border-black bg-white flex items-center justify-between">
+        <div className="flex flex-col w-full">
+            <EditableLabel 
+                id={id} 
+                label={label} 
+                field="label" 
+                className="font-bold text-sm text-black uppercase tracking-tight"
+            />
+        </div>
+        <button onClick={() => setIsExpanded(!isExpanded)} className="text-black hover:bg-slate-100 p-1 rounded">
+            {isExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+        </button>
+      </div>
+
+      {/* BODY */}
+      {isExpanded && (
+          <div className="p-3 bg-white min-h-[80px]">
+            <EditableList id={id} items={contentList} />
+            
+            {/* FOOTER */}
+            {goal && (
+                <div className="mt-4 pt-2 border-t border-slate-200">
+                     <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest block mb-1">Goal</span>
+                     <EditableLabel 
+                        id={id} 
+                        label={goal} 
+                        field="goal" 
+                        className="text-[10px] text-slate-600 italic w-full"
+                    />
+                </div>
+            )}
+          </div>
+      )}
+      
+      {/* 4-WAY HANDLES (Solid Black) */}
+      <Handle type="source" position={Position.Top} id="top" style={{ ...handleCommon, top: -5 }} />
+      <Handle type="source" position={Position.Right} id="right" style={{ ...handleCommon, right: -5 }} />
+      <Handle type="source" position={Position.Bottom} id="bottom" style={{ ...handleCommon, bottom: -5 }} />
+      <Handle type="source" position={Position.Left} id="left" style={{ ...handleCommon, left: -5 }} />
+    </div>
+  );
+};
+
+// 2. PURPOSE NODE (The "Dot")
+export const PurposeNode = ({ id, data }: NodeProps) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const label = typeof data.label === 'string' ? data.label : "Category Purpose";
+
+  return (
+    <div className="relative flex items-center justify-center">
+      {/* The Dot (High Contrast) */}
+      <div 
+        onClick={() => setIsOpen(!isOpen)}
+        className={clsx(
+            "w-6 h-6 rounded-full border-2 border-black flex items-center justify-center cursor-pointer transition-all z-10",
+            isOpen ? "bg-black text-white" : "bg-black text-white hover:scale-110"
+        )}
+      >
+        <Info className="w-3 h-3" />
+      </div>
+
+      {/* The Expansion (Popover) */}
+      {isOpen && (
+        <div className="absolute top-8 left-1/2 -translate-x-1/2 w-48 bg-white border-2 border-black rounded-lg p-2 shadow-xl z-20 animate-in slide-in-from-top-2 fade-in">
+            <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest block mb-1">Purpose</span>
+            <EditableLabel 
+                id={id} 
+                label={label} 
+                field="label" 
+                className="text-xs font-medium text-black leading-tight"
+                placeholder="Why does this exist?"
+            />
+        </div>
+      )}
+
+      {/* Pass-through Handles */}
+      <Handle type="target" position={Position.Top} style={{ ...handleCommon, top: -6, opacity: 0 }} />
+      <Handle type="source" position={Position.Bottom} style={{ ...handleCommon, bottom: -6, opacity: 0 }} />
+    </div>
+  );
+};
+--- END: src/components/SitemapNodes.tsx ---
+
+
+--- START: src/components/Sidebar.tsx ---
+import React from 'react';
+import { 
+  Square, Minus, Layers, PanelTop, PanelBottom, 
+  Type, CheckSquare, ToggleRight, MousePointerClick, MousePointer2,
+  Image, CircleUser, AlignLeft, List, Bell, 
+  StickyNote, Focus, Smartphone, Palette, GripVertical, ChevronDown
+} from 'lucide-react';
+import { COMPONENT_LIBRARY, ComponentCategory, ComponentType } from '@/types/design-system';
+
+// Icon Map
+const IconMap: Record<string, React.ElementType> = {
+  Square, Minus, Layers, PanelTop, PanelBottom, 
+  Type, CheckSquare, ToggleRight, MousePointerClick, MousePointer2,
+  Image, CircleUser, AlignLeft, List, Bell, 
+  StickyNote, Focus
+};
+
+export const Sidebar = () => {
+  const onDragStart = (event: React.DragEvent, nodeType: ComponentType, defaultProps: any) => {
+    event.dataTransfer.setData('application/reactflow/type', nodeType);
+    event.dataTransfer.setData('application/reactflow/props', JSON.stringify(defaultProps));
+    event.dataTransfer.effectAllowed = 'move';
+  };
+
+  const categories: Record<string, typeof COMPONENT_LIBRARY> = {
+    'Layout & Nav': COMPONENT_LIBRARY.filter(c => ['Layout', 'Navigation'].includes(c.category)),
+    'Inputs & Buttons': COMPONENT_LIBRARY.filter(c => ['Inputs', 'Buttons'].includes(c.category)),
+    'Content': COMPONENT_LIBRARY.filter(c => ['Media', 'Display'].includes(c.category)),
+    'Annotations': COMPONENT_LIBRARY.filter(c => c.category === 'Annotation'),
+  };
+
+  return (
+    <aside className="w-64 bg-white border-r border-slate-200 flex flex-col h-full z-10 shadow-xl overflow-y-auto font-sans">
+      
+      {/* HEADER */}
+      <div className="p-4 border-b border-slate-200 bg-slate-50 sticky top-0 z-10">
+        <h2 className="font-bold text-slate-900 text-xs flex items-center gap-2 tracking-widest">
+          <Palette className="w-4 h-4 text-purple-600" />
+          VIBE LIBRARY
+        </h2>
+      </div>
+
+      <div className="p-4 space-y-8">
+        
+        {/* SPECIAL: CONTAINER */}
+        <section>
+          <h3 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-3 flex items-center gap-1">
+            Roots
+          </h3>
+          <div
+            onDragStart={(e) => onDragStart(e, 'MobileScreen', { label: 'New Screen' })}
+            draggable
+            className="flex items-center gap-3 p-3 bg-purple-50 border border-purple-200 rounded-xl cursor-grab hover:shadow-md transition-all active:cursor-grabbing group"
+          >
+            <GripVertical className="w-4 h-4 text-purple-300 group-hover:text-purple-500" />
+            <div className="p-1.5 bg-white rounded border border-purple-100">
+                <Smartphone className="w-4 h-4 text-purple-600" />
+            </div>
+            <span className="text-sm font-bold text-purple-900">Mobile Screen</span>
+          </div>
+        </section>
+
+        {/* DYNAMIC CATEGORIES */}
+        {Object.entries(categories).map(([cat, items]) => (
+          <section key={cat}>
+            <h3 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-3">{cat}</h3>
+            <div className="grid grid-cols-2 gap-2">
+              {items.map((item) => {
+                const Icon = IconMap[item.icon] || Square;
+                return (
+                  <div
+                    key={item.id}
+                    onDragStart={(e) => onDragStart(e, item.type, item.defaultProps)}
+                    draggable
+                    className="flex flex-col items-center justify-center p-3 bg-white border border-slate-200 rounded-lg cursor-grab hover:border-purple-400 hover:bg-purple-50/50 transition-all active:cursor-grabbing group aspect-square text-center"
+                    title={item.label}
+                  >
+                    <Icon className="w-6 h-6 text-slate-400 group-hover:text-purple-600 mb-2 transition-colors" />
+                    <span className="text-[10px] font-medium text-slate-600 group-hover:text-slate-900 leading-tight">
+                        {item.label}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+          </section>
+        ))}
+
+      </div>
+    </aside>
+  );
+};
+--- END: src/components/Sidebar.tsx ---
+
+
+--- START: src/components/StrategyNodes.tsx ---
+"use client";
+
+// --- SECTION A: IMPORTS ---
+import React, { useState } from 'react';
+import { Handle, Position, NodeProps } from '@xyflow/react';
+import { 
+  Search, AlertTriangle, Zap, TrendingUp, ShieldAlert, 
+  HelpCircle, ExternalLink, BookOpen, Fingerprint, Quote
+} from 'lucide-react';
+import ReactMarkdown from 'react-markdown';
+import { clsx } from 'clsx';
+
+// --- SECTION B: THE COMPONENT ---
+export const ExecutivePaperNode = ({ data }: NodeProps) => {
+  const [activeTab, setActiveTab] = useState<'summary' | 'appendix'>('summary');
+
+  const content = (data as any);
+  const appendix = content.appendix || {};
+
+  return (
+    <div className="w-[595px] min-h-[842px] bg-white shadow-[0_50px_100px_-20px_rgba(0,0,0,0.15)] flex flex-col font-sans relative group">
+      
+      {/* --- SECTION C: EXTERNAL TABS (TOP-LEFT) --- */}
+      <div className="absolute -top-11 left-0 flex gap-1 z-50">
+        <TabButton label="Summary" isActive={activeTab === 'summary'} onClick={() => setActiveTab('summary')} icon={BookOpen} />
+        <TabButton label="Appendix" isActive={activeTab === 'appendix'} onClick={() => setActiveTab('appendix')} icon={Fingerprint} />
+      </div>
+
+      {/* --- SECTION D: EDITORIAL CONTENT --- */}
+      <div className="flex-1 overflow-y-auto scrollbar-hide bg-white border border-slate-200 ring-1 ring-black/5">
+        
+        {activeTab === 'summary' ? (
+          <div className="p-20 animate-in fade-in duration-500">
+            <div className="text-[10px] font-black uppercase tracking-[0.5em] text-slate-400 mb-12">
+                {content.masthead || "STRATEGY UNIT"}
+            </div>
+
+            <h1 className="font-playfair text-[44px] font-black text-slate-900 leading-[1.1] mb-10 tracking-tighter italic">
+                {content.headline || "Position Paper"}
+            </h1>
+
+            <div className="mb-12 relative border-l-2 border-slate-900 pl-8 py-2">
+                <p className="text-[18px] font-medium leading-relaxed text-slate-600 italic font-serif">
+                    {content.context}
+                </p>
+            </div>
+
+            <div className="text-[14px] text-slate-800 leading-[1.8] text-justify space-y-8 mb-20 font-medium prose prose-slate max-w-none">
+                <ReactMarkdown>{content.summary_content || "Authoring executive summary..."}</ReactMarkdown>
+            </div>
+
+            <div className="pt-12 border-t border-slate-100 space-y-12">
+                <div>
+                    <div className="flex items-center gap-2 mb-6 opacity-30 uppercase tracking-[0.3em] text-[10px] font-black">
+                        <Quote className="w-3 h-3" /> <span>Uncomfortable Truths</span>
+                    </div>
+                    <div className="space-y-6">
+                        {content.uncomfortable_truths?.map((t: string, i: number) => (
+                            <div key={i} className="text-[15px] font-bold text-slate-900 leading-snug flex gap-4">
+                                <span className="text-slate-200 font-mono">0{i+1}</span> {t}
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </div>
+          </div>
+        ) : (
+          <div className="p-20 bg-slate-50/30 min-h-full animate-in fade-in duration-500">
+            <div className="text-[10px] font-black uppercase tracking-[0.5em] text-slate-400 mb-16">
+                Technical Intelligence // Multi-Agent Loop
+            </div>
+
+            <div className="space-y-20">
+              <AppendixSection title="Domain Research" icon={Search} content={appendix.domain_research} />
+              <AppendixSection title="The Critical Teardown" icon={AlertTriangle} content={appendix.critical_teardown} highlight />
+              <AppendixSection title="Lateral Reframing" icon={Zap} content={appendix.lateral_reframing} />
+              <AppendixSection title="Value Leverage" icon={TrendingUp} content={appendix.opportunity_scout} />
+              <AppendixSection title="Build Constraints" icon={ShieldAlert} content={appendix.build_constraints} />
+              <AppendixSection title="Synthesis Logic" icon={HelpCircle} content={appendix.synthesis_logic} />
+              
+              {appendix.link_bank && (
+                <div className="pt-8 border-t border-slate-200">
+                  <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 mb-6">Source Index</h4>
+                  <div className="grid grid-cols-1 gap-4">
+                    {appendix.link_bank.map((link: string, i: number) => (
+                      <a key={i} href={link} target="_blank" rel="noreferrer" className="text-[12px] font-bold text-slate-900 underline flex items-center gap-2 hover:text-blue-600 truncate italic">
+                        <ExternalLink className="w-3 h-3" /> {link}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+      </div>
+
+      <Handle type="source" position={Position.Bottom} className="!bg-black w-2.5 h-2.5 border-none" />
+      <Handle type="target" position={Position.Top} className="!bg-black w-2.5 h-2.5 border-none" />
+    </div>
+  );
+};
+
+// --- SUB-COMPONENTS ---
+const TabButton = ({ label, isActive, onClick, icon: Icon }: any) => (
+  <button 
+    onClick={onClick} 
+    className={clsx(
+        "flex items-center gap-2 px-6 py-3 rounded-t-lg text-[10px] font-black uppercase tracking-[0.3em] transition-all border border-b-0 shadow-sm",
+        isActive ? "bg-white text-slate-900 border-slate-200 z-10" : "bg-slate-50/80 text-slate-400 border-transparent hover:text-slate-600"
+    )}
+  >
+    <Icon className="w-3 h-3" />
+    {label}
+  </button>
+);
+
+const AppendixSection = ({ title, icon: Icon, content, highlight = false }: any) => (
+  <div>
+    <div className="flex items-center gap-3 mb-6">
+        <Icon className={clsx("w-4 h-4", highlight ? "text-red-500" : "text-slate-400")} />
+        <h4 className="text-[11px] font-black uppercase tracking-[0.3em] text-slate-900">{title}</h4>
+    </div>
+    <div className={clsx(
+        "text-[13.5px] leading-relaxed text-slate-700 font-medium prose prose-slate max-w-none prose-p:mb-4",
+        highlight && "bg-red-50/50 p-8 rounded-2xl border border-red-100/50 italic shadow-inner"
+    )}>
+      <ReactMarkdown>{content || "Awaiting specialist turn..."}</ReactMarkdown>
+    </div>
+  </div>
+);
+
+export const StrategyNode = ExecutivePaperNode;
+--- END: src/components/StrategyNodes.tsx ---
+
+
+--- START: src/store/vibe-store.ts ---
+// --- SECTION A: IMPORTS ---
+import { create } from 'zustand';
+import { 
+  Node, Edge, addEdge, applyNodeChanges, applyEdgeChanges, 
+  NodeChange, EdgeChange, Connection 
+} from '@xyflow/react';
+import { VibeStore, VibeLayer, DeptSlot, StrategyPaper, VibeManifest, ChatMessage, ProjectMetadata } from '@/types/vibe-core';
+import { getLayoutedElements } from '@/utils/layout-engine';
+
+// --- SECTION B: CONSTANTS & THE FIVE PILLARS ---
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+const NODE_STYLE = { backgroundColor: 'transparent', border: 'none', width: 'auto', boxShadow: 'none' };
+
+const INITIAL_LEDGER: Record<string, DeptSlot> = {
+  the_big_idea: { id: 'the_big_idea', deptId: '1', label: 'The Big Idea', icon: 'the_big_idea', status: 'NOT_STARTED', activeVersion: 0, history: [] },
+  market_reality: { id: 'market_reality', deptId: '2', label: 'Market Reality', icon: 'market_reality', status: 'NOT_STARTED', activeVersion: 0, history: [] },
+  audience_ecosystem: { id: 'audience_ecosystem', deptId: '3', label: 'Audience & Ecosystem', icon: 'audience_ecosystem', status: 'NOT_STARTED', activeVersion: 0, history: [] },
+  content_structure: { id: 'content_structure', deptId: '4', label: 'Content & Structure', icon: 'content_structure', status: 'NOT_STARTED', activeVersion: 0, history: [] },
+  ux_feasibility: { id: 'ux_feasibility', deptId: '5', label: 'UX & Feasibility', icon: 'ux_feasibility', status: 'NOT_STARTED', activeVersion: 0, history: [] },
+};
+
+// --- SECTION C: HELPERS ---
+const flattenTree = (node: any, parentId: string | null = null, depth = 0): Node[] => {
+    const rfNode: Node = { id: node.id, type: node.type, data: { label: node.label, ...node.layout }, position: { x: 20, y: (depth * 80) + 60 }, parentId: parentId || undefined, extent: parentId ? 'parent' : undefined, style: NODE_STYLE };
+    let childrenNodes: Node[] = [];
+    if (node.children && Array.isArray(node.children)) {
+        node.children.forEach((child: any, index: number) => {
+            const childNodeList = flattenTree(child, node.id, depth + 1);
+            childNodeList[0].position.y = (index * 80) + 60;
+            childrenNodes = [...childrenNodes, ...childNodeList];
+        });
+    }
+    return [rfNode, ...childrenNodes];
+};
+
+// --- SECTION D: STORE INITIALIZATION ---
+export const useVibeStore = create<VibeStore>((set, get) => ({
+  // Manifest State (Source of Truth)
+  project_name: 'New Project',
+  strategyLedger: INITIAL_LEDGER,
+  chatHistory: [],
+  strategyDoc: "",
+  activeLayer: 'STRATEGY',
+  activeSpecialist: null,
+  layers: { 
+    STRATEGY: { nodes: [], edges: [] }, JOURNEY: { nodes: [], edges: [] }, 
+    SITEMAP: { nodes: [], edges: [] }, WIREFRAME: { nodes: [] , edges: [] } 
+  },
+  
+  // Local Session State
+  project: { id: '', name: 'New Project' },
+  projectList: [],
+  agencyRoster: [], 
+  departmentRegistry: [],
+  isChatOpen: true,
+
+  // --- SECTION E: UI ACTIONS ---
+  setActiveLayer: (layer: VibeLayer) => set({ activeLayer: layer }),
+  setChatOpen: (open: boolean = true) => set({ isChatOpen: open }),
+  setActiveSpecialist: (id: string | null) => set({ activeSpecialist: id }),
+  setStrategyDoc: (doc: string) => set({ strategyDoc: doc }),
+  setNodes: (nodes: Node[]) => set(state => ({ layers: { ...state.layers, [state.activeLayer]: { ...state.layers[state.activeLayer], nodes } } })),
+  setEdges: (edges: Edge[]) => set(state => ({ layers: { ...state.layers, [state.activeLayer]: { ...state.layers[state.activeLayer], edges } } })),
+  updateManifest: (partial: Partial<VibeManifest>) => set((state: VibeStore) => ({ ...state, ...partial })),
+  
+  onNodesChange: (changes: NodeChange[]) => set((state: VibeStore) => ({ layers: { ...state.layers, [state.activeLayer]: { ...state.layers[state.activeLayer], nodes: applyNodeChanges(changes, state.layers[state.activeLayer].nodes) } } })),
+  onEdgesChange: (changes: EdgeChange[]) => set((state: VibeStore) => ({ layers: { ...state.layers, [state.activeLayer]: { ...state.layers[state.activeLayer], edges: applyEdgeChanges(changes, state.layers[state.activeLayer].edges) } } })),
+  onConnect: (connection: Connection) => set((state: VibeStore) => {
+      const updatedEdges = addEdge({ ...connection, style: { stroke: '#000', strokeWidth: 2 } }, state.layers[state.activeLayer].edges);
+      return { layers: { ...state.layers, [state.activeLayer]: { ...state.layers[state.activeLayer], edges: updatedEdges } } };
+  }),
+
+  // --- SECTION F: PERSISTENCE (HYGIENE) ---
+  fetchProjects: async () => {
+    try {
+      const res = await fetch(`${API_URL}/agent/projects`);
+      const data = await res.json();
+      set({ projectList: data.projects || [] });
+    } catch (e) { console.error(e); }
+  },
+
+  initProjectCloud: async () => {
+    const id = `proj-${Math.random().toString(36).substr(2, 9)}`;
+    // Deep wipe local store
+    set({ 
+        project: { id, name: 'UNTITLED PROJECT' },
+        project_name: 'UNTITLED PROJECT',
+        strategyLedger: INITIAL_LEDGER,
+        chatHistory: [],
+        activeSpecialist: null,
+        layers: { STRATEGY: { nodes: [], edges: [] }, JOURNEY: { nodes: [], edges: [] }, SITEMAP: { nodes: [], edges: [] }, WIREFRAME: { nodes: [] , edges: [] } }
+    });
+    await fetch(`${API_URL}/agent/projects/init`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ thread_id: id, project_name: 'UNTITLED PROJECT' }) });
+    return id;
+  },
+
+  loadProjectCloud: async (id: string) => {
+    // Synchronous ID set to prevent race conditions
+    set(state => ({ project: { ...state.project, id } }));
+    try {
+      const res = await fetch(`${API_URL}/agent/projects/${id}`);
+      const data = await res.json();
+      const dbName = data.project_name || 'UNTITLED';
+      if (data.vibe_manifest) {
+        const m = data.vibe_manifest as VibeManifest;
+        set({ 
+            project: { id, name: dbName }, 
+            project_name: dbName, 
+            strategyLedger: m.strategyLedger || INITIAL_LEDGER, 
+            chatHistory: m.chatHistory || [], 
+            strategyDoc: m.strategyDoc || "", 
+            activeLayer: m.activeLayer || 'STRATEGY', 
+            activeSpecialist: m.activeSpecialist || null, 
+            layers: m.layers || { STRATEGY: { nodes: [], edges: [] }, JOURNEY: { nodes: [], edges: [] }, SITEMAP: { nodes: [], edges: [] }, WIREFRAME: { nodes: [] , edges: [] } } 
+        });
+      }
+    } catch (e) { console.error("Hydration failed", e); }
+  },
+
+  renameProject: async (newName: string) => {
+    const { project } = get();
+    await fetch(`${API_URL}/agent/thread/${project.id}/rename`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name: newName }) });
+    set({ project: { ...project, name: newName }, project_name: newName });
+  },
+
+  deleteProject: async (id: string) => {
+    await fetch(`${API_URL}/agent/thread/${id}`, { method: 'DELETE' });
+    await get().fetchProjects();
+  },
+
+  togglePin: async (id: string) => {
+    await fetch(`${API_URL}/agent/thread/${id}/pin`, { method: 'POST' });
+    await get().fetchProjects();
+  },
+
+  fetchRoster: async () => {
+    try {
+        const resA = await fetch(`${API_URL}/agent/roster`);
+        const dataA = await resA.json();
+        const resD = await fetch(`${API_URL}/agent/departments`);
+        const dataD = await resD.json();
+        set({ agencyRoster: dataA.roster || [], departmentRegistry: dataD.departments || [] });
+    } catch (e) { console.error(e); }
+  },
+
+  updateAgentInDB: async (agentId: string, updates: any) => {
+    await fetch(`${API_URL}/agent/roster/${agentId}`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(updates) });
+    await get().fetchRoster();
+  },
+
+  updateDeptInDB: async (deptId: string, updates: any) => {
+    await fetch(`${API_URL}/agent/departments/${deptId}`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(updates) });
+    await get().fetchRoster();
+  },
+
+  // --- SECTION G: THE GENERATOR (PRODUCTION HANDSHAKE) ---
+  generateLayout: async (input: Blob | string) => {
+    const { activeLayer, strategyLedger, chatHistory, project, activeSpecialist } = get();
+    if (!project.id) return null;
+
+    const userMsg = typeof input === 'string' ? input : "Voice Command Received";
+    const updatedChat: ChatMessage[] = [...chatHistory, { role: 'user', content: userMsg }];
+    
+    // Immediate UI feedback
+    set({ chatHistory: updatedChat });
+
+    try {
+      const formData = new FormData();
+      if (input instanceof Blob) formData.append("file", input, "voice.webm");
+      else formData.append("prompt", input);
+      
+      formData.append("layer", activeLayer);
+      formData.append("project_id", project.id);
+      formData.append("chat_history", JSON.stringify(updatedChat));
+      formData.append("strategy_context", JSON.stringify(strategyLedger));
+      if (activeSpecialist) formData.append("specialist_id", activeSpecialist);
+
+      const response = await fetch(`${API_URL}/agent/design/generate`, { method: "POST", body: formData, mode: 'cors' });
+      const data = await response.json();
+
+      set((state: VibeStore) => {
+        const nextHistory: ChatMessage[] = [...state.chatHistory, { role: 'assistant' as const, content: data.user_message }];
+        let nextLedger = { ...state.strategyLedger };
+        let nextLayers = { ...state.layers };
+        
+        // Auto-Naming Handshake
+        let nextProjectName = state.project_name;
+        if (data.suggested_project_name) nextProjectName = data.suggested_project_name;
+
+        // Process Strategy Patch (for A4 Papers)
+        if (state.activeLayer === 'STRATEGY' && data.patch) {
+            const { dept_id, content } = data.patch;
+            const currentDept = nextLedger[dept_id];
+            if (currentDept) {
+                const newPaper = { 
+                  ...content, 
+                  timestamp: new Date().toISOString(), 
+                  version: (currentDept.history.length + 1).toFixed(1) 
+                };
+                
+                nextLedger[dept_id] = { 
+                  ...currentDept, 
+                  status: 'STABLE' as const, 
+                  history: [...currentDept.history, newPaper], 
+                  activeVersion: currentDept.history.length 
+                };
+                
+                const newNodes = (Object.values(nextLedger) as DeptSlot[]).filter(d => d.history.length > 0).map((d, idx) => ({
+                    id: d.id, type: 'strategy', position: { x: idx * 650, y: 50 },
+                    data: { ...d.history[d.activeVersion], label: d.label, deptId: d.deptId, icon: d.icon, version: d.history[d.activeVersion].version }
+                }));
+                nextLayers.STRATEGY = { nodes: newNodes, edges: [] };
+            }
+        } 
+        // Process Visual Layers (Journey, Sitemap, Wireframe)
+        else if (data.nodes || data.root) {
+            let newNodes: Node[] = [];
+            let newEdges: Edge[] = [];
+            if (state.activeLayer === 'WIREFRAME' && data.root) {
+                newNodes = flattenTree(data.root);
+            } else if (data.nodes) {
+                newNodes = data.nodes.map((n: any) => ({ id: n.id, type: n.type, data: { ...n }, position: { x: 0, y: 0 }, style: NODE_STYLE }));
+                if (data.edges) newEdges = data.edges.map((e: any) => ({ id: e.id || `${e.source}-${e.target}`, source: e.source, target: e.target, style: { stroke: '#000', strokeWidth: 2 } }));
+            }
+            const direction = state.activeLayer === 'SITEMAP' ? 'TB' : 'LR';
+            const layout = getLayoutedElements(newNodes, newEdges, direction);
+            nextLayers[state.activeLayer] = { nodes: layout.nodes, edges: layout.edges };
+        }
+
+        return { 
+          chatHistory: nextHistory, 
+          strategyLedger: nextLedger, 
+          layers: nextLayers, 
+          project_name: nextProjectName, 
+          project: { ...state.project, name: nextProjectName } 
+        };
+      });
+
+      // --- SECTION H: THE AUTOSAVE ---
+      const latest = get();
+      const manifest: VibeManifest = { 
+          project_name: latest.project_name, 
+          strategyLedger: latest.strategyLedger, 
+          chatHistory: latest.chatHistory, 
+          strategyDoc: latest.strategyDoc, 
+          activeLayer: latest.activeLayer, 
+          activeSpecialist: latest.activeSpecialist, 
+          layers: latest.layers 
+      };
+      
+      await fetch(`${API_URL}/agent/projects/save`, { 
+          method: 'POST', 
+          headers: { 'Content-Type': 'application/json' }, 
+          body: JSON.stringify({ thread_id: project.id, manifest }) 
+      });
+
+      return data;
+    } catch (e) { 
+      console.error("Critical Connection Error:", e);
+      return null; 
+    }
+  }
+}));
+--- END: src/store/vibe-store.ts ---

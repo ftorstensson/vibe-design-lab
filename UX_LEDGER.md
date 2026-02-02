@@ -1,3 +1,13 @@
+New Biological IDs:
+| ID | Feature Name | The Law (Guarantees) | Status |
+| :--- | :--- | :--- | :--- |
+| UX-LAB-004 | Triple-Accordion | Sidebar must follow Layer -> Dept -> Agent hierarchy with "Global Hub" on top. | 🔒 PINNED |
+| UX-STRAT-012 | Venture-Brief | A4 paper must prioritize "The Strategic Bet" and "Strategic Sacrifices" over summaries. | ✅ ACTIVE |
+| UX-INT-015 | Partner-Pacing | Chat sidebar must never deliver more than one question per turn. | ✅ ACTIVE |
+
+
+-----
+
 # THE UX TRUTH LEDGER (Vibe Taxonomy)
 
 ## KINGDOM: UX-STRATEGY (The Executive Suite)
