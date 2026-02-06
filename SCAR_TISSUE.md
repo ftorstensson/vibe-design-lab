@@ -119,3 +119,11 @@
 **Entry 055: The Accessibility Linter Wall**
 - **Symptom:** Build fails on "Element has no title attribute" for textareas.
 - **Fix:** Every `textarea` and icon-only `button` in the Agency Lab must have a `title` and `aria-label`.
+
+**Entry 056: The AI Aesthetic Trap (Swiss-Mono Bias)**
+- **Symptom:** AI defaulted to all-caps/mono-spacing for "minimalism," destroying UX readability.
+- **Lesson:** AI pattern-matches to a "look" rather than "utility." Designer-in-the-loop is required to enforce high-fidelity hierarchy (e.g., Sans-Inter, proper vertical rhythm).
+
+**Entry 057: Hydration Desync (New Layer Crash)**
+- **Symptom:** `Cannot read properties of undefined (reading 'nodes')` when clicking new layers in old projects.
+- **Fix:** Implemented an `EMPTY_LAYERS` constant and a `mergedLayers` hydration guard in the store to ensure all layers exist, even if missing from the cloud DB.

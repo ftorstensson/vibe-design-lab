@@ -1,9 +1,8 @@
 // src/types/vibe-core.ts
-// --- SECTION A: IMPORTS ---
 import { Node, Edge, OnNodesChange, OnEdgesChange, Connection } from '@xyflow/react';
 
-// --- SECTION B: CORE COMPONENT TYPES ---
-export type VibeLayer = 'STRATEGY' | 'JOURNEY' | 'SITEMAP' | 'WIREFRAME';
+// --- THE 5 LAYERS OF TRUTH ---
+export type VibeLayer = 'STRATEGY' | 'LANDSCAPE' | 'JOURNEY' | 'SITEMAP' | 'WIREFRAME';
 export type DeptStatus = 'NOT_STARTED' | 'DRAFTING' | 'STABLE' | 'EVOLVING';
 
 export interface StrategyPaper {
@@ -11,19 +10,9 @@ export interface StrategyPaper {
   timestamp: string;
   masthead: string;
   headline: string;
-  context: string;
-  position_narrative: string;
-  uncomfortable_truths: string[];
-  risky_assumptions: string[];
-  appendix: {
-    domain_research: string;
-    critical_teardown: string;
-    lateral_reframing: string;
-    opportunity_scout: string;
-    build_constraints: string;
-    synthesis_logic: string;
-    link_bank: string[];
-  };
+  // This content now adheres to the "Venture Brief" schema
+  content: any; 
+  appendix: any;
   version_note: string;
 }
 
@@ -54,24 +43,22 @@ export interface ChatMessage {
   content: string;
 }
 
-// --- NEW: DETAX AGENT INTERFACE (Adversarial DNA) ---
+// --- DETAX AGENT INTERFACE ---
 export interface SpecialistAgent {
   id: string;
   display_name: string;
   role: string;
-  layer_id: VibeLayer; 
+  layer_id: VibeLayer | 'GLOBAL'; 
   dept_id: string;
   role_index: number;
   model_tier: 'FLASH' | 'PRO';
   system_prompt: string;
-  
-  // DeTax Metadata fields
   optimization_target?: string; 
   loss_function?: string;
   physics_constraints?: string; 
 }
 
-// --- SECTION C: THE UNIFIED MANIFEST ---
+// --- THE UNIFIED MANIFEST ---
 export interface VibeManifest {
   project_name: string;
   strategyLedger: Record<string, DeptSlot>;
@@ -81,13 +68,14 @@ export interface VibeManifest {
   activeSpecialist: string | null;
   layers: {
     STRATEGY: LayerData;
+    LANDSCAPE: LayerData; // NEW
     JOURNEY: LayerData;
     SITEMAP: LayerData;
     WIREFRAME: LayerData;
   };
 }
 
-// --- SECTION D: THE STORE INTERFACE ---
+// --- THE STORE INTERFACE ---
 export interface VibeStore extends VibeManifest {
   project: { id: string; name: string };
   projectList: ProjectMetadata[];

@@ -12,7 +12,7 @@ import '@xyflow/react/dist/style.css';
 import { 
     GripHorizontal, Box, Map, Network, Layout, Loader2, 
     ArrowLeft, BookOpen, ChevronDown, Send, MessageSquare, 
-    PanelRightClose, PanelRightOpen, X, Fingerprint, Zap, BarChart3, Users, TrendingUp, ShieldAlert
+    PanelRightClose, PanelRightOpen, X, Fingerprint, Zap, BarChart3, Users, TrendingUp, ShieldAlert, Target, Search
 } from 'lucide-react';
 import { JourneyToolbar } from '@/components/JourneyToolbar';
 import { SitemapToolbar } from '@/components/SitemapToolbar';
@@ -113,16 +113,17 @@ const Canvas = () => {
     if (e.target.value !== project.name) renameProject(e.target.value);
   };
 
-  const nodes = layers[activeLayer].nodes;
-  const edges = layers[activeLayer].edges;
+  const nodes = layers[activeLayer]?.nodes || [];
+  const edges = layers[activeLayer]?.edges || [];
 
-  // SPECIALIST UI MAPPING
+  // SPECIALIST UI MAPPING (Updated for Dept 1-6)
   const specialistMap: Record<string, { label: string, icon: any, color: string }> = {
-    the_big_idea: { label: 'Startup Wizard', icon: Zap, color: 'bg-purple-600' },
+    the_big_idea: { label: 'Venture Architect', icon: Zap, color: 'bg-purple-600' },
     market_reality: { label: 'Market Scout', icon: BarChart3, color: 'bg-blue-600' },
     audience_ecosystem: { label: 'Psychologist', icon: Users, color: 'bg-orange-600' },
-    content_structure: { label: 'Information Architect', icon: TrendingUp, color: 'bg-green-600' },
-    ux_feasibility: { label: 'Design Strategist', icon: ShieldAlert, color: 'bg-red-600' },
+    content_structure: { label: 'System Modeler', icon: TrendingUp, color: 'bg-green-600' },
+    ux_feasibility: { label: 'Scope Assassin', icon: ShieldAlert, color: 'bg-red-600' },
+    landscape_conventions: { label: 'Visual Scout', icon: Search, color: 'bg-indigo-600' },
   };
 
   const currentSpecialist = activeSpecialist ? specialistMap[activeSpecialist] : null;
@@ -146,8 +147,9 @@ const Canvas = () => {
       <div className={clsx("flex-1 h-full relative bg-white transition-all duration-300 ease-in-out", isChatOpen ? "mr-[450px]" : "mr-0")}>
         <div className="absolute top-6 left-1/2 -translate-x-1/2 z-50">
             <div className="bg-white/90 backdrop-blur-md p-1.5 rounded-full shadow-2xl border flex gap-1">
-                <LayerTab label="Strategy" icon={BookOpen} isActive={activeLayer === 'STRATEGY'} onClick={() => setActiveLayer('STRATEGY')} />
-                <LayerTab label="Journey" icon={Map} isActive={activeLayer === 'JOURNEY'} onClick={() => setActiveLayer('JOURNEY')} />
+                <LayerTab label="Strategy" icon={Target} isActive={activeLayer === 'STRATEGY'} onClick={() => setActiveLayer('STRATEGY')} />
+                <LayerTab label="Landscape" icon={Search} isActive={activeLayer === 'LANDSCAPE'} onClick={() => setActiveLayer('LANDSCAPE')} />
+                <LayerTab label="Journey" icon={Zap} isActive={activeLayer === 'JOURNEY'} onClick={() => setActiveLayer('JOURNEY')} />
                 <LayerTab label="Sitemap" icon={Network} isActive={activeLayer === 'SITEMAP'} onClick={() => setActiveLayer('SITEMAP')} />
                 <LayerTab label="Wireframes" icon={Layout} isActive={activeLayer === 'WIREFRAME'} onClick={() => setActiveLayer('WIREFRAME')} />
             </div>

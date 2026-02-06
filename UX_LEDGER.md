@@ -1,6 +1,15 @@
 New Biological IDs:
 | ID | Feature Name | The Law (Guarantees) | Status |
 | :--- | :--- | :--- | :--- |
+| UX-STRAT-016 | Skeleton-Chassis | Every project must display 5 Strategy nodes on Layer 1 immediately upon creation. | 🔒 PINNED |
+| UX-VIS-010 | Stabilized-Header | Paper titles (e.g., THE BIG IDEA) must remain static in the viewport during tab switching. | ✅ ACTIVE |
+| UX-INT-020 | Mission-Default | Unauthored papers must default to the "About" (Mission) tab to educate the user. | ✅ ACTIVE |
+
+---
+
+New Biological IDs:
+| ID | Feature Name | The Law (Guarantees) | Status |
+| :--- | :--- | :--- | :--- |
 | UX-LAB-004 | Triple-Accordion | Sidebar must follow Layer -> Dept -> Agent hierarchy with "Global Hub" on top. | 🔒 PINNED |
 | UX-STRAT-012 | Venture-Brief | A4 paper must prioritize "The Strategic Bet" and "Strategic Sacrifices" over summaries. | ✅ ACTIVE |
 | UX-INT-015 | Partner-Pacing | Chat sidebar must never deliver more than one question per turn. | ✅ ACTIVE |
