@@ -12,7 +12,7 @@ import '@xyflow/react/dist/style.css';
 import { 
     GripHorizontal, Box, Map, Network, Layout, Loader2, 
     ArrowLeft, BookOpen, ChevronDown, Send, MessageSquare, 
-    PanelRightClose, PanelRightOpen, X, Fingerprint, Zap, BarChart3, Users, TrendingUp, ShieldAlert, Target, Search
+    PanelRightClose, PanelRightOpen, X, Fingerprint, Zap, BarChart3, Users, TrendingUp, ShieldAlert, Target, Search, Database
 } from 'lucide-react';
 import { JourneyToolbar } from '@/components/JourneyToolbar';
 import { SitemapToolbar } from '@/components/SitemapToolbar';
@@ -20,6 +20,7 @@ import { WireframeToolbar } from '@/components/WireframeToolbar';
 import { useVibeStore } from '@/store/vibe-store';
 import VoiceRecorder from '@/components/VoiceRecorder';
 import { StrategyNode } from '@/components/StrategyNodes';
+import { ContextInspector } from '@/components/ContextInspector';
 import { clsx } from 'clsx';
 import { useRouter, useParams } from 'next/navigation';
 
@@ -73,7 +74,6 @@ const nodeTypes = {
     StickyNote: GenericComponentNode,
 };
 
-// --- SECTION C: MAIN PAGE COMPONENT ---
 const Canvas = () => {
   const router = useRouter();
   const { id } = useParams();
@@ -84,12 +84,11 @@ const Canvas = () => {
   const { 
     activeLayer, layers, onNodesChange, onEdgesChange, onConnect, 
     setActiveLayer, generateLayout, chatHistory, isChatOpen, setChatOpen,
-    project, renameProject, loadProjectCloud, activeSpecialist, setActiveSpecialist
+    project, renameProject, loadProjectCloud, activeSpecialist, setActiveSpecialist,
+    setInspectorOpen, isInspectorOpen
   } = useVibeStore();
 
-  // --- SECTION D: HYDRATION ---
   useEffect(() => {
-    // 🛡️ Synchronously set the ID and start hydration immediately
     if (id) loadProjectCloud(id as string);
   }, [id, loadProjectCloud]);
 
@@ -116,13 +115,12 @@ const Canvas = () => {
   const nodes = layers[activeLayer]?.nodes || [];
   const edges = layers[activeLayer]?.edges || [];
 
-  // SPECIALIST UI MAPPING (Updated for Dept 1-6)
   const specialistMap: Record<string, { label: string, icon: any, color: string }> = {
     the_big_idea: { label: 'Venture Architect', icon: Zap, color: 'bg-purple-600' },
     market_reality: { label: 'Market Scout', icon: BarChart3, color: 'bg-blue-600' },
-    audience_ecosystem: { label: 'Psychologist', icon: Users, color: 'bg-orange-600' },
-    content_structure: { label: 'System Modeler', icon: TrendingUp, color: 'bg-green-600' },
-    ux_feasibility: { label: 'Scope Assassin', icon: ShieldAlert, color: 'bg-red-600' },
+    audience_mapping: { label: 'Psychologist', icon: Users, color: 'bg-orange-600' },
+    user_experience: { label: 'Experience Designer', icon: TrendingUp, color: 'bg-green-600' },
+    the_mvp: { label: 'Build Engineer', icon: ShieldAlert, color: 'bg-red-600' },
     landscape_conventions: { label: 'Visual Scout', icon: Search, color: 'bg-indigo-600' },
   };
 
@@ -131,7 +129,6 @@ const Canvas = () => {
   return (
     <div className="flex h-screen w-screen bg-slate-100 overflow-hidden relative font-sans">
       
-      {/* TOP LEFT HEADER */}
       <div className="absolute top-6 left-6 z-[60] flex items-center gap-4">
         <button onClick={() => router.push('/')} aria-label="Back to Lobby" className="p-3 bg-white hover:bg-slate-50 rounded-2xl shadow-xl border border-slate-200 transition-all active:scale-95 text-slate-400"><ArrowLeft className="w-5 h-5" /></button>
         <div className="bg-white px-4 py-2 rounded-2xl shadow-xl border border-slate-200 flex flex-col min-w-[200px]">
@@ -166,7 +163,6 @@ const Canvas = () => {
         {!isChatOpen && (<button onClick={() => setChatOpen(true)} aria-label="Open Project Manager" className="absolute top-6 right-6 z-[60] p-3 bg-slate-900 text-white rounded-2xl shadow-2xl hover:bg-black transition-all"><MessageSquare className="w-6 h-6" /></button>)}
       </div>
 
-      {/* CHAT SIDEBAR */}
       <div className={clsx(
           "fixed top-0 right-0 h-full bg-white border-l border-slate-200 flex flex-col shadow-2xl z-[70] transition-all duration-300 font-sans",
           isChatOpen ? "w-[450px] translate-x-0" : "w-[450px] translate-x-full"
@@ -192,6 +188,17 @@ const Canvas = () => {
                 </div>
             </div>
             <div className="flex items-center gap-1">
+                <button 
+                    onClick={() => setInspectorOpen(!isInspectorOpen)}
+                    title="Inspect Worldview"
+                    aria-label="Inspect Worldview"
+                    className={clsx(
+                        "p-2 rounded-lg transition-colors",
+                        currentSpecialist ? "text-slate-400 hover:text-white" : "text-slate-300 hover:bg-slate-100 hover:text-slate-900"
+                    )}
+                >
+                    <Database className="w-5 h-5" />
+                </button>
                 {currentSpecialist && (
                     <button onClick={() => setActiveSpecialist(null)} className="p-2 text-slate-400 hover:text-white transition-colors flex items-center gap-1.5" title="Return to PM">
                         <X className="w-4 h-4" /> <span className="text-[10px] font-bold uppercase tracking-widest">Exit</span>
@@ -221,6 +228,8 @@ const Canvas = () => {
             </div>
         </div>
       </div>
+
+      <ContextInspector />
     </div>
   );
 };

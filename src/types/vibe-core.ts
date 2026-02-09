@@ -1,7 +1,6 @@
 // src/types/vibe-core.ts
 import { Node, Edge, OnNodesChange, OnEdgesChange, Connection } from '@xyflow/react';
 
-// --- THE 5 LAYERS OF TRUTH ---
 export type VibeLayer = 'STRATEGY' | 'LANDSCAPE' | 'JOURNEY' | 'SITEMAP' | 'WIREFRAME';
 export type DeptStatus = 'NOT_STARTED' | 'DRAFTING' | 'STABLE' | 'EVOLVING';
 
@@ -10,7 +9,6 @@ export interface StrategyPaper {
   timestamp: string;
   masthead: string;
   headline: string;
-  // This content now adheres to the "Venture Brief" schema
   content: any; 
   appendix: any;
   version_note: string;
@@ -43,7 +41,6 @@ export interface ChatMessage {
   content: string;
 }
 
-// --- DETAX AGENT INTERFACE ---
 export interface SpecialistAgent {
   id: string;
   display_name: string;
@@ -58,7 +55,6 @@ export interface SpecialistAgent {
   physics_constraints?: string; 
 }
 
-// --- THE UNIFIED MANIFEST ---
 export interface VibeManifest {
   project_name: string;
   strategyLedger: Record<string, DeptSlot>;
@@ -68,20 +64,24 @@ export interface VibeManifest {
   activeSpecialist: string | null;
   layers: {
     STRATEGY: LayerData;
-    LANDSCAPE: LayerData; // NEW
+    LANDSCAPE: LayerData;
     JOURNEY: LayerData;
     SITEMAP: LayerData;
     WIREFRAME: LayerData;
   };
 }
 
-// --- THE STORE INTERFACE ---
 export interface VibeStore extends VibeManifest {
   project: { id: string; name: string };
   projectList: ProjectMetadata[];
   agencyRoster: SpecialistAgent[]; 
   departmentRegistry: any[]; 
   isChatOpen: boolean;
+
+  // --- INSPECTOR PROPERTIES ---
+  lastWorldview: any;
+  isInspectorOpen: boolean;
+  setInspectorOpen: (open: boolean) => void;
 
   fetchProjects: () => Promise<void>;
   initProjectCloud: () => Promise<string>;
@@ -98,6 +98,7 @@ export interface VibeStore extends VibeManifest {
   setChatOpen: (open?: boolean) => void;
   setActiveSpecialist: (id: string | null) => void;
   updateManifest: (partial: Partial<VibeManifest>) => void;
+  setStrategyDoc: (doc: string) => void;
   setNodes: (nodes: Node[]) => void;
   setEdges: (edges: Edge[]) => void;
   onNodesChange: OnNodesChange;

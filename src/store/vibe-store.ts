@@ -55,6 +55,7 @@ const flattenTree = (node: any, parentId: string | null = null, depth = 0): Node
 };
 
 export const useVibeStore = create<VibeStore>((set, get) => ({
+  // --- MANIFEST STATE ---
   project_name: 'New Project',
   strategyLedger: INITIAL_LEDGER,
   chatHistory: [],
@@ -62,17 +63,24 @@ export const useVibeStore = create<VibeStore>((set, get) => ({
   activeLayer: 'STRATEGY',
   activeSpecialist: null,
   layers: { ...EMPTY_LAYERS },
+  
+  // --- SESSION STATE ---
   project: { id: '', name: 'New Project' },
   projectList: [],
   agencyRoster: [], 
   departmentRegistry: [],
   isChatOpen: true,
+  lastWorldview: null,
+  isInspectorOpen: false,
 
+  // --- ACTIONS ---
+  setInspectorOpen: (open: boolean) => set({ isInspectorOpen: open }),
   setActiveLayer: (layer: VibeLayer) => set({ activeLayer: layer }),
   setChatOpen: (open: boolean = true) => set({ isChatOpen: open }),
   setActiveSpecialist: (id: string | null) => set({ activeSpecialist: id }),
   setStrategyDoc: (doc: string) => set({ strategyDoc: doc }),
   setNodes: (nodes: Node[]) => set(state => ({ layers: { ...state.layers, [state.activeLayer]: { ...state.layers[state.activeLayer], nodes } } })),
+  // FIX: Line 83 corrected from 'updatedEdges' to 'edges'
   setEdges: (edges: Edge[]) => set(state => ({ layers: { ...state.layers, [state.activeLayer]: { ...state.layers[state.activeLayer], edges } } })),
   updateManifest: (partial: Partial<VibeManifest>) => set((state: VibeStore) => ({ ...state, ...partial })),
   
@@ -178,6 +186,9 @@ export const useVibeStore = create<VibeStore>((set, get) => ({
 
     const ambitionDNA = "Mode: Vibe Coding (AI-First). Ambition: Venture-Grade. Goal: Scale and logic-driven defensibility.";
 
+    // --- TRACK WORLDVIEW FOR INSPECTOR ---
+    set({ lastWorldview: { layer: activeLayer, history: updatedChat, context: strategyLedger, dna: ambitionDNA, specialist: activeSpecialist } });
+
     try {
       const formData = new FormData();
       if (input instanceof Blob) formData.append("file", input, "voice.webm");
@@ -188,7 +199,6 @@ export const useVibeStore = create<VibeStore>((set, get) => ({
       formData.append("chat_history", JSON.stringify(updatedChat));
       formData.append("strategy_context", JSON.stringify(strategyLedger));
       formData.append("ambition_dna", ambitionDNA); 
-      
       if (activeSpecialist) formData.append("specialist_id", activeSpecialist);
 
       const response = await fetch(`${API_URL}/agent/design/generate`, { method: "POST", body: formData, mode: 'cors' });

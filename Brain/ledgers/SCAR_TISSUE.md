@@ -1,4 +1,12 @@
-# SCAR TISSUE LEDGER (Lessons Learned)
+# SCAR TISSUE LEDGER
+
+**Entry 058: The Docker Snapshot Ghost**
+- **Symptom:** Build fails with "parent snapshot does not exist."
+- **Fix:** Run `docker builder prune -f` and build with `--no-cache`.
+
+**Entry 059: The Dual-Repo Path Gap**
+- **Symptom:** Backend "Eye" can't see Frontend files.
+- **Fix:** Use `FRONTEND_PATH` environment variable to bridge the repositories physically. (Lessons Learned)
 
 **Entry 028: The 404 Model Registry Ghost**
 *   **Symptom:** Backend threw 404 when calling `gemini-3.0-pro`.
@@ -46,7 +54,15 @@
 *   **Symptom:** TS errors when saving state.
 *   **Fix:** Ensure the `VibeManifest` interface (what we save) and `VibeStore` interface (what we use) are perfectly synchronized. Every property in the store must be explicitly accounted for in the Manifest contract.
 
-# SCAR TISSUE LEDGER (Lessons Learned)
+# SCAR TISSUE LEDGER
+
+**Entry 058: The Docker Snapshot Ghost**
+- **Symptom:** Build fails with "parent snapshot does not exist."
+- **Fix:** Run `docker builder prune -f` and build with `--no-cache`.
+
+**Entry 059: The Dual-Repo Path Gap**
+- **Symptom:** Backend "Eye" can't see Frontend files.
+- **Fix:** Use `FRONTEND_PATH` environment variable to bridge the repositories physically. (Lessons Learned)
 
 **Entry 040: The Appendix Mandate**
 *   **Fix:** Harden the Pydantic schema to make the Appendix object mandatory. This forces the model to perform the research before validating the response.
@@ -59,7 +75,15 @@
 *   **Symptom:** "Failed to fetch" errors when putting `fetch()` calls inside a Zustand `set()` block.
 *   **Fix:** Zustand setters must be pure. Move all autosave network calls outside of the `set()` function to prevent race conditions.
 
-# SCAR TISSUE LEDGER (Lessons Learned)
+# SCAR TISSUE LEDGER
+
+**Entry 058: The Docker Snapshot Ghost**
+- **Symptom:** Build fails with "parent snapshot does not exist."
+- **Fix:** Run `docker builder prune -f` and build with `--no-cache`.
+
+**Entry 059: The Dual-Repo Path Gap**
+- **Symptom:** Backend "Eye" can't see Frontend files.
+- **Fix:** Use `FRONTEND_PATH` environment variable to bridge the repositories physically. (Lessons Learned)
 
 **Entry 043: The Side-Effect RPC Error**
 *   **Symptom:** "Failed to fetch" errors when putting `fetch()` calls inside a Zustand `set()` block.
@@ -88,13 +112,29 @@
 *   **Symptom:** `Failed to fetch` error during project creation.
 *   **Fix:** Autosave fetches must be triggered outside of the Zustand `set()` function. Functional updates `set((state) => ...)` must remain pure to avoid race conditions.
 
-# SCAR TISSUE LEDGER (Lessons Learned)
+# SCAR TISSUE LEDGER
+
+**Entry 058: The Docker Snapshot Ghost**
+- **Symptom:** Build fails with "parent snapshot does not exist."
+- **Fix:** Run `docker builder prune -f` and build with `--no-cache`.
+
+**Entry 059: The Dual-Repo Path Gap**
+- **Symptom:** Backend "Eye" can't see Frontend files.
+- **Fix:** Use `FRONTEND_PATH` environment variable to bridge the repositories physically. (Lessons Learned)
 
 **Entry 049: The Key Name Collision**
 *   **Symptom:** Department Lenses disappeared from the Lab UI after a database update.
 *   **Fix:** The seeder script changed the field name from `lens_profile` to `lens`. The "Dumb Code" in the UI was hardcoded to look for `lens_profile`. **Lesson:** Never change a database key name without updating the entire chain (Store + Backend + Seeder). Always use the full key name provided in the Types.
 
-# SCAR TISSUE LEDGER (Lessons Learned)
+# SCAR TISSUE LEDGER
+
+**Entry 058: The Docker Snapshot Ghost**
+- **Symptom:** Build fails with "parent snapshot does not exist."
+- **Fix:** Run `docker builder prune -f` and build with `--no-cache`.
+
+**Entry 059: The Dual-Repo Path Gap**
+- **Symptom:** Backend "Eye" can't see Frontend files.
+- **Fix:** Use `FRONTEND_PATH` environment variable to bridge the repositories physically. (Lessons Learned)
 
 **Entry 050: The Google Search Tool Pivot**
 *   **Symptom:** Backend 400 error: `google_search_retrieval is not supported`.
