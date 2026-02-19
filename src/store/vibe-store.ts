@@ -60,6 +60,7 @@ export const useVibeStore = create<VibeStore>((set, get) => ({
   strategyLedger: INITIAL_LEDGER,
   chatHistory: [],
   strategyDoc: "",
+  projectLedger: [], // INITIALIZED
   activeLayer: 'STRATEGY',
   activeSpecialist: null,
   layers: { ...EMPTY_LAYERS },
@@ -80,7 +81,6 @@ export const useVibeStore = create<VibeStore>((set, get) => ({
   setActiveSpecialist: (id: string | null) => set({ activeSpecialist: id }),
   setStrategyDoc: (doc: string) => set({ strategyDoc: doc }),
   setNodes: (nodes: Node[]) => set(state => ({ layers: { ...state.layers, [state.activeLayer]: { ...state.layers[state.activeLayer], nodes } } })),
-  // FIX: Line 83 corrected from 'updatedEdges' to 'edges'
   setEdges: (edges: Edge[]) => set(state => ({ layers: { ...state.layers, [state.activeLayer]: { ...state.layers[state.activeLayer], edges } } })),
   updateManifest: (partial: Partial<VibeManifest>) => set((state: VibeStore) => ({ ...state, ...partial })),
   
@@ -106,6 +106,7 @@ export const useVibeStore = create<VibeStore>((set, get) => ({
         project: { id, name: 'UNTITLED PROJECT' },
         project_name: 'UNTITLED PROJECT',
         strategyLedger: INITIAL_LEDGER,
+        projectLedger: [],
         chatHistory: [],
         activeSpecialist: null,
         layers: { ...EMPTY_LAYERS, STRATEGY: { nodes: skeletonNodes, edges: [] } }
@@ -130,6 +131,7 @@ export const useVibeStore = create<VibeStore>((set, get) => ({
             project: { id, name: dbName }, 
             project_name: dbName, 
             strategyLedger: currentLedger, 
+            projectLedger: m.projectLedger || [],
             chatHistory: m.chatHistory || [], 
             strategyDoc: m.strategyDoc || "", 
             activeLayer: m.activeLayer || 'STRATEGY', 
@@ -186,8 +188,8 @@ export const useVibeStore = create<VibeStore>((set, get) => ({
 
     const ambitionDNA = "Mode: Vibe Coding (AI-First). Ambition: Venture-Grade. Goal: Scale and logic-driven defensibility.";
 
-    // --- TRACK WORLDVIEW FOR INSPECTOR ---
-    set({ lastWorldview: { layer: activeLayer, history: updatedChat, context: strategyLedger, dna: ambitionDNA, specialist: activeSpecialist } });
+    // --- TRACK WORLDVIEW (V4.2) ---
+    set({ lastWorldview: { layer: activeLayer, history: updatedChat, context: strategyLedger, ledger: get().projectLedger, dna: ambitionDNA, specialist: activeSpecialist } });
 
     try {
       const formData = new FormData();
@@ -244,7 +246,7 @@ export const useVibeStore = create<VibeStore>((set, get) => ({
       });
 
       const latest = get();
-      const manifest: VibeManifest = { project_name: latest.project_name, strategyLedger: latest.strategyLedger, chatHistory: latest.chatHistory, strategyDoc: latest.strategyDoc, activeLayer: latest.activeLayer, activeSpecialist: latest.activeSpecialist, layers: latest.layers };
+      const manifest: VibeManifest = { project_name: latest.project_name, strategyLedger: latest.strategyLedger, projectLedger: latest.projectLedger, chatHistory: latest.chatHistory, strategyDoc: latest.strategyDoc, activeLayer: latest.activeLayer, activeSpecialist: latest.activeSpecialist, layers: latest.layers };
       await fetch(`${API_URL}/agent/projects/save`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ thread_id: project.id, manifest }) });
       return data;
     } catch (e) { 

@@ -190,8 +190,27 @@ export default function AgencyLab() {
                         <textarea title="Editor" aria-label="Editor" className="flex-1 p-10 text-lg font-medium text-slate-700 leading-relaxed outline-none resize-none bg-transparent" value={editorContent} onChange={(e) => setEditorContent(e.target.value)} placeholder="Engineering the brain..." />
                     </div>
 
-                    {/* ADVERSARIAL METADATA */}
+                    {/* ADVERSARIAL METADATA & CHECKLIST */}
                     <div className="space-y-6">
+                        {selectedDept && (
+                            <div className="bg-white p-6 rounded-[2rem] border border-slate-200 shadow-sm">
+                                <div className="flex items-center gap-2 mb-4">
+                                    <Target className="w-3 h-3 text-purple-500" />
+                                    <span className="text-[9px] font-black uppercase tracking-widest text-slate-400">Dept Checklist (Phase Requirements)</span>
+                                </div>
+                                <textarea 
+                                    title="Checklist Editor"
+                                    aria-label="Checklist Editor"
+                                    className="w-full text-xs font-bold text-slate-800 bg-transparent border-none outline-none resize-none h-48 p-0 focus:ring-0 placeholder:text-slate-200 font-mono"
+                                    value={selectedDept.checklist ? selectedDept.checklist.join("\n") : ""}
+                                    onChange={(e) => {
+                                        const newList = e.target.value.split("\n");
+                                        setSelectedDept({...selectedDept, checklist: newList});
+                                    }}
+                                    placeholder="Enter one requirement per line..."
+                                />
+                            </div>
+                        )}
                         {selectedAgent && (
                             <>
                                 <MetadataBlock icon={Target} label="Optimization Target" value={optTarget} onChange={setOptTarget} placeholder="Maximize venture moat..." />

@@ -1,12 +1,3 @@
-# SCAR TISSUE LEDGER
-
-**Entry 058: The Docker Snapshot Ghost**
-- **Symptom:** Build fails with "parent snapshot does not exist."
-- **Fix:** Run `docker builder prune -f` and build with `--no-cache`.
-
-**Entry 059: The Dual-Repo Path Gap**
-- **Symptom:** Backend "Eye" can't see Frontend files.
-- **Fix:** Use `FRONTEND_PATH` environment variable to bridge the repositories physically. (Lessons Learned)
 
 **Entry 028: The 404 Model Registry Ghost**
 *   **Symptom:** Backend threw 404 when calling `gemini-3.0-pro`.
@@ -54,15 +45,7 @@
 *   **Symptom:** TS errors when saving state.
 *   **Fix:** Ensure the `VibeManifest` interface (what we save) and `VibeStore` interface (what we use) are perfectly synchronized. Every property in the store must be explicitly accounted for in the Manifest contract.
 
-# SCAR TISSUE LEDGER
 
-**Entry 058: The Docker Snapshot Ghost**
-- **Symptom:** Build fails with "parent snapshot does not exist."
-- **Fix:** Run `docker builder prune -f` and build with `--no-cache`.
-
-**Entry 059: The Dual-Repo Path Gap**
-- **Symptom:** Backend "Eye" can't see Frontend files.
-- **Fix:** Use `FRONTEND_PATH` environment variable to bridge the repositories physically. (Lessons Learned)
 
 **Entry 040: The Appendix Mandate**
 *   **Fix:** Harden the Pydantic schema to make the Appendix object mandatory. This forces the model to perform the research before validating the response.
@@ -75,15 +58,6 @@
 *   **Symptom:** "Failed to fetch" errors when putting `fetch()` calls inside a Zustand `set()` block.
 *   **Fix:** Zustand setters must be pure. Move all autosave network calls outside of the `set()` function to prevent race conditions.
 
-# SCAR TISSUE LEDGER
-
-**Entry 058: The Docker Snapshot Ghost**
-- **Symptom:** Build fails with "parent snapshot does not exist."
-- **Fix:** Run `docker builder prune -f` and build with `--no-cache`.
-
-**Entry 059: The Dual-Repo Path Gap**
-- **Symptom:** Backend "Eye" can't see Frontend files.
-- **Fix:** Use `FRONTEND_PATH` environment variable to bridge the repositories physically. (Lessons Learned)
 
 **Entry 043: The Side-Effect RPC Error**
 *   **Symptom:** "Failed to fetch" errors when putting `fetch()` calls inside a Zustand `set()` block.
@@ -112,29 +86,9 @@
 *   **Symptom:** `Failed to fetch` error during project creation.
 *   **Fix:** Autosave fetches must be triggered outside of the Zustand `set()` function. Functional updates `set((state) => ...)` must remain pure to avoid race conditions.
 
-# SCAR TISSUE LEDGER
-
-**Entry 058: The Docker Snapshot Ghost**
-- **Symptom:** Build fails with "parent snapshot does not exist."
-- **Fix:** Run `docker builder prune -f` and build with `--no-cache`.
-
-**Entry 059: The Dual-Repo Path Gap**
-- **Symptom:** Backend "Eye" can't see Frontend files.
-- **Fix:** Use `FRONTEND_PATH` environment variable to bridge the repositories physically. (Lessons Learned)
-
 **Entry 049: The Key Name Collision**
 *   **Symptom:** Department Lenses disappeared from the Lab UI after a database update.
 *   **Fix:** The seeder script changed the field name from `lens_profile` to `lens`. The "Dumb Code" in the UI was hardcoded to look for `lens_profile`. **Lesson:** Never change a database key name without updating the entire chain (Store + Backend + Seeder). Always use the full key name provided in the Types.
-
-# SCAR TISSUE LEDGER
-
-**Entry 058: The Docker Snapshot Ghost**
-- **Symptom:** Build fails with "parent snapshot does not exist."
-- **Fix:** Run `docker builder prune -f` and build with `--no-cache`.
-
-**Entry 059: The Dual-Repo Path Gap**
-- **Symptom:** Backend "Eye" can't see Frontend files.
-- **Fix:** Use `FRONTEND_PATH` environment variable to bridge the repositories physically. (Lessons Learned)
 
 **Entry 050: The Google Search Tool Pivot**
 *   **Symptom:** Backend 400 error: `google_search_retrieval is not supported`.
@@ -167,3 +121,26 @@
 **Entry 057: Hydration Desync (New Layer Crash)**
 - **Symptom:** `Cannot read properties of undefined (reading 'nodes')` when clicking new layers in old projects.
 - **Fix:** Implemented an `EMPTY_LAYERS` constant and a `mergedLayers` hydration guard in the store to ensure all layers exist, even if missing from the cloud DB.
+
+# SCAR TISSUE LEDGER (v4.4)
+*The Black Box Recorder of the Design Truth Engine*
+
+**Entry 058: The Meta-Talk Trap**
+- **Symptom:** Specialists writing about "Design Taxonomy" or "AI Agencies" instead of the actual project (e.g. StormQuest).
+- **Fix:** Implemented the "Intent Firewall." Specialists are physically shielded from the Agency Handbook. They only receive the Project Memory and the Director's Vision.
+
+**Entry 059: The Mirroring Trap**
+- **Symptom:** PM repeating the Director's input back to them ("You said you want a travel app...") instead of suggesting new value.
+- **Fix:** Implemented the "Anti-Mirror Law." The PM is explicitly punished for echoing the user and rewarded for adding "Strategic Bricks" to the wall.
+
+**Entry 060: The Race Condition (Pacing)**
+- **Symptom:** The PM says "I'm starting the team" and the paper arrives in the same turn, leaving the user confused for 60 seconds.
+- **Fix:** Implemented the "Two-Stage Gate." The PM must ask for permission to start the loop, and the backend blocks execution until the Director says "Yes."
+
+**Entry 061: The Dual-Repo Path Gap**
+- **Symptom:** Backend "Eye" couldn't see Frontend files.
+- **Fix:** Absolute pathing via `FRONTEND_PATH` environment variable. Never use relative paths for cross-repository bridging.
+
+**Entry 062: The Swiss-Mono Aesthetic Bias**
+- **Symptom:** AI defaulted to all-caps/mono-spacing for "minimalism," destroying readability.
+- **Fix:** Designer-in-the-loop enforced high-fidelity hierarchy (Sans-Inter, bold headers, vertical explainer stacks).

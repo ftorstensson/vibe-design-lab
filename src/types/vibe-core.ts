@@ -60,6 +60,7 @@ export interface VibeManifest {
   strategyLedger: Record<string, DeptSlot>;
   chatHistory: ChatMessage[];
   strategyDoc: string;
+  projectLedger: any[];
   activeLayer: VibeLayer;
   activeSpecialist: string | null;
   layers: {
