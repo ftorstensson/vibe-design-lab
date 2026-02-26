@@ -37,6 +37,8 @@ export default function AgencyLab() {
   const [selectedAgent, setSelectedAgent] = useState<SpecialistAgent | null>(null);
   const [selectedDept, setSelectedDept] = useState<any>(null);
   const [editorContent, setEditorContent] = useState("");
+  const [exoBrainContent, setExoBrainContent] = useState("");
+  const [activeTab, setActiveTab] = useState<"persona" | "exo">("persona");
   const [expandedTeams, setExpandedTeams] = useState<string[]>(STRATEGY_DEPT_ORDER);
 
   // DeTax Metadata Fields
@@ -63,6 +65,7 @@ export default function AgencyLab() {
     setSelectedDept(null);
     setSelectedAgent(agent);
     setEditorContent(agent.system_prompt);
+    setExoBrainContent(agent.exo_brain || "");
     setOptTarget(agent.optimization_target || "");
     setLossFunc(agent.loss_function || "");
     setPhysics(agent.physics_constraints || "");
@@ -81,13 +84,17 @@ export default function AgencyLab() {
     if (selectedAgent) {
         await updateAgentInDB(selectedAgent.id, { 
             system_prompt: editorContent,
+            exo_brain: exoBrainContent,
             optimization_target: optTarget,
             loss_function: lossFunc,
             physics_constraints: physics
         });
         alert("Strategic DNA Committed to Ledger.");
     } else if (selectedDept) {
-        await updateDeptInDB(selectedDept.id, { lens_profile: editorContent });
+        await updateDeptInDB(selectedDept.id, { 
+            lens_profile: editorContent,
+            checklist: selectedDept.checklist 
+        });
         alert("Department Worldview Updated.");
     }
   };
@@ -184,10 +191,25 @@ export default function AgencyLab() {
                 </header>
 
                 <div className="grid grid-cols-3 gap-8 items-start pb-20">
-                    {/* PRIMARY SYSTEM PROMPT */}
-                    <div className="col-span-2 flex flex-col bg-white rounded-[2.5rem] border border-slate-200 shadow-sm overflow-hidden ring-1 ring-black/5 min-h-[600px]">
-                        <div className="p-6 border-b border-slate-50 bg-slate-50/50 flex items-center gap-3"><Cpu className="w-4 h-4 text-slate-400" /><span className="text-[10px] font-black uppercase tracking-[0.4em] text-slate-400">{selectedAgent ? "Cognitive Persona Prompt" : "Departmental Worldview Lens"}</span></div>
-                        <textarea title="Editor" aria-label="Editor" className="flex-1 p-10 text-lg font-medium text-slate-700 leading-relaxed outline-none resize-none bg-transparent" value={editorContent} onChange={(e) => setEditorContent(e.target.value)} placeholder="Engineering the brain..." />
+                    {/* PRIMARY SYSTEM PROMPT & EXO-BRAIN TABS */}
+                    <div className="col-span-2 flex flex-col bg-white rounded-[2.5rem] border border-slate-200 shadow-sm overflow-hidden ring-1 ring-black/5 min-h-[700px]">
+                        <div className="flex border-b border-slate-100">
+                            <button onClick={() => setActiveTab("persona")} className={clsx("px-8 py-5 text-[10px] font-black uppercase tracking-widest transition-all", activeTab === "persona" ? "border-b-2 border-slate-900 text-slate-900 bg-slate-50" : "text-slate-400 hover:text-slate-600")}>1. Persona (Who)</button>
+                            {selectedAgent && <button onClick={() => setActiveTab("exo")} className={clsx("px-8 py-5 text-[10px] font-black uppercase tracking-widest transition-all", activeTab === "exo" ? "border-b-2 border-slate-900 text-slate-900 bg-slate-50" : "text-slate-400 hover:text-slate-600")}>2. Exo-Brain (How)</button>}
+                        </div>
+                        <div className="flex-1 flex flex-col">
+                            {activeTab === "persona" ? (
+                                <div className="flex-1 flex flex-col p-10">
+                                    <p className="text-[9px] font-bold text-slate-300 uppercase mb-4 tracking-[0.2em]">Target: Social role, tone of voice, and immediate mandates.</p>
+                                    <textarea title="Persona Editor" aria-label="Persona Editor" className="flex-1 text-lg font-medium text-slate-700 leading-relaxed outline-none resize-none bg-transparent" value={editorContent} onChange={(e) => setEditorContent(e.target.value)} placeholder="Who is this agent?" />
+                                </div>
+                            ) : (
+                                <div className="flex-1 flex flex-col p-10">
+                                    <p className="text-[9px] font-bold text-slate-300 uppercase mb-4 tracking-[0.2em]">Target: Theoretical frameworks, case studies, and the 'Kill Shot' logic.</p>
+                                    <textarea title="Exo-Brain Editor" aria-label="Exo-Brain Editor" className="flex-1 text-sm font-mono text-slate-600 leading-relaxed outline-none resize-none bg-transparent" value={exoBrainContent} onChange={(e) => setExoBrainContent(e.target.value)} placeholder="How does this agent think?" />
+                                </div>
+                            )}
+                        </div>
                     </div>
 
                     {/* ADVERSARIAL METADATA & CHECKLIST */}

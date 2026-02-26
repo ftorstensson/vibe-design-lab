@@ -1,1 +1,0 @@
-(Placeholder for the "Magic/Reframing" expertise).

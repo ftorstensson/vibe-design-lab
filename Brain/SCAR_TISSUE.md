@@ -144,3 +144,26 @@
 **Entry 062: The Swiss-Mono Aesthetic Bias**
 - **Symptom:** AI defaulted to all-caps/mono-spacing for "minimalism," destroying readability.
 - **Fix:** Designer-in-the-loop enforced high-fidelity hierarchy (Sans-Inter, bold headers, vertical explainer stacks).
+
+# SCAR TISSUE LEDGER (v4.7 - The Intelligence Update)
+*Last Updated: 2026-02-26*
+
+**Entry 063: The Gemini Grounding Paradox (Turn Stealing)**
+*   **Problem:** Gemini 2.5 Pro uses internal grounding and "steals the turn," bypassing manual ReAct loops and hiding URLs.
+*   **Fix:** **The Native Bypass.** Use `Tool.from_dict({"google_search": {}})` and programmatically harvest `grounding_metadata` from the response. It is 2x faster and 100% reliable.
+
+**Entry 064: The Cognitive Split (Partner vs. Scribe)**
+*   **Problem:** Asking the PM to be social AND a JSON clerk causes "Instruction Saturation" and robotic tone.
+*   **Fix:** **The Sidecar Pattern.** Turn 1 is the Social PM (Fast Lane). Turn 2 is the Invisible Scribe (Slow Lane) extracting data. They are separate models/turns.
+
+**Entry 065: The "Yes" Poisoning (Context Isolation)**
+*   **Symptom:** Specialists research the word "Yes" or "Go" instead of the project vision.
+*   **Fix:** **The Iron Curtain.** Specialists are physically blocked from reading the chat history. They receive ONLY the structured Mission Manifesto.
+
+**Entry 066: The Return Pipe Void**
+*   **Symptom:** `NoneType` error in frontend when PM finishes Turn 1.
+*   **Fix:** Every logic branch in `architect.py` must explicitly `return pm_decision` to keep the frontend store hydrated.
+
+**Entry 067: The character-perfect search block**
+*   **Lesson:** Markdown and Python patches fail on single characters or quote escapes (`\u0027`).
+*   **Fix:** **The Overwrite Protocol.** Use a Python script or `cat` to physically rewrite files when surgical patches fail 3 times.

@@ -26,19 +26,23 @@ const INITIAL_LEDGER: Record<string, DeptSlot> = {
   the_mvp: { id: 'the_mvp', deptId: '5', label: 'The MVP - Killer App', icon: 'ShieldCheck', status: 'NOT_STARTED', activeVersion: 0, history: [] },
 };
 
+const STRATEGY_ORDER = ['the_big_idea', 'market_research', 'audience_mapping', 'user_experience', 'the_mvp'];
 const generateStrategySkeleton = (ledger: Record<string, DeptSlot>) => {
-    return Object.values(ledger).map((dept, idx) => ({
-        id: dept.id,
-        type: 'strategy',
-        position: { x: idx * 650, y: 50 },
-        data: { 
-            ...(dept.history[dept.activeVersion] || {}),
-            label: dept.label,
-            deptId: dept.id,
-            status: dept.status,
-            isGhost: dept.history.length === 0
-        }
-    }));
+    return STRATEGY_ORDER.map((key, idx) => {
+        const dept = ledger[key];
+        return {
+            id: dept.id,
+            type: 'strategy',
+            position: { x: idx * 650, y: 50 },
+            data: { 
+                ...(dept.history[dept.activeVersion] || {}),
+                label: dept.label,
+                deptId: dept.id,
+                status: dept.status,
+                isGhost: dept.history.length === 0
+            }
+        };
+    });
 };
 
 const flattenTree = (node: any, parentId: string | null = null, depth = 0): Node[] => {
@@ -125,7 +129,13 @@ export const useVibeStore = create<VibeStore>((set, get) => ({
         const m = data.vibe_manifest as VibeManifest;
         const currentLedger = m.strategyLedger || INITIAL_LEDGER;
         const skeletonNodes = generateStrategySkeleton(currentLedger);
-        const mergedLayers = { ...EMPTY_LAYERS, ...(m.layers || {}), STRATEGY: { nodes: skeletonNodes, edges: [] } };
+        const savedStrategy = m.layers?.STRATEGY || { nodes: [], edges: [] };
+        // Force-merge skeleton data into saved nodes to preserve positions but update content
+        const finalizedNodes = skeletonNodes.map(sNode => {
+            const saved = savedStrategy.nodes.find(n => n.id === sNode.id);
+            return saved ? { ...sNode, position: saved.position } : sNode;
+        });
+        const mergedLayers = { ...EMPTY_LAYERS, ...(m.layers || {}), STRATEGY: { nodes: finalizedNodes, edges: savedStrategy.edges } };
 
         set({ 
             project: { id, name: dbName }, 
