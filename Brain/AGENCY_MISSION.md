@@ -1,4 +1,4 @@
-# AGENCY MISSION: THE VIBE DESIGN LAB (v2.2)
+# AGENCY MISSION: THE VIBE DESIGN LAB (v2.3)
 *The Definitive Operating Manual for the Global Hub Agents.*
 
 ## I. THE CORE PHILOSOPHY: DeTax

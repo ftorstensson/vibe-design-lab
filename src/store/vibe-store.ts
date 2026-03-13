@@ -20,16 +20,17 @@ const EMPTY_LAYERS = {
 
 const INITIAL_LEDGER: Record<string, DeptSlot> = {
   the_big_idea: { id: 'the_big_idea', deptId: '1', label: 'The Big Idea', icon: 'Zap', status: 'NOT_STARTED', activeVersion: 0, history: [] },
-  market_research: { id: 'market_research', deptId: '2', label: 'Market Research', icon: 'BarChart3', status: 'NOT_STARTED', activeVersion: 0, history: [] },
-  audience_mapping: { id: 'audience_mapping', deptId: '3', label: 'Audience Mapping', icon: 'Users', status: 'NOT_STARTED', activeVersion: 0, history: [] },
-  user_experience: { id: 'user_experience', deptId: '4', label: 'User Experience', icon: 'Magnet', status: 'NOT_STARTED', activeVersion: 0, history: [] },
+  the_opportunity: { id: 'the_opportunity', deptId: '2', label: 'The Opportunity', icon: 'BarChart3', status: 'NOT_STARTED', activeVersion: 0, history: [] },
+  the_people: { id: 'the_people', deptId: '3', label: 'The People', icon: 'Users', status: 'NOT_STARTED', activeVersion: 0, history: [] },
+  the_experience: { id: 'the_experience', deptId: '4', label: 'The Experience', icon: 'Magnet', status: 'NOT_STARTED', activeVersion: 0, history: [] },
   the_mvp: { id: 'the_mvp', deptId: '5', label: 'The MVP - Killer App', icon: 'ShieldCheck', status: 'NOT_STARTED', activeVersion: 0, history: [] },
 };
 
-const STRATEGY_ORDER = ['the_big_idea', 'market_research', 'audience_mapping', 'user_experience', 'the_mvp'];
+const STRATEGY_ORDER = ['the_big_idea', 'the_opportunity', 'the_people', 'the_experience', 'the_mvp'];
+
 const generateStrategySkeleton = (ledger: Record<string, DeptSlot>) => {
     return STRATEGY_ORDER.map((key, idx) => {
-        const dept = ledger[key];
+        const dept = ledger[key] || INITIAL_LEDGER[key];
         return {
             id: dept.id,
             type: 'strategy',
@@ -59,12 +60,13 @@ const flattenTree = (node: any, parentId: string | null = null, depth = 0): Node
 };
 
 export const useVibeStore = create<VibeStore>((set, get) => ({
-  // --- MANIFEST STATE ---
+  // --- MANIFEST STATE (FLATTENED) ---
   project_name: 'New Project',
   strategyLedger: INITIAL_LEDGER,
   chatHistory: [],
   strategyDoc: "",
-  projectLedger: [], // INITIALIZED
+  projectLedger: [],
+  mission_manifesto: {},
   activeLayer: 'STRATEGY',
   activeSpecialist: null,
   layers: { ...EMPTY_LAYERS },
@@ -106,15 +108,15 @@ export const useVibeStore = create<VibeStore>((set, get) => ({
   initProjectCloud: async () => {
     const id = `proj-${Math.random().toString(36).substr(2, 9)}`;
     const skeletonNodes = generateStrategySkeleton(INITIAL_LEDGER);
-    set({ 
-        project: { id, name: 'UNTITLED PROJECT' },
-        project_name: 'UNTITLED PROJECT',
+    const initialManifest = {
+        project_name: "UNTITLED PROJECT",
+        mission_manifesto: {},
         strategyLedger: INITIAL_LEDGER,
         projectLedger: [],
         chatHistory: [],
-        activeSpecialist: null,
         layers: { ...EMPTY_LAYERS, STRATEGY: { nodes: skeletonNodes, edges: [] } }
-    });
+    };
+    set({ project: { id, name: "UNTITLED PROJECT" }, ...initialManifest });
     await fetch(`${API_URL}/agent/projects/init`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ thread_id: id, project_name: 'UNTITLED PROJECT' }) });
     return id;
   },
@@ -130,7 +132,7 @@ export const useVibeStore = create<VibeStore>((set, get) => ({
         const currentLedger = m.strategyLedger || INITIAL_LEDGER;
         const skeletonNodes = generateStrategySkeleton(currentLedger);
         const savedStrategy = m.layers?.STRATEGY || { nodes: [], edges: [] };
-        // Force-merge skeleton data into saved nodes to preserve positions but update content
+        
         const finalizedNodes = skeletonNodes.map(sNode => {
             const saved = savedStrategy.nodes.find(n => n.id === sNode.id);
             return saved ? { ...sNode, position: saved.position } : sNode;
@@ -138,14 +140,15 @@ export const useVibeStore = create<VibeStore>((set, get) => ({
         const mergedLayers = { ...EMPTY_LAYERS, ...(m.layers || {}), STRATEGY: { nodes: finalizedNodes, edges: savedStrategy.edges } };
 
         set({ 
+            ...get(),
             project: { id, name: dbName }, 
             project_name: dbName, 
             strategyLedger: currentLedger, 
             projectLedger: m.projectLedger || [],
+            mission_manifesto: m.mission_manifesto || {},
             chatHistory: m.chatHistory || [], 
             strategyDoc: m.strategyDoc || "", 
             activeLayer: m.activeLayer || 'STRATEGY', 
-            activeSpecialist: m.activeSpecialist || null, 
             layers: mergedLayers
         });
       }
@@ -198,7 +201,6 @@ export const useVibeStore = create<VibeStore>((set, get) => ({
 
     const ambitionDNA = "Mode: Vibe Coding (AI-First). Ambition: Venture-Grade. Goal: Scale and logic-driven defensibility.";
 
-    // --- TRACK WORLDVIEW (V4.2) ---
     set({ lastWorldview: { layer: activeLayer, history: updatedChat, context: strategyLedger, ledger: get().projectLedger, dna: ambitionDNA, specialist: activeSpecialist } });
 
     try {
@@ -217,46 +219,50 @@ export const useVibeStore = create<VibeStore>((set, get) => ({
       const data = await response.json();
 
       set((state: VibeStore) => {
-        const nextHistory: ChatMessage[] = [...state.chatHistory, { role: 'assistant' as const, content: data.user_message }];
+        const nextHistory = [...state.chatHistory, { role: "assistant" as const, content: data.user_message }];
+        let nextProjectName = data.suggested_project_name || state.project_name;
+        let nextManifesto = data.manifesto || state.mission_manifesto || {};
+
         let nextLedger = { ...state.strategyLedger };
         let nextLayers = { ...state.layers };
-        
-        let nextProjectName = state.project_name;
-        if (data.suggested_project_name) nextProjectName = data.suggested_project_name;
 
-        if (state.activeLayer === 'STRATEGY' && data.patch) {
+        if (state.activeLayer === "STRATEGY" && data.patch) {
             const { dept_id, content } = data.patch;
-            const currentDept = nextLedger[dept_id];
-            if (currentDept) {
-                const newPaper = { 
-                  ...content, 
-                  timestamp: new Date().toISOString(), 
-                  version: (currentDept.history.length + 1).toFixed(1) 
-                };
-                nextLedger[dept_id] = { ...currentDept, status: 'STABLE' as const, history: [...currentDept.history, newPaper], activeVersion: currentDept.history.length };
-                const newNodes = generateStrategySkeleton(nextLedger);
-                nextLayers.STRATEGY = { nodes: newNodes, edges: [] };
+            if (nextLedger[dept_id]) {
+                const newPaper = { ...content, manifesto: nextManifesto, timestamp: new Date().toISOString(), version: (nextLedger[dept_id].history.length + 1).toFixed(1) };
+                nextLedger[dept_id] = { ...nextLedger[dept_id], status: "STABLE" as const, history: [...nextLedger[dept_id].history, newPaper], activeVersion: nextLedger[dept_id].history.length };
+                nextLayers.STRATEGY = { nodes: generateStrategySkeleton(nextLedger), edges: [] };
             }
-        } 
-        else if (data.nodes || data.root) {
-            let newNodes: Node[] = [];
-            let newEdges: Edge[] = [];
-            if (state.activeLayer === 'WIREFRAME' && data.root) {
-                newNodes = flattenTree(data.root);
-            } else if (data.nodes) {
-                newNodes = data.nodes.map((n: any) => ({ id: n.id, type: n.type, data: { ...n }, position: { x: 0, y: 0 }, style: NODE_STYLE }));
-                if (data.edges) newEdges = data.edges.map((e: any) => ({ id: e.id || `${e.source}-${e.target}`, source: e.source, target: e.target, style: { stroke: '#000', strokeWidth: 2 } }));
-            }
-            const direction = state.activeLayer === 'SITEMAP' ? 'TB' : 'LR';
-            const layout = getLayoutedElements(newNodes, newEdges, direction);
+        } else if (data.nodes || data.root) {
+            let newNodes = state.activeLayer === "WIREFRAME" && data.root ? flattenTree(data.root) : (data.nodes || []).map((n: any) => ({ id: n.id, type: n.type, data: { ...n }, position: { x: 0, y: 0 }, style: NODE_STYLE }));
+            let newEdges = (data.edges || []).map((e: any) => ({ id: e.id || `${e.source}-${e.target}`, source: e.source, target: e.target, style: { stroke: "#000", strokeWidth: 2 } }));
+            const layout = getLayoutedElements(newNodes, newEdges, state.activeLayer === "SITEMAP" ? "TB" : "LR");
             nextLayers[state.activeLayer] = { nodes: layout.nodes, edges: layout.edges };
         }
 
-        return { chatHistory: nextHistory, strategyLedger: nextLedger, layers: nextLayers, project_name: nextProjectName, project: { ...state.project, name: nextProjectName } };
+        return { 
+            ...state, 
+            chatHistory: nextHistory, 
+            project_name: nextProjectName, 
+            project: { ...state.project, name: nextProjectName },
+            mission_manifesto: nextManifesto,
+            strategyLedger: nextLedger,
+            layers: nextLayers
+        };
       });
 
       const latest = get();
-      const manifest: VibeManifest = { project_name: latest.project_name, strategyLedger: latest.strategyLedger, projectLedger: latest.projectLedger, chatHistory: latest.chatHistory, strategyDoc: latest.strategyDoc, activeLayer: latest.activeLayer, activeSpecialist: latest.activeSpecialist, layers: latest.layers };
+      const manifest: VibeManifest = {
+        project_name: latest.project_name,
+        strategyLedger: latest.strategyLedger,
+        projectLedger: latest.projectLedger,
+        chatHistory: latest.chatHistory,
+        strategyDoc: latest.strategyDoc,
+        activeLayer: latest.activeLayer,
+        activeSpecialist: latest.activeSpecialist,
+        mission_manifesto: latest.mission_manifesto,
+        layers: latest.layers
+      };
       await fetch(`${API_URL}/agent/projects/save`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ thread_id: project.id, manifest }) });
       return data;
     } catch (e) { 

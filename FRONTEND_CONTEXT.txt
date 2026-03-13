@@ -284,59 +284,6 @@ New Biological IDs:
 ---
 
 
-FILE: _brain_old/ledgers/BIO_ID_MAP.md
----
-# VIBE AGENCY: BIO-ID MAP (v2.0)
-*The absolute source of truth for all IDs across the 5-Layer Snowball.*
-
-## 0. GLOBAL HUB (Layer: GLOBAL)
-- **Project Manager:** `master_pm`
-- **Editor-in-Chief:** `global_editor`
-- **Registry Location:** `HUB`
-
-## 1. LAYER 1: STRATEGY (The Soul)
-- **Dept IDs:** `BIG_IDEA_TEAM`, `MARKET_TEAM`, `AUDIENCE_TEAM`, `STRUCTURE_TEAM`, `FEASIBILITY_TEAM`
-- **Agent Prefix:** `strat_[dept_slug]_`
-- **Node Type:** `strategy`
-- **Data Keys:** 
-    - `one_sentence_idea`, `core_problem`, `money_logic`, `critical_assumptions`
-    - `market_shape`, `distribution_wedge`, `competition`, `market_gaps`, `how_we_win`
-    - `audience_hierarchy`, `hiring_conditions`, `influence_dynamics`, `audience_profiles`, `success_moments`
-
-## 2. LAYER 2: LANDSCAPE (The World)
-- **Dept ID:** `LANDSCAPE_TEAM`
-- **Agent Prefix:** `land_`
-- **Agent Roles:** `visual_scout`, `copy_ethno`, `pattern_librarian`
-- **Node Types:** `screenshot_node`, `poi_marker`, `heuristic_finding`
-- **Data Keys:** `layout_physics`, `nav_conventions`, `tone_strategy`, `interaction_patterns`
-
-## 3. LAYER 3: JOURNEY (The Logic)
-- **Dept ID:** `JOURNEY_TEAM`
-- **Agent Prefix:** `jrn_`
-- **Agent Roles:** `scenario_arch`, `skeptic`, `plotter`
-- **Node Types:** `use_case_node`, `flow_step`, `decision_node`
-- **Data Keys:** `happy_path`, `stress_path`, `failure_path`, `detax_anchor_id`
-
-## 4. LAYER 4: STRUCTURE (The Nouns)
-- **Dept ID:** `SITEMAP_TEAM`
-- **Agent Prefix:** `map_`
-- **Agent Roles:** `ooux_modeler`, `narrative_designer`, `ia_lead`
-- **Node Types:** `object_node`, `page_node`, `nav_link`
-- **Data Keys:** `canonical_objects`, `object_relationships`, `user_actions`
-
-## 5. LAYER 5: WIREFRAME (The Surface)
-- **Dept ID:** `WIREFRAME_TEAM`
-- **Agent Prefix:** `wire_`
-- **Agent Roles:** `ergonomist`, `brutalist`, `librarian`
-- **Node Types:** `mobile_screen`, `component_node`, `atomic_element`
-- **Data Keys:** `component_id`, `layout_mode`, `95_5_compliance`
-
-## 6. SYSTEM CONSTANTS
-- **Decision State:** `provisional`, `locked`, `deprecated`
-- **Agent Model Tiers:** `PRO` (Gemini 2.5 Pro), `FLASH` (Gemini 2.5 Flash)
----
-
-
 FILE: _brain_old/ledgers/operating_system/AGENCY_HANDBOOK.md
 ---
 # VIBE AGENCY CONSTITUTION (v2.0)
@@ -698,57 +645,44 @@ The Agency is "File-Aware," bridging two separate VS Code environments:
 
 FILE: Brain/SYSTEM_MAP.md
 ---
-# SYSTEM MAP: THE VIBE DESIGN LAB (v4.4)
-*The Ground Truth Manual for AI Assistants building this system.*
+# SYSTEM MAP: THE VIBE DESIGN LAB (v12.0 - The Strategy Edition)
+*The Ground Truth Manual for the Design Truth Engine.*
 
 ## I. DIRECTORY & PATH PHYSICS
-The system bridges two distinct repositories using the `FRONTEND_PATH` environment variable.
+The system bridges two repositories using the `FRONTEND_PATH` environment variable.
 - **Backend Root (`the-co-founder`):** `/Users/fred/the-co-founder`
 - **Frontend Root (`vibe-design-lab`):** `/Users/fred/vibe-design-lab`
-- **Bridge Variable:** `FRONTEND_PATH="/Users/fred/vibe-design-lab"` (Set in Backend Terminal).
+- **Bridge Variable:** `FRONTEND_PATH="/Users/fred/vibe-design-lab"`
 
-## II. BIOLOGICAL SIGNATURES (Baseline: 2026-02-14)
-*These line counts are "Sacred." Any turn that reduces these without a documented Pruning Plan is a regression.*
+## II. THE AUTHORITY HIERARCHY (The Five Laws)
+1. **DUMB CODE (The Physics):** Orchestration, Schemas, and Security.
+2. **THE CONSTITUTION:** Institutional logic (Brain/AGENCY_MISSION.md).
+3. **MISSION MANIFESTO:** Canonical versioned state object (Firestore).
+4. **PROJECT LEDGER:** Persistent "Locked Truths" (Firestore).
+5. **SYSTEM PROMPT:** Persona tone and creative perspective (The Soul).
 
+## III. THE SIDECAR ARCHITECTURE
+- **Fast Lane (PM):** Pure conversational partner. Social, high-energy, partner-driven. Physically schema-blind to prevent robotic tone.
+- **Slow Lane (Scribe):** Background agent. Extracts chat into the stratified Mission Manifesto.
+- **Iron Curtain:** Specialists are chat-blind; they reason ONLY from the Manifesto to prevent "Yes/Go" noise.
+
+## IV. NATIVE GROUNDING (The Eyes)
+- **The Bypass:** Use `Tool.from_dict({"google_search": {}})` for native 2026 search.
+- **Bounty Bank:** Programmatic harvesting of URLs from `grounding_metadata`.
+- **ELI Protocol:** Every claim must follow Evidence (URLs) -> Logic -> Implication.
+
+## V. BIOLOGICAL SIGNATURES (Baseline: 2026-03-01)
+*Line counts are sacred. Reductions without a pruning plan are regressions.*
 ### Backend (`the-co-founder`)
-- **`app/agency/architect.py`**: 133 lines
-- **`app/agency/departments/product/schemas.py`**: 71 lines
-- **`app/chain.py`**: 218 lines
-
+- **`app/agency/architect.py`**: ~157 lines (Sidecar & Native Grounding active).
+- **`app/agency/departments/product/schemas.py`**: ~81 lines (Scribe & Manifesto schemas).
 ### Frontend (`vibe-design-lab`)
-- **`src/app/project/[id]/page.tsx`**: 241 lines
-- **`src/store/vibe-store.ts`**: 257 lines
-- **`src/components/StrategyNodes.tsx`**: 201 lines
+- **`src/store/vibe-store.ts`**: ~257 lines (Order fixed, Legacy normalization active).
+- **`src/components/StrategyNodes.tsx`**: ~200 lines (War Room Tabs, Pushback active).
 
-## III. ID GRAMMAR (The Naming Law)
-*Hallucinating a name causes a 404 System Failure. Use these exact strings.*
-
-### 1. Layers (Uppercase)
-`STRATEGY` | `LANDSCAPE` | `JOURNEY` | `SITEMAP` | `WIREFRAME` | `GLOBAL`
-
-### 2. Department Registry (Uppercase + _TEAM)
-`BIG_IDEA_TEAM` | `MARKET_TEAM` | `AUDIENCE_TEAM` | `STRUCTURE_TEAM` | `FEASIBILITY_TEAM` | `LANDSCAPE_TEAM` | `JOURNEY_TEAM`
-
-### 3. Agent Slug Standard (Lowercase)
-Format: `strat_[dept_slug]_[role_id]`
-*Examples:* `strat_big_idea_team_visionary`, `strat_market_team_scout`, `master_pm`, `global_editor`.
-
-## IV. THE RENDERING PIPELINE (Text-to-Visual)
-Our architecture follows a "Separation of Intelligence" model:
-1. **AI Role (The Architect):** The AI provides the **Blueprint** (Markdown, JSON, or Logic Ledgers). It never cares about X/Y coordinates or CSS.
-2. **Body Role (The Physics):** The code (Frontend Logic) interprets the AI's blueprint into **XYFlow Nodes**. 
-3. **The Ledger:** Every layer's output is saved as a "Design Ledger" entry, ensuring the next AI "sees" the previous decisions as inescapable constraints.
-
-## V. INVARIANT LAWS (The "Untouchables")
-- **TL-VIS-01 (Sacred Resizers):** `page.tsx` must preserve `NodeResizer` and `NodeResizeControl` for all MobileScreen types.
-- **TL-STA-01 (Functional Setters):** `vibe-store.ts` updates MUST use the functional `set((state) => ({...}))` pattern to prevent race conditions.
-- **TL-PRO-01 (Primacy Gate):** The Director's vision (Turn 1) is the permanent "Strategic Anchor" and must be injected into all specialist prompts to prevent "Meta-Talk" drift.
-
-## VI. THE KNOWLEDGE PIPELINE (Exo-Brains)
-Agents are "Leveled Up" by injecting specialized Markdown modules from `Brain/EXO_BRAINS/`.
-1. **Assignment:** Agents in the Lab have an `exo_brain_links` field (Metadata).
-2. **Injection:** The code fetches the linked `.md` files and prepends them to the prompt.
-3. **Hierarchy:** Exo-Brain Logic outranks System Prompt Persona, but defers to the Constitution.
+## VI. ID GRAMMAR (2026 Standard)
+- **Departments:** `BIG_IDEA_TEAM`, `OPPORTUNITY_TEAM`, `PEOPLE_TEAM`, `EXPERIENCE_TEAM`, `MVP_TEAM`.
+- **Agent Prefix:** `strat_[dept_slug]_` (e.g., `strat_opportunity_market_analyst`).
 ---
 
 
@@ -785,21 +719,119 @@ The Global Hub consists of two primary agents who sit above the layers:
 - **THE SCRIBE:** Every turn, extract 1-2 "Locked Truths" from the chat into the `project_ledger`.
 - **BREVITY:** Keep chat snappy (< 40 words). The "Hard Thinking" happens in the Specialist loop.
 
-## V. THE STRIKE TEAM ROSTERS (The Authors)
-When the PM sets `hiring_authorized: True`, the following specialists are activated:
+## V. THE 5-LAYER DESIGN SNOWBALL (The Assembly Line)
 
-| Layer | Team Type | Specialist Roster |
-| :--- | :--- | :--- |
-| **L1 (Strat)** | **Architects** | Visionary, Commercial Lead, Product Realist. |
-| **L1 (Res)** | **Researchers** | Search/Data Specialist, Historian, Power Analyst. |
-| **L2 (Land)** | **Scouts** | Vision Specialist, Copy Ethnographer, Pattern Librarian. |
-| **L3 (Jrn)** | **Logic Strike** | Scenario Architect, Interaction Skeptic, Flow Plotter. |
-| **L4 (Map)** | **Modelers** | OOUX Modeler, Narrative Designer, IA Strategist. |
+### LAYER 1: STRATEGY (The Venture Briefs)
+Goal: Define the Soul and the Strategic Bet. 
+- **Phase 1: the_big_idea** (Problem/Solution/Revenue/Magic)
+- **Phase 2: market_research** (Competitors/Gaps/Distribution)
+- **Phase 3: audience_mapping** (Personas/Triggers/Success Metrics)
+- **Phase 4: user_experience** (Conventions/Magic Moments/Hooks)
+- **Phase 5: the_mvp** (Must-haves/Non-goals/Build Readiness)
 
-## VI. DECISION HEURISTICS (If/Then)
-- **IF** the Director is stuck **THEN** suggest the next logical step from this Handbook.
-- **IF** the Director says "Make the paper" **THEN** set `hiring_authorized` to True immediately.
+### LAYER 2: LANDSCAPE (Visual Heuristics)
+Goal: Multimodal analysis of competitor UI/UX. Mapping the 95% conventions.
+
+### LAYER 3: JOURNEY (Action Strategy)
+Goal: Scenario-based logic. Mapping Use Cases (Happy/Stress/Failure) before flows.
+
+### LAYER 4: SITEMAP (Object Modeling)
+Goal: OOUX. Defining the stable Nouns/Objects before the Screens.
+
+### LAYER 5: WIREFRAME (Atomic Surface)
+Goal: Rendering the Strategic DNA into pixel-perfect layouts.
+
+## VI. THE STRIKE TEAM ROSTERS
+When the PM authorizes a hire, the system activates these specialists:
+- **STRATEGY:** Visionary, Commercial Lead, Product Realist, Master Synthesizer.
+- **LANDSCAPE:** Visual Scout, Copy Ethnographer, Pattern Librarian.
+- **JOURNEY:** Scenario Architect, Interaction Skeptic, Flow Plotter.
+- **SITEMAP:** OOUX Modeler, Narrative Designer, IA Strategist.
+- **WIREFRAME:** Ergonomist, Visual Systems Lead, Librarian.
+
+## VII. DECISION HEURISTICS (If/Then)
+- **IF** the Director is stuck **THEN** suggest the next logical step from this Manual.
+- **IF** the vision for the current phase is sharp **THEN** suggest "unleashing the architects" immediately.
+- **IF** the Director says "Make the paper" (or similar) **THEN** set `hiring_authorized` to True.
 - **IF** the specialists return a brief **THEN** the Editor-in-Chief must review it for Jargon.
+---
+
+
+FILE: Brain/FOUNDATION_MANIFEST.md
+---
+# THE AGENT FOUNDATION (v1.2)
+
+## 1. THE ARCHITECTURE
+- **Fast Lane (PM):** Pure conversational partner (High EQ/Social).
+- **Slow Lane (Scribe):** Background data extraction to Mission Manifesto (Data Clerk).
+- **Iron Curtain:** Specialists are chat-blind; they reason ONLY from the Manifesto.
+- **Native Grounding:** 2026-grade Google Search integration via metadata harvesting.
+
+## 2. DATA PIPELINE
+- **Source:** User Chat (Refined by PM).
+- **Buffer:** Background Scribe (JSON Extraction).
+- **Truth:** Firestore `missionManifesto` object + `projectLedger`.
+- **Consumers:** Strike Team Architects (Chat-Blind).
+
+## 3. RESEARCH STANDARDS
+- **ELI Protocol:** Evidence (URLs), Logic (Why), Implication (Directives).
+- **Receipt Pings:** Terminal logs every search query and source count.
+- **Bounty Bank:** programmatically captured URLs stored as structured state.
+---
+
+
+FILE: Brain/BIO_ID_MAP.md
+---
+# VIBE AGENCY: BIO-ID MAP (v2.0)
+*The absolute source of truth for all IDs across the 5-Layer Snowball.*
+
+## 0. GLOBAL HUB (Layer: GLOBAL)
+- **Project Manager:** `master_pm`
+- **Editor-in-Chief:** `global_editor`
+- **Registry Location:** `HUB`
+
+## 1. LAYER 1: STRATEGY (The Venture Briefs)
+- **Dept IDs:** `BIG_IDEA_TEAM`, `OPPORTUNITY_TEAM`, `PEOPLE_TEAM`, `EXPERIENCE_TEAM`, `MVP_TEAM`
+- **Slugs:** `the_big_idea`, `the_opportunity`, `the_people`, `the_experience`, `the_mvp` 
+- **Agent Prefix:** `strat_[dept_slug]_` 
+- **Data Keys (Summary Tab):
+    - **P1 (Big Idea):** `insight`, `one_sentence`, `problem`, `money`, `must_be_true`, `anti_vision` 
+    - **P2 (Opportunity):** `market`, `gap`, `players`, `timing`, `opportunities`, `edge` 
+    - **P3 (People):** `primary_audience`, `secondary_audience`, `drivers`, `pain_points`, `markers`, `tipping_point` 
+    - **P4 (Experience):** `overall_arc`, `hook`, `moments`, `mechanics`, `ai_layer`, `social_proof`, `five_percent` 
+    - **P5 (MVP):** `one_thing`, `must_haves`, `cut_list`, `success_moment`, `build_order`, `validation_targets`
+
+## 2. LAYER 2: LANDSCAPE (The World)
+- **Dept ID:** `LANDSCAPE_TEAM`
+- **Agent Prefix:** `land_`
+- **Agent Roles:** `visual_scout`, `copy_ethno`, `pattern_librarian`
+- **Node Types:** `screenshot_node`, `poi_marker`, `heuristic_finding`
+- **Data Keys:** `layout_physics`, `nav_conventions`, `tone_strategy`, `interaction_patterns`
+
+## 3. LAYER 3: JOURNEY (The Logic)
+- **Dept ID:** `JOURNEY_TEAM`
+- **Agent Prefix:** `jrn_`
+- **Agent Roles:** `scenario_arch`, `skeptic`, `plotter`
+- **Node Types:** `use_case_node`, `flow_step`, `decision_node`
+- **Data Keys:** `happy_path`, `stress_path`, `failure_path`, `detax_anchor_id`
+
+## 4. LAYER 4: STRUCTURE (The Nouns)
+- **Dept ID:** `SITEMAP_TEAM`
+- **Agent Prefix:** `map_`
+- **Agent Roles:** `ooux_modeler`, `narrative_designer`, `ia_lead`
+- **Node Types:** `object_node`, `page_node`, `nav_link`
+- **Data Keys:** `canonical_objects`, `object_relationships`, `user_actions`
+
+## 5. LAYER 5: WIREFRAME (The Surface)
+- **Dept ID:** `WIREFRAME_TEAM`
+- **Agent Prefix:** `wire_`
+- **Agent Roles:** `ergonomist`, `brutalist`, `librarian`
+- **Node Types:** `mobile_screen`, `component_node`, `atomic_element`
+- **Data Keys:** `component_id`, `layout_mode`, `95_5_compliance`
+
+## 6. SYSTEM CONSTANTS
+- **Decision State:** `provisional`, `locked`, `deprecated`
+- **Agent Model Tiers:** `PRO` (Gemini 2.5 Pro), `FLASH` (Gemini 2.5 Flash)
 ---
 
 
@@ -951,24 +983,69 @@ FILE: Brain/SCAR_TISSUE.md
 **Entry 062: The Swiss-Mono Aesthetic Bias**
 - **Symptom:** AI defaulted to all-caps/mono-spacing for "minimalism," destroying readability.
 - **Fix:** Designer-in-the-loop enforced high-fidelity hierarchy (Sans-Inter, bold headers, vertical explainer stacks).
+
+# SCAR TISSUE LEDGER (v4.7 - The Intelligence Update)
+*Last Updated: 2026-02-26*
+
+**Entry 063: The Gemini Grounding Paradox (Turn Stealing)**
+*   **Problem:** Gemini 2.5 Pro uses internal grounding and "steals the turn," bypassing manual ReAct loops and hiding URLs.
+*   **Fix:** **The Native Bypass.** Use `Tool.from_dict({"google_search": {}})` and programmatically harvest `grounding_metadata` from the response. It is 2x faster and 100% reliable.
+
+**Entry 064: The Cognitive Split (Partner vs. Scribe)**
+*   **Problem:** Asking the PM to be social AND a JSON clerk causes "Instruction Saturation" and robotic tone.
+*   **Fix:** **The Sidecar Pattern.** Turn 1 is the Social PM (Fast Lane). Turn 2 is the Invisible Scribe (Slow Lane) extracting data. They are separate models/turns.
+
+**Entry 065: The "Yes" Poisoning (Context Isolation)**
+*   **Symptom:** Specialists research the word "Yes" or "Go" instead of the project vision.
+*   **Fix:** **The Iron Curtain.** Specialists are physically blocked from reading the chat history. They receive ONLY the structured Mission Manifesto.
+
+**Entry 066: The Return Pipe Void**
+*   **Symptom:** `NoneType` error in frontend when PM finishes Turn 1.
+*   **Fix:** Every logic branch in `architect.py` must explicitly `return pm_decision` to keep the frontend store hydrated.
+
+**Entry 067: The character-perfect search block**
+*   **Lesson:** Markdown and Python patches fail on single characters or quote escapes (`\u0027`).
+*   **Fix:** **The Overwrite Protocol.** Use a Python script or `cat` to physically rewrite files when surgical patches fail 3 times.
+
+**Entry 068: The Mega-Schema Branching Wall**
+*   **Symptom:** 400 BadRequest: "The specified schema produces a constraint that has too much branching."
+*   **Diagnosis:** Trying to fit all 5 papers into one Pydantic class (`StrategyPaperContent`) overwhelmed Gemini 2.5's serving constraints.
+*   **Fix:** **Schema Fragmentation.** Break the giant brief schema into 5 paper-specific schemas (BigIdeaContent, OpportunityContent, etc.).
 ---
 
 
-FILE: Brain/EXO_BRAINS/LAW_95_5_CONVENTIONS.md
+FILE: Brain/EXO_BRAINS/GLOBAL/PROTOCOL_RESEARCH.md
 ---
- (Placeholder for the heuristic design rules)
+# RESEARCH RULES — SHARED AGENT PROTOCOL (v1.2)
+*How to search, what to trust, and when to stop.*
+
+## 1. THE INTERNAL LOOP (VOLUME)
+- **Broad Scanning:** You have permission to scan up to 50 sources internally to find the scent of the truth.
+- **Intent-First:** Before searching, state your specific question. "Search for MyFitnessPal competitors" is bad. "Search for the top 3 MyFitnessPal rivals by active user growth in 2025" is venture-grade.
+
+## 2. THE TRUST FILTER (NUANCE)
+- **Primary Over Secondary:** SEC filings, App Store data, and academic papers (PubMed/JSTOR) are the gold standard for Facts.
+- **The Expert Loophole:** Blogs and industry newsletters are valid if they provide **Strategic Logic** or **Contrarian Insights** that official reports ignore. Cite them as "Expert Commentary."
+- **Recency as a Variable:** Market data must be < 24 months old. Behavioral psychology (Bartle types, Hook model) is evergreen—a 10-year-old foundational study beats a recent summary.
+
+## 3. THE DISTILLATION RULE (UX)
+- **The Sacred 3-5:** Never overwhelm the Director with link-spam. Distill your internal findings into the 3-5 most load-bearing sources.
+- **Citation Format:** Every major claim must follow: claim [Source Name, URL].
+- **Conflict Handling:** If sources disagree (e.g., conflicting market size), do not average them. Present both extremes with their respective URLs and let the Synthesizer adjudicate.
+
+## 4. STOP CONDITIONS
+- **The 3-Attempt Law:** If after 3 distinct search strategies you cannot verify a claim, it is an "Unverified Assumption." Do not hallucinate a source to fill the gap. Flag it explicitly.
 ---
 
 
-FILE: Brain/EXO_BRAINS/SKILL_USER_PSYCHOLOGY.md
+FILE: Brain/EXO_BRAINS/GLOBAL/PROTOCOL_ELI.md
 ---
-(Placeholder for JTBD, Bartle Types, and Motivation loops).
----
+# THE ELI PROTOCOL
+*Mandatory structure for every strategic argument.*
 
-
-FILE: Brain/EXO_BRAINS/ROLE_RORY_SUTHERLAND.md
----
-(Placeholder for the "Magic/Reframing" expertise).
+- **[E]vidence:** Cite a real fact, product, user behavior, or market data point. Do not assert without evidence.
+- **[L]ogic:** Explain why this evidence matters for THIS specific product. Connect it to the insight.
+- **[I]mplication:** State what the NEXT team must do with this. Produce a direction, not just an observation.
 ---
 
 
@@ -1406,7 +1483,15 @@ const Canvas = () => {
 
   useEffect(() => {
     if (id) loadProjectCloud(id as string);
-  }, [id, loadProjectCloud]);
+    
+    // Handle Direct Pushback Event
+    const handlePushback = (e: any) => {
+        setActiveSpecialist(e.detail);
+        setChatOpen(true);
+    };
+    window.addEventListener('vibe:pushback', handlePushback);
+    return () => window.removeEventListener('vibe:pushback', handlePushback);
+  }, [id, loadProjectCloud, setActiveSpecialist, setChatOpen]);
 
   const handleSend = async () => {
     if (!chatInput.trim()) return;
@@ -1585,10 +1670,10 @@ const LAYERS_CONFIG: { id: VibeLayer; label: string; icon: any }[] = [
 
 const STRATEGY_DEPT_ORDER = [
   "BIG_IDEA_TEAM",
-  "MARKET_TEAM",
-  "AUDIENCE_TEAM",
-  "STRUCTURE_TEAM",
-  "FEASIBILITY_TEAM"
+  "OPPORTUNITY_TEAM",
+  "PEOPLE_TEAM",
+  "EXPERIENCE_TEAM",
+  "MVP_TEAM"
 ];
 
 export default function AgencyLab() {
@@ -1599,6 +1684,8 @@ export default function AgencyLab() {
   const [selectedAgent, setSelectedAgent] = useState<SpecialistAgent | null>(null);
   const [selectedDept, setSelectedDept] = useState<any>(null);
   const [editorContent, setEditorContent] = useState("");
+  const [exoBrainContent, setExoBrainContent] = useState("");
+  const [activeTab, setActiveTab] = useState<"persona" | "exo">("persona");
   const [expandedTeams, setExpandedTeams] = useState<string[]>(STRATEGY_DEPT_ORDER);
 
   // DeTax Metadata Fields
@@ -1625,6 +1712,7 @@ export default function AgencyLab() {
     setSelectedDept(null);
     setSelectedAgent(agent);
     setEditorContent(agent.system_prompt);
+    setExoBrainContent(agent.exo_brain || "");
     setOptTarget(agent.optimization_target || "");
     setLossFunc(agent.loss_function || "");
     setPhysics(agent.physics_constraints || "");
@@ -1643,13 +1731,17 @@ export default function AgencyLab() {
     if (selectedAgent) {
         await updateAgentInDB(selectedAgent.id, { 
             system_prompt: editorContent,
+            exo_brain: exoBrainContent,
             optimization_target: optTarget,
             loss_function: lossFunc,
             physics_constraints: physics
         });
         alert("Strategic DNA Committed to Ledger.");
     } else if (selectedDept) {
-        await updateDeptInDB(selectedDept.id, { lens_profile: editorContent });
+        await updateDeptInDB(selectedDept.id, { 
+            lens_profile: editorContent,
+            checklist: selectedDept.checklist 
+        });
         alert("Department Worldview Updated.");
     }
   };
@@ -1705,10 +1797,13 @@ export default function AgencyLab() {
                                     hierarchy[layer.id]?.[deptId] && (
                                         <div key={deptId} className="space-y-1">
                                             <button 
-                                                onClick={() => { setExpandedTeams(prev => prev.includes(deptId) ? prev.filter(x => x !== deptId) : [...prev, deptId]); handleSelectDept(deptId); }}
-                                                className={clsx("w-full p-2 flex items-center justify-between rounded-lg transition-colors group", selectedDept?.id === deptId ? "bg-slate-100 text-slate-900" : "text-slate-400 hover:text-slate-600")}
+                                                onClick={() => { 
+                                                    setExpandedTeams(prev => prev.includes(deptId) ? prev.filter(x => x !== deptId) : [...prev, deptId]); 
+                                                    handleSelectDept(deptId); 
+                                                }}
+                                                className={clsx("w-full p-2 flex items-center justify-between rounded-lg transition-colors group", (selectedDept?.id === deptId || selectedDept?.dept_id === deptId) ? "bg-slate-900 text-white shadow-lg" : "text-slate-400 hover:text-slate-600")}
                                             >
-                                                <div className="flex items-center gap-2"><span className="text-[10px] font-black uppercase tracking-widest">{deptId.replace(/_TEAM/g, '').replace(/_/g, ' ')}</span></div>
+                                                <div className="flex items-center gap-2"><span className="text-[10px] font-black uppercase tracking-widest">{deptId === 'BIG_IDEA_TEAM' ? 'THE BIG IDEA' : deptId === 'OPPORTUNITY_TEAM' ? 'THE OPPORTUNITY' : deptId === 'PEOPLE_TEAM' ? 'THE PEOPLE' : deptId === 'EXPERIENCE_TEAM' ? 'THE EXPERIENCE' : 'THE MVP'}</span></div>
                                                 {expandedTeams.includes(deptId) ? <ChevronDown className="w-3 h-3" /> : <ChevronRight className="w-3 h-3" />}
                                             </button>
 
@@ -1746,14 +1841,48 @@ export default function AgencyLab() {
                 </header>
 
                 <div className="grid grid-cols-3 gap-8 items-start pb-20">
-                    {/* PRIMARY SYSTEM PROMPT */}
-                    <div className="col-span-2 flex flex-col bg-white rounded-[2.5rem] border border-slate-200 shadow-sm overflow-hidden ring-1 ring-black/5 min-h-[600px]">
-                        <div className="p-6 border-b border-slate-50 bg-slate-50/50 flex items-center gap-3"><Cpu className="w-4 h-4 text-slate-400" /><span className="text-[10px] font-black uppercase tracking-[0.4em] text-slate-400">{selectedAgent ? "Cognitive Persona Prompt" : "Departmental Worldview Lens"}</span></div>
-                        <textarea title="Editor" aria-label="Editor" className="flex-1 p-10 text-lg font-medium text-slate-700 leading-relaxed outline-none resize-none bg-transparent" value={editorContent} onChange={(e) => setEditorContent(e.target.value)} placeholder="Engineering the brain..." />
+                    {/* PRIMARY SYSTEM PROMPT & EXO-BRAIN TABS */}
+                    <div className="col-span-2 flex flex-col bg-white rounded-[2.5rem] border border-slate-200 shadow-sm overflow-hidden ring-1 ring-black/5 min-h-[700px]">
+                        <div className="flex border-b border-slate-100">
+                            <button onClick={() => setActiveTab("persona")} className={clsx("px-8 py-5 text-[10px] font-black uppercase tracking-widest transition-all", activeTab === "persona" ? "border-b-2 border-slate-900 text-slate-900 bg-slate-50" : "text-slate-400 hover:text-slate-600")}>1. Persona (Who)</button>
+                            {selectedAgent && <button onClick={() => setActiveTab("exo")} className={clsx("px-8 py-5 text-[10px] font-black uppercase tracking-widest transition-all", activeTab === "exo" ? "border-b-2 border-slate-900 text-slate-900 bg-slate-50" : "text-slate-400 hover:text-slate-600")}>2. Exo-Brain (How)</button>}
+                        </div>
+                        <div className="flex-1 flex flex-col">
+                            {activeTab === "persona" ? (
+                                <div className="flex-1 flex flex-col p-10">
+                                    <p className="text-[9px] font-bold text-slate-300 uppercase mb-4 tracking-[0.2em]">Target: Social role, tone of voice, and immediate mandates.</p>
+                                    <textarea title="Persona Editor" aria-label="Persona Editor" className="flex-1 text-lg font-medium text-slate-700 leading-relaxed outline-none resize-none bg-transparent" value={editorContent} onChange={(e) => setEditorContent(e.target.value)} placeholder="Who is this agent?" />
+                                </div>
+                            ) : (
+                                <div className="flex-1 flex flex-col p-10">
+                                    <p className="text-[9px] font-bold text-slate-300 uppercase mb-4 tracking-[0.2em]">Target: Theoretical frameworks, case studies, and the 'Kill Shot' logic.</p>
+                                    <textarea title="Exo-Brain Editor" aria-label="Exo-Brain Editor" className="flex-1 text-sm font-mono text-slate-600 leading-relaxed outline-none resize-none bg-transparent" value={exoBrainContent} onChange={(e) => setExoBrainContent(e.target.value)} placeholder="How does this agent think?" />
+                                </div>
+                            )}
+                        </div>
                     </div>
 
-                    {/* ADVERSARIAL METADATA */}
+                    {/* ADVERSARIAL METADATA & CHECKLIST */}
                     <div className="space-y-6">
+                        {selectedDept && (
+                            <div className="bg-white p-6 rounded-[2rem] border border-slate-200 shadow-sm">
+                                <div className="flex items-center gap-2 mb-4">
+                                    <Target className="w-3 h-3 text-purple-500" />
+                                    <div className="flex flex-col gap-1"><span className="text-[9px] font-black uppercase tracking-widest text-slate-400">Dept Checklist (Phase Requirements)</span><span className="text-[8px] text-slate-300 italic">Pro-Tip: Use "ELI Protocol" requirements here.</span></div>
+                                </div>
+                                <textarea 
+                                    title="Checklist Editor"
+                                    aria-label="Checklist Editor"
+                                    className="w-full text-xs font-bold text-slate-800 bg-transparent border-none outline-none resize-none h-48 p-0 focus:ring-0 placeholder:text-slate-200 font-mono"
+                                    value={selectedDept.checklist ? selectedDept.checklist.join("\n") : ""}
+                                    onChange={(e) => {
+                                        const newList = e.target.value.split("\n");
+                                        setSelectedDept({...selectedDept, checklist: newList});
+                                    }}
+                                    placeholder="Enter one requirement per line..."
+                                />
+                            </div>
+                        )}
                         {selectedAgent && (
                             <>
                                 <MetadataBlock icon={Target} label="Optimization Target" value={optTarget} onChange={setOptTarget} placeholder="Maximize venture moat..." />
@@ -3202,192 +3331,90 @@ FILE: src/components/StrategyNodes.tsx
 "use client";
 import React, { useState } from 'react';
 import { Handle, Position, NodeProps } from '@xyflow/react';
-import { Target, Zap, TrendingUp, ShieldAlert, BookOpen, Fingerprint, Quote, HelpCircle } from 'lucide-react';
+import { 
+    Target, Zap, TrendingUp, ShieldAlert, BookOpen, 
+    Fingerprint, Quote, HelpCircle, MessageSquare 
+} from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import { clsx } from 'clsx';
 
-// --- THE BLUEPRINT REGISTRY (Logic Handover Mapping) ---
-// This ensures the headlines stay permanent. We map each section to a 'field' in the AI's JSON output.
 const BLUEPRINT: Record<string, { summary: {h: string, w: string, field: string}[], logic: {h: string, field: string}[] }> = {
   the_big_idea: {
     summary: [
-      { h: "One Sentence Idea", w: "A crystal clear summary of what we are building and who it is for.", field: "one_sentence_idea" },
-      { h: "The Core Problem", w: "The real-world frustration or pain we are committed to fixing.", field: "core_problem" },
-      { h: "How it Makes Money", w: "The simple logic of how the business survives and grows.", field: "money_logic" },
-      { h: "What Must Be True", w: "The most important assumptions that have to be right for this to work.", field: "critical_assumptions" }
+      { h: "The Insight", w: "The human truth your product is built on.", field: "insight" },
+      { h: "The One Sentence", w: "This exists so that ___ can ___ without ___.", field: "one_sentence" },
+      { h: "The Problem", w: "The real human or business pain. Why this matters now.", field: "problem" },
+      { h: "The Money", w: "Who pays, for what, and why. The value exchange.", field: "money" },
+      { h: "What Must Be True", w: "Three to five critical assumptions. Validation targets.", field: "must_be_true" },
+      { h: "The Anti-Vision", w: "What this product must never become. Name the trap.", field: "anti_vision" }
     ],
     logic: [
-      { h: "Section 1.1: Ideation Artifacts", field: "architect_logic_a" },
-      { h: "Section 1.2: Problem Articulation", field: "architect_logic_b" },
-      { h: "Section 1.3: Business Logic", field: "architect_logic_c" },
-      { h: "Section 1.4: Risk Assessment", field: "adversarial_tension" }
+      { h: "Section 1.1: Visionary Architect", field: "architect_logic_a" },
+      { h: "Section 1.2: Commercial Lead", field: "architect_logic_b" },
+      { h: "Section 1.3: Product Realist", field: "architect_logic_c" }
     ]
   },
-  market_research: {
+  the_opportunity: {
     summary: [
-      { h: "Market Shape & Size", w: "The actual territory we are playing in and how big the opportunity is.", field: "market_shape" },
-      { h: "The Distribution Wedge", w: "The specific 'door' we will use to get to users before anyone else.", field: "distribution_wedge" },
-      { h: "The Competition", w: "Who else is solving this and where they are falling short.", field: "competition" },
-      { h: "The Gaps", w: "The specific things everyone else is ignoring that we can own.", field: "market_gaps" }
+      { h: "The Market", w: "The size and shape of the prize.", field: "market" },
+      { h: "The Gap", w: "What nobody is doing well enough.", field: "gap" },
+      { h: "The Players", w: "Who owns this space right now.", field: "players" },
+      { h: "The Timing", w: "Why now is the right moment.", field: "timing" },
+      { h: "The Opportunities", w: "Specific openings to win.", field: "opportunities" },
+      { h: "Our Edge", w: "Why we can actually pull this off.", field: "edge" }
     ],
     logic: [
-      { h: "Section 2.1: Raw Market Data", field: "architect_logic_a" },
-      { h: "Section 2.2: Opportunity Analysis", field: "architect_logic_b" },
-      { h: "Section 2.3: Competitor Database", field: "architect_logic_c" },
-      { h: "Section 2.4: Gap Analysis", field: "adversarial_tension" }
+      { h: "Section 2.1: Market Analyst", field: "architect_logic_a" },
+      { h: "Section 2.2: Competitive Intel", field: "architect_logic_b" },
+      { h: "Section 2.3: Opportunity Mapper", field: "architect_logic_c" }
     ]
   },
-  audience_mapping: {
+  the_people: {
     summary: [
-      { h: "Who Comes First", w: "The specific group of people we are designing for on day one.", field: "audience_hierarchy" },
-      { h: "The Trigger Moment", w: "What is happening in someone's life when they realize they need this?", field: "hiring_conditions" },
-      { h: "The Power Players", w: "The people who decide to use it vs. the people who actually use it.", field: "influence_dynamics" },
-      { h: "What Success Looks Like", w: "How the user knows the product actually worked for them.", field: "success_moments" }
+      { h: "Primary Audience", w: "Who we are designing for on day one.", field: "primary_audience" },
+      { h: "Secondary Audience", w: "Who else is in the room.", field: "secondary_audience" },
+      { h: "The Drivers", w: "What is actually pushing them toward this.", field: "drivers" },
+      { h: "The Pain Points", w: "Specific moments where current solutions fail.", field: "pain_points" },
+      { h: "The Markers", w: "How to recognize them in the wild.", field: "markers" },
+      { h: "Tipping Point Strategy", w: "How we get from 20% to 80% adoption.", field: "tipping_point" }
     ],
     logic: [
-      { h: "Section 3.1: User Research", field: "architect_logic_a" },
-      { h: "Section 3.2: Audience Taxonomy", field: "architect_logic_b" },
-      { h: "Section 3.3: Behavior Triggers", field: "architect_logic_c" },
-      { h: "Section 3.4: Success Metrics", field: "adversarial_tension" }
+      { h: "Section 3.1: Audience Strategist", field: "architect_logic_a" },
+      { h: "Section 3.2: Psychographic Analyst", field: "architect_logic_b" },
+      { h: "Section 3.3: Adoption Strategist", field: "architect_logic_c" }
     ]
   },
-  user_experience: {
+  the_experience: {
     summary: [
-      { h: "The Comfort Zone (95%)", w: "The standard ways of doing things that people already understand.", field: "convention_baseline" },
-      { h: "The Magic Moment (5%)", w: "The one special thing that will make people remember and love us.", field: "magic_layer" },
-      { h: "The Hook", w: "Why someone will spend their first 60 seconds with us.", field: "initial_hook" },
-      { h: "The Habit Loop", w: "Why someone will keep coming back day after day.", field: "habit_loop" }
+      { h: "Overall Experience", w: "The arc from first touch to habit.", field: "overall_arc" },
+      { h: "The Hook", w: "Why they don't walk away in 60 seconds.", field: "hook" },
+      { h: "The Moments", w: "Critical stages: Discovery, Onboarding, Sharing.", field: "moments" },
+      { h: "The Mechanics", w: "Psychological engines (Progress, Mastery, etc).", field: "mechanics" },
+      { h: "AI & Automation Layer", w: "Where the product thinks for you.", field: "ai_layer" },
+      { h: "Social Proof Engine", w: "How we capture and display activity.", field: "social_proof" },
+      { h: "The 5%", w: "The one thing worth remembering.", field: "five_percent" }
     ],
     logic: [
-      { h: "Section 4.1: Convention Research", field: "architect_logic_a" },
-      { h: "Section 4.2: Magic Candidates", field: "architect_logic_b" },
-      { h: "Section 4.3: Hook Mechanics", field: "architect_logic_c" },
-      { h: "Section 4.4: Retention Loops", field: "adversarial_tension" }
+      { h: "Section 4.1: Convention Researcher", field: "architect_logic_a" },
+      { h: "Section 4.2: Engagement Specialist", field: "architect_logic_b" },
+      { h: "Section 4.3: Social Architect", field: "architect_logic_c" }
     ]
   },
   the_mvp: {
     summary: [
-      { h: "The Absolute Must-Haves", w: "The smallest possible version we can build that still solves the problem.", field: "must_haves" },
-      { h: "The Main Parts", w: "The big building blocks we need to create.", field: "main_objects" },
-      { h: "What We Are Not Building", w: "The things we are choosing to ignore for now to stay fast.", field: "deferred_features" },
-      { h: "Ready to Build", w: "A final check to make sure we have enough info to start designing.", field: "build_readiness" }
+      { h: "The One Thing", w: "What this version does and nothing else.", field: "one_thing" },
+      { h: "The Must-Haves", w: "What has to be in version one.", field: "must_haves" },
+      { h: "The Cut List", w: "What we are not building yet.", field: "cut_list" },
+      { h: "The Success Moment", w: "How we know it's working (observable behavior).", field: "success_moment" },
+      { h: "The Build Order", w: "What gets built first.", field: "build_order" },
+      { h: "Validation Targets", w: "The assumptions we need to prove.", field: "validation_targets" }
     ],
     logic: [
-      { h: "Section 5.1: Scope Reduction", field: "architect_logic_a" },
-      { h: "Section 5.2: Technical Logic", field: "architect_logic_b" },
-      { h: "Section 5.3: Feature List", field: "architect_logic_c" },
-      { h: "Section 5.4: Build Roadmap", field: "adversarial_tension" }
+      { h: "Section 5.1: Scope Architect", field: "architect_logic_a" },
+      { h: "Section 5.2: Cut List Enforcer", field: "architect_logic_b" },
+      { h: "Section 5.3: Validation Strategist", field: "architect_logic_c" }
     ]
   }
-};
-
-export const ExecutivePaperNode = ({ data }: NodeProps) => {
-  const content = (data as any);
-  const isGhost = content.isGhost;
-  const blueprint = BLUEPRINT[content.deptId] || BLUEPRINT['the_big_idea'];
-  
-  const [activeTab, setActiveTab] = useState<'summary' | 'logic' | 'about'>('summary');
-  const appendix = content.appendix || {};
-
-  return (
-    <div className={clsx(
-        "w-[595px] min-h-[842px] bg-white shadow-2xl flex flex-col font-sans relative border-[1px] border-slate-300 border-solid transition-all duration-300"
-    )}>
-      
-      {/* TABS */}
-      <div className="absolute -top-10 left-0 flex gap-1 z-50">
-        <TabButton label="Summary" isActive={activeTab === 'summary'} onClick={() => setActiveTab('summary')} />
-        <TabButton label="Deep Research" isActive={activeTab === 'logic'} onClick={() => setActiveTab('logic')} />
-        <TabButton label="About" isActive={activeTab === 'about'} onClick={() => setActiveTab('about')} />
-      </div>
-
-      {/* STATUS INDICATOR */}
-      <div className="absolute top-6 right-8 flex items-center gap-2">
-        <span className={clsx(
-            "w-2 h-2 rounded-full",
-            content.status === 'DRAFTING' ? "bg-emerald-500 animate-pulse" : 
-            isGhost ? "bg-slate-200" : "bg-black"
-        )} />
-        <span className="text-[9px] font-black uppercase tracking-widest text-slate-400">
-            {content.status === 'DRAFTING' ? 'Drafting...' : isGhost ? 'Awaiting Data' : 'Stable'}
-        </span>
-      </div>
-
-      <div className="flex-1 overflow-y-auto scrollbar-hide bg-white">
-        <div className="p-20 pt-16">
-            
-            {/* STABILIZED HEADER: Paper Name Locked */}
-            <div className="text-4xl font-black tracking-tighter text-black mb-12 border-b border-slate-200 pb-8">
-                {content.label}
-            </div>
-
-            {/* TAB CONTENT */}
-            {activeTab === 'about' ? (
-                <div className="animate-in fade-in duration-300">
-                    <p className="text-xl text-slate-600 leading-relaxed italic font-serif">
-                        "This document serves as the ground truth for {content.label}. It locks our decisions so the design and code stay focused on the original vision."
-                    </p>
-                </div>
-            ) : activeTab === 'summary' ? (
-                <div className="animate-in fade-in duration-300">
-                    {!isGhost && (
-                        <h1 className="font-playfair text-[44px] font-black text-black leading-[1.1] mb-12 tracking-tighter italic">
-                            {content.headline}
-                        </h1>
-                    )}
-                    <div className="space-y-12">
-                        {blueprint.summary.map((section, i) => (
-                            <div key={i} className="flex flex-col">
-                                <h4 className="text-base font-bold text-black leading-tight">
-                                    {section.h}
-                                </h4>
-                                <p className="text-[13px] font-normal text-slate-400 leading-tight mt-0.5">
-                                    {section.w}
-                                </p>
-                                <div className="mt-4 prose prose-slate max-w-none text-slate-800">
-                                    {content[section.field] ? (
-                                        <ReactMarkdown>{content[section.field]}</ReactMarkdown>
-                                    ) : (
-                                        <p className="font-playfair text-base text-slate-100 italic mt-3">
-                                            Awaiting input...
-                                        </p>
-                                    )}
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            ) : (
-                <div className="animate-in fade-in duration-300">
-                    <div className="space-y-12">
-                         {blueprint.logic.map((section, i) => (
-                            <div key={i} className="flex flex-col border-t border-slate-100 pt-8 first:border-0 first:pt-0">
-                                <h4 className="text-base font-bold text-black leading-tight">
-                                    {section.h}
-                                </h4>
-                                <p className="text-[13px] font-normal text-slate-400 mt-0.5">
-                                    Specialist logic and evidence.
-                                </p>
-                                <div className="mt-4 prose prose-slate max-w-none text-slate-700">
-                                    {appendix[section.field] ? (
-                                        <ReactMarkdown>{appendix[section.field]}</ReactMarkdown>
-                                    ) : (
-                                        <p className="font-playfair text-base text-slate-100 italic mt-3">
-                                            Analysis pending...
-                                        </p>
-                                    )}
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            )}
-        </div>
-      </div>
-      <Handle type="source" position={Position.Bottom} className="!bg-black w-2.5 h-2.5 border-none" />
-      <Handle type="target" position={Position.Top} className="!bg-black w-2.5 h-2.5 border-none" />
-    </div>
-  );
 };
 
 const TabButton = ({ label, isActive, onClick }: any) => (
@@ -3398,6 +3425,128 @@ const TabButton = ({ label, isActive, onClick }: any) => (
     {label}
   </button>
 );
+
+const SubTabButton = ({ label, isActive, onClick }: any) => (
+    <button onClick={onClick} className={clsx(
+        "text-[9px] font-bold uppercase tracking-widest whitespace-nowrap px-3 py-1.5 rounded transition-all border",
+        isActive ? "bg-slate-900 text-white border-slate-900 shadow-md" : "bg-white text-slate-400 border-slate-100 hover:text-slate-900 hover:border-slate-300"
+    )}>{label}</button>
+);
+
+const ManifestoRow = ({ label, value }: any) => (
+    <div className="flex flex-col gap-1">
+        <span className="text-[9px] font-black uppercase tracking-widest text-slate-300">{label}</span>
+        <p className="text-xs font-bold text-slate-800 leading-relaxed uppercase tracking-tight">{value || "..."}</p>
+    </div>
+);
+
+export const ExecutivePaperNode = ({ data }: NodeProps) => {
+  const content = (data as any);
+  const isGhost = content.isGhost;
+  const blueprint = BLUEPRINT[content.deptId] || BLUEPRINT['the_big_idea'];
+  
+  const [activeTab, setActiveTab] = useState<'summary' | 'logic' | 'about'>('summary');
+  const [activeSubTab, setActiveSubTab] = useState<number>(0); 
+  const appendix = content.appendix || {};
+  const manifesto = content.manifesto || {};
+
+  const specialists = blueprint.logic.map(l => l.h.split(":")[1]?.trim() || l.h);
+
+  return (
+    <div className={clsx(
+        "w-[595px] min-h-[842px] bg-white shadow-2xl flex flex-col font-sans relative border-[1px] border-slate-300 border-solid transition-all duration-300",
+        "select-text cursor-auto"
+    )}>
+      
+      <div className="absolute -top-10 left-0 flex gap-1 z-50">
+        <TabButton label="Summary" isActive={activeTab === 'summary'} onClick={() => setActiveTab('summary')} />
+        <TabButton label="Deep Research" isActive={activeTab === 'logic'} onClick={() => { setActiveTab('logic'); setActiveSubTab(0); }} />
+        <TabButton label="About" isActive={activeTab === 'about'} onClick={() => setActiveTab('about')} />
+      </div>
+
+      {/* STATUS & PUSHBACK (ALWAYS VISIBLE) */}
+      <div className="absolute top-6 right-6 flex items-center gap-3">
+        <button 
+            onClick={() => {
+                window.dispatchEvent(new CustomEvent("vibe:pushback", { detail: content.deptId }));
+            }}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900 text-white hover:bg-black transition-all shadow-lg group/btn z-[100]"
+            title="Direct Pushback"
+        >
+            <MessageSquare className="w-4 h-4" />
+            <span className="text-[9px] font-black uppercase tracking-widest">Pushback</span>
+        </button>
+        <div className="flex items-center gap-2">
+            <span className={clsx("w-2 h-2 rounded-full", content.status === 'DRAFTING' ? "bg-emerald-500 animate-pulse" : isGhost ? "bg-slate-200" : "bg-black")} />
+            <span className="text-[9px] font-black uppercase tracking-widest text-slate-400">
+                {content.status === 'DRAFTING' ? 'Drafting' : isGhost ? 'Skeleton' : 'Stable'}
+            </span>
+        </div>
+      </div>
+
+      <div className="flex-1 overflow-y-auto scrollbar-hide bg-white">
+        <div className="px-10 py-16">
+            <div className="text-4xl font-black tracking-tighter text-black mb-12 border-b border-slate-200 pb-8 uppercase">{content.label}</div>
+
+            {activeTab === 'about' ? (
+                <div className="animate-in fade-in duration-300">
+                    <p className="text-xl text-slate-600 leading-relaxed italic font-serif">"This document serves as the ground truth for {content.label}. It locks our decisions so the design and code stay focused on the original vision."</p>
+                </div>
+            ) : activeTab === 'summary' ? (
+                <div className="animate-in fade-in duration-300">
+                    {!isGhost && <h1 className="font-playfair text-[44px] font-black text-black leading-[1.1] mb-12 tracking-tighter italic">{content.headline}</h1>}
+                    <div className="space-y-12">
+                        {blueprint.summary.map((section, i) => (
+                            <div key={i} className="flex flex-col">
+                                <h4 className="text-base font-bold text-black leading-tight uppercase tracking-widest">{section.h}</h4>
+                                <p className="text-[11px] font-normal text-slate-400 leading-tight mt-1">{section.w}</p>
+                                <div className="mt-4 prose prose-slate max-w-none text-slate-800 text-sm leading-relaxed">
+                                    {content[section.field] ? <ReactMarkdown>{content[section.field]}</ReactMarkdown> : <p className="font-serif text-slate-100 italic">Awaiting input...</p>}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            ) : (
+                <div className="animate-in fade-in duration-300">
+                    <div className="flex gap-2 border-b border-slate-100 mb-8 overflow-x-auto pb-2 scrollbar-hide">
+                        <SubTabButton label="The Brief" isActive={activeSubTab === 0} onClick={() => setActiveSubTab(0)} />
+                        {specialists.map((name, i) => <SubTabButton key={i} label={name} isActive={activeSubTab === i + 1} onClick={() => setActiveSubTab(i + 1)} />)}
+                    </div>
+
+                    {activeSubTab === 0 ? (
+                        <div className="space-y-6 animate-in slide-in-from-top-2 duration-300">
+                            <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">The Brief</h4>
+                            <div className="prose prose-slate max-w-none text-slate-800 text-sm leading-relaxed space-y-4">
+                                <p className="font-medium text-slate-900">{manifesto.problem_statement || "Vision pending..."}</p>
+                                <p className="text-slate-600">{manifesto.desired_outcome}</p>
+                                <p className="text-slate-600 italic border-l-2 border-purple-200 pl-4">{manifesto.magic_differentiator}</p>
+                                
+                                {manifesto.verbatim_quotes?.length > 0 && (
+                                    <div className="pt-6 border-t border-slate-100">
+                                        <span className="text-[9px] font-black uppercase tracking-widest text-slate-400 block mb-4">Verbatim Anchors</span>
+                                        <div className="space-y-3">
+                                            {manifesto.verbatim_quotes.map((q: string, i: number) => <p key={i} className="text-[12px] italic text-slate-500 border-l-4 border-slate-200 pl-4 font-serif">"{q}"</p>)}
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    ) : (
+                        <div className="prose prose-slate max-w-none text-slate-700 text-sm leading-relaxed animate-in fade-in duration-300">
+                            <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-6">{specialists[activeSubTab - 1]} // Research</h4>
+                            <ReactMarkdown>{appendix[blueprint.logic[activeSubTab - 1].field] || "Analysis pending..."}</ReactMarkdown>
+                        </div>
+                    )}
+                </div>
+            )}
+        </div>
+      </div>
+      <Handle type="source" position={Position.Bottom} className="!bg-black w-2.5 h-2.5 border-none" />
+      <Handle type="target" position={Position.Top} className="!bg-black w-2.5 h-2.5 border-none" />
+    </div>
+  );
+};
 
 export const StrategyNode = ExecutivePaperNode;
 ---
@@ -3425,27 +3574,57 @@ const EMPTY_LAYERS = {
     WIREFRAME: { nodes: [] , edges: [] }
 };
 
+
 const INITIAL_LEDGER: Record<string, DeptSlot> = {
   the_big_idea: { id: 'the_big_idea', deptId: '1', label: 'The Big Idea', icon: 'Zap', status: 'NOT_STARTED', activeVersion: 0, history: [] },
-  market_research: { id: 'market_research', deptId: '2', label: 'Market Research', icon: 'BarChart3', status: 'NOT_STARTED', activeVersion: 0, history: [] },
-  audience_mapping: { id: 'audience_mapping', deptId: '3', label: 'Audience Mapping', icon: 'Users', status: 'NOT_STARTED', activeVersion: 0, history: [] },
-  user_experience: { id: 'user_experience', deptId: '4', label: 'User Experience', icon: 'Magnet', status: 'NOT_STARTED', activeVersion: 0, history: [] },
+  the_opportunity: { id: 'the_opportunity', deptId: '2', label: 'The Opportunity', icon: 'BarChart3', status: 'NOT_STARTED', activeVersion: 0, history: [] },
+  the_people: { id: 'the_people', deptId: '3', label: 'The People', icon: 'Users', status: 'NOT_STARTED', activeVersion: 0, history: [] },
+  the_experience: { id: 'the_experience', deptId: '4', label: 'The Experience', icon: 'Magnet', status: 'NOT_STARTED', activeVersion: 0, history: [] },
   the_mvp: { id: 'the_mvp', deptId: '5', label: 'The MVP - Killer App', icon: 'ShieldCheck', status: 'NOT_STARTED', activeVersion: 0, history: [] },
 };
 
-const generateStrategySkeleton = (ledger: Record<string, DeptSlot>) => {
-    return Object.values(ledger).map((dept, idx) => ({
-        id: dept.id,
-        type: 'strategy',
-        position: { x: idx * 650, y: 50 },
-        data: { 
-            ...(dept.history[dept.activeVersion] || {}),
-            label: dept.label,
-            deptId: dept.id,
-            status: dept.status,
-            isGhost: dept.history.length === 0
+// MIGRATION MAP: Translates old Firestore IDs to new v1.3 IDs
+const LEGACY_MAP: Record<string, string> = {
+    'market_research': 'the_opportunity',
+    'audience_mapping': 'the_people',
+    'user_experience': 'the_experience'
+};
+
+const normalizeLedger = (rawLedger: any): Record<string, DeptSlot> => {
+    const cleanLedger: Record<string, any> = { ...INITIAL_LEDGER };
+    if (!rawLedger) return cleanLedger;
+
+    Object.keys(rawLedger).forEach(key => {
+        const newKey = LEGACY_MAP[key] || key;
+        if (cleanLedger[newKey]) {
+            cleanLedger[newKey] = { 
+                ...cleanLedger[newKey], 
+                ...rawLedger[key],
+                id: newKey // Force ID alignment
+            };
         }
-    }));
+    });
+    return cleanLedger;
+};
+
+
+const STRATEGY_ORDER = ['the_big_idea', 'the_opportunity', 'the_people', 'the_experience', 'the_mvp'];
+const generateStrategySkeleton = (ledger: Record<string, DeptSlot>) => {
+    return STRATEGY_ORDER.map((key, idx) => {
+        const dept = ledger[key] || INITIAL_LEDGER[key];
+        return {
+            id: dept.id,
+            type: 'strategy',
+            position: { x: idx * 650, y: 50 },
+            data: { 
+                ...(dept.history[dept.activeVersion] || {}),
+                label: dept.label,
+                deptId: dept.id,
+                status: dept.status,
+                isGhost: dept.history.length === 0
+            }
+        };
+    });
 };
 
 const flattenTree = (node: any, parentId: string | null = null, depth = 0): Node[] => {
@@ -3530,9 +3709,15 @@ export const useVibeStore = create<VibeStore>((set, get) => ({
       const dbName = data.project_name || 'UNTITLED';
       if (data.vibe_manifest) {
         const m = data.vibe_manifest as VibeManifest;
-        const currentLedger = m.strategyLedger || INITIAL_LEDGER;
+        const currentLedger = normalizeLedger(m.strategyLedger);
         const skeletonNodes = generateStrategySkeleton(currentLedger);
-        const mergedLayers = { ...EMPTY_LAYERS, ...(m.layers || {}), STRATEGY: { nodes: skeletonNodes, edges: [] } };
+        const savedStrategy = m.layers?.STRATEGY || { nodes: [], edges: [] };
+        // Force-merge skeleton data into saved nodes to preserve positions but update content
+        const finalizedNodes = skeletonNodes.map(sNode => {
+            const saved = savedStrategy.nodes.find(n => n.id === sNode.id);
+            return saved ? { ...sNode, position: saved.position } : sNode;
+        });
+        const mergedLayers = { ...EMPTY_LAYERS, ...(m.layers || {}), STRATEGY: { nodes: finalizedNodes, edges: savedStrategy.edges } };
 
         set({ 
             project: { id, name: dbName }, 
@@ -3627,6 +3812,7 @@ export const useVibeStore = create<VibeStore>((set, get) => ({
             if (currentDept) {
                 const newPaper = { 
                   ...content, 
+                  manifesto: data.manifesto, 
                   timestamp: new Date().toISOString(), 
                   version: (currentDept.history.length + 1).toFixed(1) 
                 };

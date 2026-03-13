@@ -1,192 +1,97 @@
 "use client";
 import React, { useState } from 'react';
 import { Handle, Position, NodeProps } from '@xyflow/react';
-import { Target, Zap, TrendingUp, ShieldAlert, BookOpen, Fingerprint, Quote, HelpCircle } from 'lucide-react';
+import { 
+    Target, Zap, TrendingUp, ShieldAlert, BookOpen, 
+    Fingerprint, Quote, HelpCircle, MessageSquare 
+} from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
+import type { Components } from 'react-markdown';
 import { clsx } from 'clsx';
+const markdownComponents: Components = {
+    a: ({ node, ...props }) => (
+        <a {...props} target='_blank' rel='noopener noreferrer' className='text-blue-600 hover:underline' />
+    ),
+};
 
-// --- THE BLUEPRINT REGISTRY (Logic Handover Mapping) ---
-// This ensures the headlines stay permanent. We map each section to a 'field' in the AI's JSON output.
+
 const BLUEPRINT: Record<string, { summary: {h: string, w: string, field: string}[], logic: {h: string, field: string}[] }> = {
   the_big_idea: {
     summary: [
-      { h: "One Sentence Idea", w: "A crystal clear summary of what we are building and who it is for.", field: "one_sentence_idea" },
-      { h: "The Core Problem", w: "The real-world frustration or pain we are committed to fixing.", field: "core_problem" },
-      { h: "How it Makes Money", w: "The simple logic of how the business survives and grows.", field: "money_logic" },
-      { h: "What Must Be True", w: "The most important assumptions that have to be right for this to work.", field: "critical_assumptions" }
+      { h: "The Insight", w: "The human truth your product is built on.", field: "insight" },
+      { h: "The One Sentence", w: "This exists so that ___ can ___ without ___.", field: "one_sentence" },
+      { h: "The Problem", w: "The real human or business pain. Why this matters now.", field: "problem" },
+      { h: "The Money", w: "Who pays, for what, and why. The value exchange.", field: "money" },
+      { h: "What Must Be True", w: "Three to five critical assumptions. Validation targets.", field: "must_be_true" },
+      { h: "The Anti-Vision", w: "What this product must never become. Name the trap.", field: "anti_vision" }
     ],
     logic: [
-      { h: "Section 1.1: Ideation Artifacts", field: "architect_logic_a" },
-      { h: "Section 1.2: Problem Articulation", field: "architect_logic_b" },
-      { h: "Section 1.3: Business Logic", field: "architect_logic_c" },
-      { h: "Section 1.4: Risk Assessment", field: "adversarial_tension" }
+      { h: "Section 1.1: Visionary Architect", field: "architect_logic_a" },
+      { h: "Section 1.2: Commercial Lead", field: "architect_logic_b" },
+      { h: "Section 1.3: Product Realist", field: "architect_logic_c" }
     ]
   },
-  market_research: {
+  the_opportunity: {
     summary: [
-      { h: "Market Shape & Size", w: "The actual territory we are playing in and how big the opportunity is.", field: "market_shape" },
-      { h: "The Distribution Wedge", w: "The specific 'door' we will use to get to users before anyone else.", field: "distribution_wedge" },
-      { h: "The Competition", w: "Who else is solving this and where they are falling short.", field: "competition" },
-      { h: "The Gaps", w: "The specific things everyone else is ignoring that we can own.", field: "market_gaps" }
+      { h: "The Market", w: "The size and shape of the prize.", field: "market" },
+      { h: "The Gap", w: "What nobody is doing well enough.", field: "gap" },
+      { h: "The Players", w: "Who owns this space right now.", field: "players" },
+      { h: "The Timing", w: "Why now is the right moment.", field: "timing" },
+      { h: "The Opportunities", w: "Specific openings to win.", field: "opportunities" },
+      { h: "Our Edge", w: "Why we can actually pull this off.", field: "edge" }
     ],
     logic: [
-      { h: "Section 2.1: Raw Market Data", field: "architect_logic_a" },
-      { h: "Section 2.2: Opportunity Analysis", field: "architect_logic_b" },
-      { h: "Section 2.3: Competitor Database", field: "architect_logic_c" },
-      { h: "Section 2.4: Gap Analysis", field: "adversarial_tension" }
+      { h: "Section 2.1: Market Analyst", field: "architect_logic_a" },
+      { h: "Section 2.2: Competitive Intel", field: "architect_logic_b" },
+      { h: "Section 2.3: Opportunity Mapper", field: "architect_logic_c" }
     ]
   },
-  audience_mapping: {
+  the_people: {
     summary: [
-      { h: "Who Comes First", w: "The specific group of people we are designing for on day one.", field: "audience_hierarchy" },
-      { h: "The Trigger Moment", w: "What is happening in someone's life when they realize they need this?", field: "hiring_conditions" },
-      { h: "The Power Players", w: "The people who decide to use it vs. the people who actually use it.", field: "influence_dynamics" },
-      { h: "What Success Looks Like", w: "How the user knows the product actually worked for them.", field: "success_moments" }
+      { h: "Primary Audience", w: "Who we are designing for on day one.", field: "primary_audience" },
+      { h: "Secondary Audience", w: "Who else is in the room.", field: "secondary_audience" },
+      { h: "The Drivers", w: "What is actually pushing them toward this.", field: "drivers" },
+      { h: "The Pain Points", w: "Specific moments where current solutions fail.", field: "pain_points" },
+      { h: "The Markers", w: "How to recognize them in the wild.", field: "markers" },
+      { h: "Tipping Point Strategy", w: "How we get from 20% to 80% adoption.", field: "tipping_point" }
     ],
     logic: [
-      { h: "Section 3.1: User Research", field: "architect_logic_a" },
-      { h: "Section 3.2: Audience Taxonomy", field: "architect_logic_b" },
-      { h: "Section 3.3: Behavior Triggers", field: "architect_logic_c" },
-      { h: "Section 3.4: Success Metrics", field: "adversarial_tension" }
+      { h: "Section 3.1: Audience Strategist", field: "architect_logic_a" },
+      { h: "Section 3.2: Psychographic Analyst", field: "architect_logic_b" },
+      { h: "Section 3.3: Adoption Strategist", field: "architect_logic_c" }
     ]
   },
-  user_experience: {
+  the_experience: {
     summary: [
-      { h: "The Comfort Zone (95%)", w: "The standard ways of doing things that people already understand.", field: "convention_baseline" },
-      { h: "The Magic Moment (5%)", w: "The one special thing that will make people remember and love us.", field: "magic_layer" },
-      { h: "The Hook", w: "Why someone will spend their first 60 seconds with us.", field: "initial_hook" },
-      { h: "The Habit Loop", w: "Why someone will keep coming back day after day.", field: "habit_loop" }
+      { h: "Overall Experience", w: "The arc from first touch to habit.", field: "overall_arc" },
+      { h: "The Hook", w: "Why they don't walk away in 60 seconds.", field: "hook" },
+      { h: "The Moments", w: "Critical stages: Discovery, Onboarding, Sharing.", field: "moments" },
+      { h: "The Mechanics", w: "Psychological engines (Progress, Mastery, etc).", field: "mechanics" },
+      { h: "AI & Automation Layer", w: "Where the product thinks for you.", field: "ai_layer" },
+      { h: "Social Proof Engine", w: "How we capture and display activity.", field: "social_proof" },
+      { h: "The 5%", w: "The one thing worth remembering.", field: "five_percent" }
     ],
     logic: [
-      { h: "Section 4.1: Convention Research", field: "architect_logic_a" },
-      { h: "Section 4.2: Magic Candidates", field: "architect_logic_b" },
-      { h: "Section 4.3: Hook Mechanics", field: "architect_logic_c" },
-      { h: "Section 4.4: Retention Loops", field: "adversarial_tension" }
+      { h: "Section 4.1: Convention Researcher", field: "architect_logic_a" },
+      { h: "Section 4.2: Engagement Specialist", field: "architect_logic_b" },
+      { h: "Section 4.3: Social Architect", field: "architect_logic_c" }
     ]
   },
   the_mvp: {
     summary: [
-      { h: "The Absolute Must-Haves", w: "The smallest possible version we can build that still solves the problem.", field: "must_haves" },
-      { h: "The Main Parts", w: "The big building blocks we need to create.", field: "main_objects" },
-      { h: "What We Are Not Building", w: "The things we are choosing to ignore for now to stay fast.", field: "deferred_features" },
-      { h: "Ready to Build", w: "A final check to make sure we have enough info to start designing.", field: "build_readiness" }
+      { h: "The One Thing", w: "What this version does and nothing else.", field: "one_thing" },
+      { h: "The Must-Haves", w: "What has to be in version one.", field: "must_haves" },
+      { h: "The Cut List", w: "What we are not building yet.", field: "cut_list" },
+      { h: "The Success Moment", w: "How we know it's working (observable behavior).", field: "success_moment" },
+      { h: "The Build Order", w: "What gets built first.", field: "build_order" },
+      { h: "Validation Targets", w: "The assumptions we need to prove.", field: "validation_targets" }
     ],
     logic: [
-      { h: "Section 5.1: Scope Reduction", field: "architect_logic_a" },
-      { h: "Section 5.2: Technical Logic", field: "architect_logic_b" },
-      { h: "Section 5.3: Feature List", field: "architect_logic_c" },
-      { h: "Section 5.4: Build Roadmap", field: "adversarial_tension" }
+      { h: "Section 5.1: Scope Architect", field: "architect_logic_a" },
+      { h: "Section 5.2: Cut List Enforcer", field: "architect_logic_b" },
+      { h: "Section 5.3: Validation Strategist", field: "architect_logic_c" }
     ]
   }
-};
-
-export const ExecutivePaperNode = ({ data }: NodeProps) => {
-  const content = (data as any);
-  const isGhost = content.isGhost;
-  const blueprint = BLUEPRINT[content.deptId] || BLUEPRINT['the_big_idea'];
-  
-  const [activeTab, setActiveTab] = useState<'summary' | 'logic' | 'about'>('summary');
-  const appendix = content.appendix || {};
-
-  return (
-    <div className={clsx(
-        "w-[595px] min-h-[842px] bg-white shadow-2xl flex flex-col font-sans relative border-[1px] border-slate-300 border-solid transition-all duration-300"
-    )}>
-      
-      {/* TABS */}
-      <div className="absolute -top-10 left-0 flex gap-1 z-50">
-        <TabButton label="Summary" isActive={activeTab === 'summary'} onClick={() => setActiveTab('summary')} />
-        <TabButton label="Deep Research" isActive={activeTab === 'logic'} onClick={() => setActiveTab('logic')} />
-        <TabButton label="About" isActive={activeTab === 'about'} onClick={() => setActiveTab('about')} />
-      </div>
-
-      {/* STATUS INDICATOR */}
-      <div className="absolute top-6 right-8 flex items-center gap-2">
-        <span className={clsx(
-            "w-2 h-2 rounded-full",
-            content.status === 'DRAFTING' ? "bg-emerald-500 animate-pulse" : 
-            isGhost ? "bg-slate-200" : "bg-black"
-        )} />
-        <span className="text-[9px] font-black uppercase tracking-widest text-slate-400">
-            {content.status === 'DRAFTING' ? 'Drafting...' : isGhost ? 'Awaiting Data' : 'Stable'}
-        </span>
-      </div>
-
-      <div className="flex-1 overflow-y-auto scrollbar-hide bg-white">
-        <div className="p-20 pt-16">
-            
-            {/* STABILIZED HEADER: Paper Name Locked */}
-            <div className="text-4xl font-black tracking-tighter text-black mb-12 border-b border-slate-200 pb-8">
-                {content.label}
-            </div>
-
-            {/* TAB CONTENT */}
-            {activeTab === 'about' ? (
-                <div className="animate-in fade-in duration-300">
-                    <p className="text-xl text-slate-600 leading-relaxed italic font-serif">
-                        "This document serves as the ground truth for {content.label}. It locks our decisions so the design and code stay focused on the original vision."
-                    </p>
-                </div>
-            ) : activeTab === 'summary' ? (
-                <div className="animate-in fade-in duration-300">
-                    {!isGhost && (
-                        <h1 className="font-playfair text-[44px] font-black text-black leading-[1.1] mb-12 tracking-tighter italic">
-                            {content.headline}
-                        </h1>
-                    )}
-                    <div className="space-y-12">
-                        {blueprint.summary.map((section, i) => (
-                            <div key={i} className="flex flex-col">
-                                <h4 className="text-base font-bold text-black leading-tight">
-                                    {section.h}
-                                </h4>
-                                <p className="text-[13px] font-normal text-slate-400 leading-tight mt-0.5">
-                                    {section.w}
-                                </p>
-                                <div className="mt-4 prose prose-slate max-w-none text-slate-800">
-                                    {content[section.field] ? (
-                                        <ReactMarkdown>{content[section.field]}</ReactMarkdown>
-                                    ) : (
-                                        <p className="font-playfair text-base text-slate-100 italic mt-3">
-                                            Awaiting input...
-                                        </p>
-                                    )}
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            ) : (
-                <div className="animate-in fade-in duration-300">
-                    <div className="space-y-12">
-                         {blueprint.logic.map((section, i) => (
-                            <div key={i} className="flex flex-col border-t border-slate-100 pt-8 first:border-0 first:pt-0">
-                                <h4 className="text-base font-bold text-black leading-tight">
-                                    {section.h}
-                                </h4>
-                                <p className="text-[13px] font-normal text-slate-400 mt-0.5">
-                                    Specialist logic and evidence.
-                                </p>
-                                <div className="mt-4 prose prose-slate max-w-none text-slate-700">
-                                    {appendix[section.field] ? (
-                                        <ReactMarkdown>{appendix[section.field]}</ReactMarkdown>
-                                    ) : (
-                                        <p className="font-playfair text-base text-slate-100 italic mt-3">
-                                            Analysis pending...
-                                        </p>
-                                    )}
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            )}
-        </div>
-      </div>
-      <Handle type="source" position={Position.Bottom} className="!bg-black w-2.5 h-2.5 border-none" />
-      <Handle type="target" position={Position.Top} className="!bg-black w-2.5 h-2.5 border-none" />
-    </div>
-  );
 };
 
 const TabButton = ({ label, isActive, onClick }: any) => (
@@ -197,5 +102,127 @@ const TabButton = ({ label, isActive, onClick }: any) => (
     {label}
   </button>
 );
+
+const SubTabButton = ({ label, isActive, onClick }: any) => (
+    <button onClick={onClick} className={clsx(
+        "text-[9px] font-bold uppercase tracking-widest whitespace-nowrap px-3 py-1.5 rounded transition-all border",
+        isActive ? "bg-slate-900 text-white border-slate-900 shadow-md" : "bg-white text-slate-400 border-slate-100 hover:text-slate-900 hover:border-slate-300"
+    )}>{label}</button>
+);
+
+const ManifestoRow = ({ label, value }: any) => (
+    <div className="flex flex-col gap-1">
+        <span className="text-[9px] font-black uppercase tracking-widest text-slate-300">{label}</span>
+        <p className="text-xs font-bold text-slate-800 leading-relaxed uppercase tracking-tight">{value || "..."}</p>
+    </div>
+);
+
+export const ExecutivePaperNode = ({ data }: NodeProps) => {
+  const content = (data as any);
+  const isGhost = content.isGhost;
+  const blueprint = BLUEPRINT[content.deptId] || BLUEPRINT['the_big_idea'];
+  
+  const [activeTab, setActiveTab] = useState<'summary' | 'logic' | 'about'>('summary');
+  const [activeSubTab, setActiveSubTab] = useState<number>(0); 
+  const appendix = content.appendix || {};
+  const manifesto = content.manifesto || {};
+
+  const specialists = blueprint.logic.map(l => l.h.split(":")[1]?.trim() || l.h);
+
+  return (
+    <div className={clsx(
+        "w-[595px] min-h-[842px] bg-white shadow-2xl flex flex-col font-sans relative border-[1px] border-slate-300 border-solid transition-all duration-300",
+        "select-text cursor-auto"
+    )}>
+      
+      <div className="absolute -top-10 left-0 flex gap-1 z-50">
+        <TabButton label="Summary" isActive={activeTab === 'summary'} onClick={() => setActiveTab('summary')} />
+        <TabButton label="Deep Research" isActive={activeTab === 'logic'} onClick={() => { setActiveTab('logic'); setActiveSubTab(0); }} />
+        <TabButton label="About" isActive={activeTab === 'about'} onClick={() => setActiveTab('about')} />
+      </div>
+
+      {/* STATUS & PUSHBACK (ALWAYS VISIBLE) */}
+      <div className="absolute top-6 right-6 flex items-center gap-3">
+        <button 
+            onClick={() => {
+                window.dispatchEvent(new CustomEvent("vibe:pushback", { detail: content.deptId }));
+            }}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900 text-white hover:bg-black transition-all shadow-lg group/btn z-[100]"
+            title="Direct Pushback"
+        >
+            <MessageSquare className="w-4 h-4" />
+            <span className="text-[9px] font-black uppercase tracking-widest">Pushback</span>
+        </button>
+        <div className="flex items-center gap-2">
+            <span className={clsx("w-2 h-2 rounded-full", content.status === 'DRAFTING' ? "bg-emerald-500 animate-pulse" : isGhost ? "bg-slate-200" : "bg-black")} />
+            <span className="text-[9px] font-black uppercase tracking-widest text-slate-400">
+                {content.status === 'DRAFTING' ? 'Drafting' : isGhost ? 'Skeleton' : 'Stable'}
+            </span>
+        </div>
+      </div>
+
+      <div className="flex-1 overflow-y-auto scrollbar-hide bg-white">
+        <div className="px-10 py-16">
+            <div className="text-4xl font-black tracking-tighter text-black mb-12 border-b border-slate-200 pb-8 uppercase">{content.label}</div>
+
+            {activeTab === 'about' ? (
+                <div className="animate-in fade-in duration-300">
+                    <p className="text-xl text-slate-600 leading-relaxed italic font-serif">"This document serves as the ground truth for {content.label}. It locks our decisions so the design and code stay focused on the original vision."</p>
+                </div>
+            ) : activeTab === 'summary' ? (
+                <div className="animate-in fade-in duration-300">
+                    {!isGhost && <h1 className="font-playfair text-[44px] font-black text-black leading-[1.1] mb-12 tracking-tighter italic">{content.headline}</h1>}
+                    <div className="space-y-12">
+                        {blueprint.summary.map((section, i) => (
+                            <div key={i} className="flex flex-col">
+                                <h4 className="text-base font-bold text-black leading-tight uppercase tracking-widest">{section.h}</h4>
+                                <p className="text-[11px] font-normal text-slate-400 leading-tight mt-1">{section.w}</p>
+                                <div className="mt-4 prose prose-slate max-w-none text-slate-800 text-sm leading-relaxed">
+                                    {content[section.field] ? <ReactMarkdown components={markdownComponents}>{content[section.field]}</ReactMarkdown> : <p className="font-serif text-slate-100 italic">Awaiting input...</p>}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            ) : (
+                <div className="animate-in fade-in duration-300">
+                    <div className="flex gap-2 border-b border-slate-100 mb-8 overflow-x-auto pb-2 scrollbar-hide">
+                        <SubTabButton label="The Brief" isActive={activeSubTab === 0} onClick={() => setActiveSubTab(0)} />
+                        {specialists.map((name, i) => <SubTabButton key={i} label={name} isActive={activeSubTab === i + 1} onClick={() => setActiveSubTab(i + 1)} />)}
+                    </div>
+
+                    {activeSubTab === 0 ? (
+                        <div className="space-y-6 animate-in slide-in-from-top-2 duration-300">
+                            <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">The Brief</h4>
+                            <div className="prose prose-slate max-w-none text-slate-800 text-sm leading-relaxed space-y-4">
+                                <p className="font-medium text-slate-900">{manifesto.problem_statement || "Vision pending..."}</p>
+                                <p className="text-slate-600">{manifesto.desired_outcome}</p>
+                                <p className="text-slate-600 italic border-l-2 border-purple-200 pl-4">{manifesto.magic_differentiator}</p>
+                                
+                                {manifesto.verbatim_quotes?.length > 0 && (
+                                    <div className="pt-6 border-t border-slate-100">
+                                        <span className="text-[9px] font-black uppercase tracking-widest text-slate-400 block mb-4">Verbatim Anchors</span>
+                                        <div className="space-y-3">
+                                            {manifesto.verbatim_quotes.map((q: string, i: number) => <p key={i} className="text-[12px] italic text-slate-500 border-l-4 border-slate-200 pl-4 font-serif">"{q}"</p>)}
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    ) : (
+                        <div className="prose prose-slate max-w-none text-slate-700 text-sm leading-relaxed animate-in fade-in duration-300">
+                            <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-6">{specialists[activeSubTab - 1]} // Research</h4>
+                            <ReactMarkdown components={markdownComponents}>{appendix[blueprint.logic[activeSubTab - 1].field] || "Analysis pending..."}</ReactMarkdown>
+                        </div>
+                    )}
+                </div>
+            )}
+        </div>
+      </div>
+      <Handle type="source" position={Position.Bottom} className="!bg-black w-2.5 h-2.5 border-none" />
+      <Handle type="target" position={Position.Top} className="!bg-black w-2.5 h-2.5 border-none" />
+    </div>
+  );
+};
 
 export const StrategyNode = ExecutivePaperNode;

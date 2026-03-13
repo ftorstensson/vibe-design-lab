@@ -167,3 +167,24 @@
 **Entry 067: The character-perfect search block**
 *   **Lesson:** Markdown and Python patches fail on single characters or quote escapes (`\u0027`).
 *   **Fix:** **The Overwrite Protocol.** Use a Python script or `cat` to physically rewrite files when surgical patches fail 3 times.
+
+**Entry 068: The Mega-Schema Branching Wall**
+*   **Symptom:** 400 BadRequest: "The specified schema produces a constraint that has too much branching."
+*   **Diagnosis:** Trying to fit all 5 papers into one Pydantic class (`StrategyPaperContent`) overwhelmed Gemini 2.5's serving constraints.
+*   **Fix:** **Schema Fragmentation.** Break the giant brief schema into 5 paper-specific schemas (BigIdeaContent, OpportunityContent, etc.).
+
+**Entry 069: The Scribe-Starvation Trap (Amnesia)**
+*   **Symptom:** Vision (Manifesto) disappearing after 3 turns.
+*   **Fix:** Scribe must read the FULL , not just , to maintain vision continuity.
+
+**Entry 070: The "Waiter" Mirroring Loop**
+*   **Symptom:** PM repeating user input and speaking in the third person.
+*   **Fix:** **The Prose Firewall.** Physically redact JSON keys from the PM prompt. Force natural-language vision paragraphs via  helper.
+
+**Entry 071: The Reversed Handshake**
+*   **Symptom:** PM talking based on old context; amnesia during research turns.
+*   **Fix:** Scribe runs Turn 1 (IQ/Logic), PM runs Turn 2 (EQ/Vibe). Vision is locked in Firestore before the PM ever speaks.
+
+**Entry 072: The Lion’s Mouth (Dynamic Registry)**
+*   **Symptom:** Key Drift (camelCase vs snake_case) creating logic dead-ends.
+*   **Fix:**  is a boot-loader. It physically pings Firestore for canonical keys on startup. No more hardcoded strings.

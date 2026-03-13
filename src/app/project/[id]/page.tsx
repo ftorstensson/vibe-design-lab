@@ -90,7 +90,15 @@ const Canvas = () => {
 
   useEffect(() => {
     if (id) loadProjectCloud(id as string);
-  }, [id, loadProjectCloud]);
+    
+    // Handle Direct Pushback Event
+    const handlePushback = (e: any) => {
+        setActiveSpecialist(e.detail);
+        setChatOpen(true);
+    };
+    window.addEventListener('vibe:pushback', handlePushback);
+    return () => window.removeEventListener('vibe:pushback', handlePushback);
+  }, [id, loadProjectCloud, setActiveSpecialist, setChatOpen]);
 
   const handleSend = async () => {
     if (!chatInput.trim()) return;

@@ -10,7 +10,7 @@ export interface StrategyPaper {
   masthead: string;
   headline: string;
   content: any; 
-  appendix: any;
+  appendix: { architect_logic_a: string, architect_logic_b: string, architect_logic_c: string, adversarial_tension: string };
   version_note: string;
 }
 
@@ -62,7 +62,7 @@ export interface VibeManifest {
   strategyDoc: string;
   projectLedger: any[];
   activeLayer: VibeLayer;
-  activeSpecialist: string | null;
+  activeSpecialist: string | null; mission_manifesto: any;
   layers: {
     STRATEGY: LayerData;
     LANDSCAPE: LayerData;

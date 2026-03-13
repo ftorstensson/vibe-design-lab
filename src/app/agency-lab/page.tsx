@@ -23,10 +23,10 @@ const LAYERS_CONFIG: { id: VibeLayer; label: string; icon: any }[] = [
 
 const STRATEGY_DEPT_ORDER = [
   "BIG_IDEA_TEAM",
-  "MARKET_TEAM",
-  "AUDIENCE_TEAM",
-  "STRUCTURE_TEAM",
-  "FEASIBILITY_TEAM"
+  "OPPORTUNITY_TEAM",
+  "PEOPLE_TEAM",
+  "EXPERIENCE_TEAM",
+  "MVP_TEAM"
 ];
 
 export default function AgencyLab() {
@@ -150,10 +150,13 @@ export default function AgencyLab() {
                                     hierarchy[layer.id]?.[deptId] && (
                                         <div key={deptId} className="space-y-1">
                                             <button 
-                                                onClick={() => { setExpandedTeams(prev => prev.includes(deptId) ? prev.filter(x => x !== deptId) : [...prev, deptId]); handleSelectDept(deptId); }}
-                                                className={clsx("w-full p-2 flex items-center justify-between rounded-lg transition-colors group", selectedDept?.id === deptId ? "bg-slate-100 text-slate-900" : "text-slate-400 hover:text-slate-600")}
+                                                onClick={() => { 
+                                                    setExpandedTeams(prev => prev.includes(deptId) ? prev.filter(x => x !== deptId) : [...prev, deptId]); 
+                                                    handleSelectDept(deptId); 
+                                                }}
+                                                className={clsx("w-full p-2 flex items-center justify-between rounded-lg transition-colors group", (selectedDept?.id === deptId || selectedDept?.dept_id === deptId) ? "bg-slate-900 text-white shadow-lg" : "text-slate-400 hover:text-slate-600")}
                                             >
-                                                <div className="flex items-center gap-2"><span className="text-[10px] font-black uppercase tracking-widest">{deptId.replace(/_TEAM/g, '').replace(/_/g, ' ')}</span></div>
+                                                <div className="flex items-center gap-2"><span className="text-[10px] font-black uppercase tracking-widest">{deptId === 'BIG_IDEA_TEAM' ? 'THE BIG IDEA' : deptId === 'OPPORTUNITY_TEAM' ? 'THE OPPORTUNITY' : deptId === 'PEOPLE_TEAM' ? 'THE PEOPLE' : deptId === 'EXPERIENCE_TEAM' ? 'THE EXPERIENCE' : 'THE MVP'}</span></div>
                                                 {expandedTeams.includes(deptId) ? <ChevronDown className="w-3 h-3" /> : <ChevronRight className="w-3 h-3" />}
                                             </button>
 
@@ -218,7 +221,7 @@ export default function AgencyLab() {
                             <div className="bg-white p-6 rounded-[2rem] border border-slate-200 shadow-sm">
                                 <div className="flex items-center gap-2 mb-4">
                                     <Target className="w-3 h-3 text-purple-500" />
-                                    <span className="text-[9px] font-black uppercase tracking-widest text-slate-400">Dept Checklist (Phase Requirements)</span>
+                                    <div className="flex flex-col gap-1"><span className="text-[9px] font-black uppercase tracking-widest text-slate-400">Dept Checklist (Phase Requirements)</span><span className="text-[8px] text-slate-300 italic">Pro-Tip: Use "ELI Protocol" requirements here.</span></div>
                                 </div>
                                 <textarea 
                                     title="Checklist Editor"

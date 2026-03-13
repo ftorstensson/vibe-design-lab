@@ -1,51 +1,38 @@
-# SYSTEM MAP: THE VIBE DESIGN LAB (v4.4)
-*The Ground Truth Manual for AI Assistants building this system.*
+# SYSTEM MAP: THE VIBE DESIGN LAB (v12.1 - The Strategy Edition)
+*The Ground Truth Manual for the Design Truth Engine.*
 
 ## I. DIRECTORY & PATH PHYSICS
-The system bridges two distinct repositories using the `FRONTEND_PATH` environment variable.
+The system bridges two repositories using the `FRONTEND_PATH` environment variable.
 - **Backend Root (`the-co-founder`):** `/Users/fred/the-co-founder`
 - **Frontend Root (`vibe-design-lab`):** `/Users/fred/vibe-design-lab`
-- **Bridge Variable:** `FRONTEND_PATH="/Users/fred/vibe-design-lab"` (Set in Backend Terminal).
+- **Bridge Variable:** `FRONTEND_PATH="/Users/fred/vibe-design-lab"`
 
-## II. BIOLOGICAL SIGNATURES (Baseline: 2026-02-14)
-*These line counts are "Sacred." Any turn that reduces these without a documented Pruning Plan is a regression.*
+## II. THE AUTHORITY HIERARCHY (The Five Laws)
+1. **DUMB CODE (The Physics):** Orchestration, Schemas, and Security.
+2. **THE CONSTITUTION:** Institutional logic (Brain/AGENCY_MISSION.md).
+3. **MISSION MANIFESTO:** Canonical versioned state object (Firestore).
+4. **PROJECT LEDGER:** Persistent "Locked Truths" (Firestore).
+5. **SYSTEM PROMPT:** Persona tone and creative perspective (The Soul).
 
+## III. THE SIDECAR ARCHITECTURE
+- **Fast Lane (PM):** Pure conversational partner. Social, high-energy, partner-driven. Physically schema-blind to prevent robotic tone.
+- **Slow Lane (Scribe):** Background agent. Extracts chat into the stratified Mission Manifesto.
+- **Iron Curtain:** Specialists are chat-blind; they reason ONLY from the Manifesto to prevent "Yes/Go" noise.
+
+## IV. NATIVE GROUNDING (The Eyes)
+- **The Bypass:** Use `Tool.from_dict({"google_search": {}})` for native 2026 search.
+- **Bounty Bank:** Programmatic harvesting of URLs from `grounding_metadata`.
+- **ELI Protocol:** Every claim must follow Evidence (URLs) -> Logic -> Implication.
+
+## V. BIOLOGICAL SIGNATURES (Baseline: 2026-03-01)
+*Line counts are sacred. Reductions without a pruning plan are regressions.*
 ### Backend (`the-co-founder`)
-- **`app/agency/architect.py`**: 133 lines
-- **`app/agency/departments/product/schemas.py`**: 71 lines
-- **`app/chain.py`**: 218 lines
-
+- **`app/agency/architect.py`**: ~175 lines (Sidecar & Native Grounding active).
+- **`app/agency/departments/product/schemas.py`**: ~105 lines (Scribe & Manifesto schemas).
 ### Frontend (`vibe-design-lab`)
-- **`src/app/project/[id]/page.tsx`**: 241 lines
-- **`src/store/vibe-store.ts`**: 257 lines
-- **`src/components/StrategyNodes.tsx`**: 201 lines
+- **`src/store/vibe-store.ts`**: ~285 lines (Order fixed, Legacy normalization active).
+- **`src/components/StrategyNodes.tsx`**: ~200 lines (War Room Tabs, Pushback active).
 
-## III. ID GRAMMAR (The Naming Law)
-*Hallucinating a name causes a 404 System Failure. Use these exact strings.*
-
-### 1. Layers (Uppercase)
-`STRATEGY` | `LANDSCAPE` | `JOURNEY` | `SITEMAP` | `WIREFRAME` | `GLOBAL`
-
-### 2. Department Registry (Uppercase + _TEAM)
-`BIG_IDEA_TEAM` | `MARKET_TEAM` | `AUDIENCE_TEAM` | `STRUCTURE_TEAM` | `FEASIBILITY_TEAM` | `LANDSCAPE_TEAM` | `JOURNEY_TEAM`
-
-### 3. Agent Slug Standard (Lowercase)
-Format: `strat_[dept_slug]_[role_id]`
-*Examples:* `strat_big_idea_team_visionary`, `strat_market_team_scout`, `master_pm`, `global_editor`.
-
-## IV. THE RENDERING PIPELINE (Text-to-Visual)
-Our architecture follows a "Separation of Intelligence" model:
-1. **AI Role (The Architect):** The AI provides the **Blueprint** (Markdown, JSON, or Logic Ledgers). It never cares about X/Y coordinates or CSS.
-2. **Body Role (The Physics):** The code (Frontend Logic) interprets the AI's blueprint into **XYFlow Nodes**. 
-3. **The Ledger:** Every layer's output is saved as a "Design Ledger" entry, ensuring the next AI "sees" the previous decisions as inescapable constraints.
-
-## V. INVARIANT LAWS (The "Untouchables")
-- **TL-VIS-01 (Sacred Resizers):** `page.tsx` must preserve `NodeResizer` and `NodeResizeControl` for all MobileScreen types.
-- **TL-STA-01 (Functional Setters):** `vibe-store.ts` updates MUST use the functional `set((state) => ({...}))` pattern to prevent race conditions.
-- **TL-PRO-01 (Primacy Gate):** The Director's vision (Turn 1) is the permanent "Strategic Anchor" and must be injected into all specialist prompts to prevent "Meta-Talk" drift.
-
-## VI. THE KNOWLEDGE PIPELINE (Exo-Brains)
-Agents are "Leveled Up" by injecting specialized Markdown modules from `Brain/EXO_BRAINS/`.
-1. **Assignment:** Agents in the Lab have an `exo_brain_links` field (Metadata).
-2. **Injection:** The code fetches the linked `.md` files and prepends them to the prompt.
-3. **Hierarchy:** Exo-Brain Logic outranks System Prompt Persona, but defers to the Constitution.
+## VI. ID GRAMMAR (2026 Standard)
+- **Departments:** `BIG_IDEA_TEAM`, `OPPORTUNITY_TEAM`, `PEOPLE_TEAM`, `EXPERIENCE_TEAM`, `MVP_TEAM`.
+- **Agent Prefix:** `strat_[dept_slug]_` (e.g., `strat_opportunity_market_analyst`).
