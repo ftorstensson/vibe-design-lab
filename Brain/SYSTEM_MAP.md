@@ -1,38 +1,24 @@
-# SYSTEM MAP: THE VIBE DESIGN LAB (v12.1 - The Strategy Edition)
-*The Ground Truth Manual for the Design Truth Engine.*
+# SYSTEM MAP: THE VIBE DESIGN LAB (v15.0 - The Industrial Edition)
 
 ## I. DIRECTORY & PATH PHYSICS
-The system bridges two repositories using the `FRONTEND_PATH` environment variable.
-- **Backend Root (`the-co-founder`):** `/Users/fred/the-co-founder`
-- **Frontend Root (`vibe-design-lab`):** `/Users/fred/vibe-design-lab`
-- **Bridge Variable:** `FRONTEND_PATH="/Users/fred/vibe-design-lab"`
+- **Master Brain (Source):** `vibe-design-lab/Brain` (Edit here first).
+- **Runtime Brain (Cloud):** `the-co-founder/Brain` (Synced copy for Docker deployment).
+- **Bridge:** Frontend `problem_statement` maps 1-to-1 to Specialist context.
 
-## II. THE AUTHORITY HIERARCHY (The Five Laws)
-1. **DUMB CODE (The Physics):** Orchestration, Schemas, and Security.
-2. **THE CONSTITUTION:** Institutional logic (Brain/AGENCY_MISSION.md).
-3. **MISSION MANIFESTO:** Canonical versioned state object (Firestore).
-4. **PROJECT LEDGER:** Persistent "Locked Truths" (Firestore).
-5. **SYSTEM PROMPT:** Persona tone and creative perspective (The Soul).
+## II. THE AUTHORITY HIERARCHY
+1. **DUMB CODE:** Orchestration and Gate Physics.
+2. **LIBRARIAN LEDGER:** VERBATIM extraction of user intent.
+3. **THE CONSTITUTION:** `Brain/AGENCY_MISSION.md`.
+4. **THE PM:** Human-facing partner.
 
-## III. THE SIDECAR ARCHITECTURE
-- **Fast Lane (PM):** Pure conversational partner. Social, high-energy, partner-driven. Physically schema-blind to prevent robotic tone.
-- **Slow Lane (Scribe):** Background agent. Extracts chat into the stratified Mission Manifesto.
-- **Iron Curtain:** Specialists are chat-blind; they reason ONLY from the Manifesto to prevent "Yes/Go" noise.
-
-## IV. NATIVE GROUNDING (The Eyes)
-- **The Bypass:** Use `Tool.from_dict({"google_search": {}})` for native 2026 search.
-- **Bounty Bank:** Programmatic harvesting of URLs from `grounding_metadata`.
-- **ELI Protocol:** Every claim must follow Evidence (URLs) -> Logic -> Implication.
-
-## V. BIOLOGICAL SIGNATURES (Baseline: 2026-03-01)
-*Line counts are sacred. Reductions without a pruning plan are regressions.*
+## III. BIOLOGICAL SIGNATURES (v15.0 Stable)
 ### Backend (`the-co-founder`)
-- **`app/agency/architect.py`**: ~175 lines (Sidecar & Native Grounding active).
-- **`app/agency/departments/product/schemas.py`**: ~105 lines (Scribe & Manifesto schemas).
+- **`app/agency/architect.py`**: ~185 lines (Clerk/Author split & Native SDK active).
+- **`app/agency/departments/strategy/schemas.py`**: ~120 lines (Consolidated Strategy Brain).
 ### Frontend (`vibe-design-lab`)
-- **`src/store/vibe-store.ts`**: ~285 lines (Order fixed, Legacy normalization active).
-- **`src/components/StrategyNodes.tsx`**: ~200 lines (War Room Tabs, Pushback active).
+- **`src/store/vibe-store.ts`**: ~285 lines (Fidelity pathing fix).
+- **`src/components/StrategyNodes.tsx`**: ~235 lines (Target-blank link renderer active).
 
-## VI. ID GRAMMAR (2026 Standard)
-- **Departments:** `BIG_IDEA_TEAM`, `OPPORTUNITY_TEAM`, `PEOPLE_TEAM`, `EXPERIENCE_TEAM`, `MVP_TEAM`.
-- **Agent Prefix:** `strat_[dept_slug]_` (e.g., `strat_opportunity_market_analyst`).
+## IV. SEARCH PROTOCOL
+- **Hunter:** Specialist defines queries based on specific business model buckets.
+- **Hound:** Native SDK executes and returns `grounding_chunks`.

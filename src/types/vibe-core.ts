@@ -10,7 +10,14 @@ export interface StrategyPaper {
   masthead: string;
   headline: string;
   content: any; 
-  appendix: { architect_logic_a: string, architect_logic_b: string, architect_logic_c: string, adversarial_tension: string };
+  brief?: {
+    identity_narrative: string;
+    founding_voice: string[];
+    evidence_mandate: string;
+  };
+  appendix: any[]; 
+  version_note: string;
+};
   version_note: string;
 }
 
@@ -39,6 +46,23 @@ export interface LayerData {
 export interface ChatMessage {
   role: 'user' | 'assistant';
   content: string;
+}
+
+
+export interface MilestoneRequirement {
+  id: string;
+  headline: string;
+  intent_blurb: string;
+  directive: string;
+  is_archived: boolean;
+}
+
+export interface MilestoneDefinition {
+  milestone_id: string;
+  label: string;
+  checklist_prompt: string;
+  purpose: string;
+  research_architecture: MilestoneRequirement[];
 }
 
 export interface SpecialistAgent {
@@ -76,7 +100,8 @@ export interface VibeStore extends VibeManifest {
   project: { id: string; name: string };
   projectList: ProjectMetadata[];
   agencyRoster: SpecialistAgent[]; 
-  departmentRegistry: any[]; 
+  departmentRegistry: any[];
+  milestoneRegistry: MilestoneDefinition[]; 
   isChatOpen: boolean;
 
   // --- INSPECTOR PROPERTIES ---
@@ -94,6 +119,7 @@ export interface VibeStore extends VibeManifest {
   fetchRoster: () => Promise<void>;
   updateAgentInDB: (agentId: string, updates: Partial<SpecialistAgent>) => Promise<void>;
   updateDeptInDB: (deptId: string, updates: any) => Promise<void>;
+  updateMilestoneInDB: (mId: string, updates: any) => Promise<void>;
 
   setActiveLayer: (layer: VibeLayer) => void;
   setChatOpen: (open?: boolean) => void;

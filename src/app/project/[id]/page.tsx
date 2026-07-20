@@ -84,12 +84,12 @@ const Canvas = () => {
   const { 
     activeLayer, layers, onNodesChange, onEdgesChange, onConnect, 
     setActiveLayer, generateLayout, chatHistory, isChatOpen, setChatOpen,
-    project, renameProject, loadProjectCloud, activeSpecialist, setActiveSpecialist,
+    project, renameProject, loadProjectCloud, activeSpecialist, setActiveSpecialist, fetchRoster,
     setInspectorOpen, isInspectorOpen
   } = useVibeStore();
 
   useEffect(() => {
-    if (id) loadProjectCloud(id as string);
+    if (id) { loadProjectCloud(id as string); fetchRoster(); }
     
     // Handle Direct Pushback Event
     const handlePushback = (e: any) => {
@@ -98,7 +98,7 @@ const Canvas = () => {
     };
     window.addEventListener('vibe:pushback', handlePushback);
     return () => window.removeEventListener('vibe:pushback', handlePushback);
-  }, [id, loadProjectCloud, setActiveSpecialist, setChatOpen]);
+  }, [id, loadProjectCloud, fetchRoster, setActiveSpecialist, setChatOpen]);
 
   const handleSend = async () => {
     if (!chatInput.trim()) return;
@@ -109,10 +109,8 @@ const Canvas = () => {
     setIsGenerating(false);
   };
 
-  const handleVoice = async (blob: Blob) => {
-    setIsGenerating(true);
-    await generateLayout(blob);
-    setIsGenerating(false);
+  const handleVoice = (text: string) => {
+    setChatInput(text);
   };
 
   const handleRename = (e: React.FocusEvent<HTMLInputElement>) => {
@@ -230,7 +228,7 @@ const Canvas = () => {
             <div className="relative bg-white rounded-2xl border border-slate-200 p-2 focus-within:border-slate-400 transition-all">
                 <textarea className="w-full bg-transparent border-none focus:ring-0 text-sm p-3 pb-12 resize-none min-h-[100px]" placeholder={currentSpecialist ? `Interview the ${currentSpecialist.label}...` : "Evolve the vision..."} value={chatInput} onChange={(e) => setChatInput(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && (e.preventDefault(), handleSend())} />
                 <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between">
-                    <VoiceRecorder onRecordingComplete={handleVoice} />
+                    <VoiceRecorder onTranscript={handleVoice} />
                     <button onClick={handleSend} aria-label="Send" disabled={!chatInput.trim() || isGenerating} className="bg-slate-900 text-white p-2.5 rounded-xl disabled:opacity-50 hover:bg-black transition-all shadow-md"><Send className="w-4 h-4" /></button>
                 </div>
             </div>

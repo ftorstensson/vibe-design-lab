@@ -1,0 +1,405 @@
+--- VIBE DESIGN LAB: SATELLITE MAP (v34.2) ---
+Infrastructure: Next.js App (Sovereign) + Sydney Kernel (Headless CPU)
+Handshake: UCC v1.1 (Briefcase/Envelope)
+
+### I. PROJECT STRUCTURE (The Tree)
+vibe-design-lab/
+    generate_context.py
+    generate_frontend_context.py
+    FRONTEND_CONTEXT.txt
+    postcss.config.mjs
+    Dockerfile
+    generate_v34_context.py
+    lean_map.py
+    next-env.d.ts
+    README.md
+    package-lock.json
+    package.json
+    tsconfig.json
+    eslint.config.mjs
+    next.config.ts
+    Brain/
+        SYSTEM_TRUTH_LEDGER.md
+        SYSTEM_MAP.md
+        AGENCY_MISSION.md
+        SCAR_TISSUE_OLD.md
+        FOUNDATION_MANIFEST.md
+        AI_SYSTEM_MAP.md
+        BIO_ID_MAP.md
+        SCAR_TISSUE.md
+        EXO_BRAINS/
+            GLOBAL/
+                PROTOCOL_RESEARCH.md
+                PROTOCOL_ELI.md
+    src/
+        types/
+            vibe-core.ts
+            design-system.ts
+        app/
+            favicon.ico
+            layout.tsx
+            page.tsx
+            globals.css
+            project/
+                [id]/
+                    page.tsx
+            agency-lab/
+                page.tsx
+            api/
+                agent/
+                    design/
+                        generate/
+                            route.ts
+                    roster/
+                        route.ts
+                    projects/
+                        route.ts
+                    departments/
+                        route.ts
+                    milestones/
+                        route.ts
+        utils/
+            layout-engine.ts
+        components/
+            ProjectAmbition.tsx
+            WireframeNodes.tsx
+            FlowNodes.tsx
+            BlueprintReviewModal.tsx
+            ContextInspector.tsx
+            SitemapToolbar.tsx
+            WireframeToolbar.tsx
+            VoiceRecorder.tsx
+            StrategyView.tsx
+            JourneyToolbar.tsx
+            SitemapNodes.tsx
+            Sidebar.tsx
+            StrategyNodes.tsx
+        lib/
+            kernel-client.ts
+            firebase-admin.ts
+        store/
+            vibe-store.ts
+
+==================================================
+
+### II. CORE DNA (The Contracts)
+
+FILE: src/types/vibe-core.ts
+--------------------
+// src/types/vibe-core.ts
+import { Node, Edge, OnNodesChange, OnEdgesChange, Connection } from '@xyflow/react';
+
+export type VibeLayer = 'STRATEGY' | 'LANDSCAPE' | 'JOURNEY' | 'SITEMAP' | 'WIREFRAME';
+export type DeptStatus = 'NOT_STARTED' | 'DRAFTING' | 'STABLE' | 'EVOLVING';
+
+export interface StrategyPaper {
+  version: string;
+  timestamp: string;
+  masthead: string;
+  headline: string;
+  content: any; 
+  brief?: {
+    identity_narrative: string;
+    founding_voice: string[];
+    evidence_mandate: string;
+  };
+  appendix: any[]; 
+  version_note: string;
+};
+  version_note: string;
+}
+
+export interface DeptSlot {
+  id: string;
+  deptId: string;
+  label: string;
+  icon: string;
+  status: DeptStatus;
+  activeVersion: number;
+  history: StrategyPaper[];
+}
+
+export interface ProjectMetadata {
+  thread_id: string;
+  project_name: string;
+  updated_at: string;
+  is_pinned?: boolean;
+}
+
+export interface LayerData {
+  nodes: Node[];
+  edges: Edge[];
+}
+
+export interface ChatMessage {
+  role: 'user' | 'assistant';
+  content: string;
+}
+
+
+export interface MilestoneRequirement {
+  id: string;
+  headline: string;
+  intent_blurb: string;
+  directive: string;
+  is_archived: boolean;
+}
+
+export interface MilestoneDefinition {
+  milestone_id: string;
+  label: string;
+  checklist_prompt: string;
+  purpose: string;
+  research_architecture: MilestoneRequirement[];
+}
+
+export interface SpecialistAgent {
+  id: string;
+  display_name: string;
+  role: string;
+  layer_id: VibeLayer | 'GLOBAL'; 
+  dept_id: string;
+  role_index: number;
+  model_tier: 'FLASH' | 'PRO';
+  system_prompt: string;
+  optimization_target?: string; 
+  loss_function?: string;
+  physics_constraints?: string; 
+}
+
+export interface VibeManifest {
+  project_name: string;
+  strategyLedger: Record<string, DeptSlot>;
+  chatHistory: ChatMessage[];
+  strategyDoc: string;
+  projectLedger: any[];
+  activeLayer: VibeLayer;
+  activeSpecialist: string | null; mission_manifesto: any;
+  layers: {
+    STRATEGY: LayerData;
+    LANDSCAPE: LayerData;
+    JOURNEY: LayerData;
+    SITEMAP: LayerData;
+    WIREFRAME: LayerData;
+  };
+}
+
+export interface VibeStore extends VibeManifest {
+  project: { id: string; name: string };
+
+
+... [35 lines truncated] ...
+--------------------
+
+FILE: src/lib/kernel-client.ts
+--------------------
+import { v4 as uuidv4 } from 'uuid';
+
+const KERNEL_URL = "https://vibe-kernel-534939227554.australia-southeast1.run.app/kernel/invoke";
+
+export interface KernelBriefcase {
+  app_id: string;
+  project_id: string;
+  idempotency_key: string;
+  intent: {
+    outcome_type: string;
+    team_archetype: string;
+  };
+  materials: {
+    user_goal: string;
+    brick_catalog: any[];
+  };
+  state_ref: {
+    expected_version: number;
+    snowball_ref: string;
+  };
+}
+
+export async function callVibeKernel(briefcase: Partial<KernelBriefcase>) {
+  const fullBriefcase = {
+    app_id: "vibe_design_lab",
+    idempotency_key: uuidv4(),
+    contract_version: "1.1",
+    ...briefcase,
+  };
+
+  console.log(`[UCC_HANDSHAKE] Sending briefcase to Sydney: ${fullBriefcase.idempotency_key}`);
+
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 150000); // 150s timeout
+
+  try {
+    const response = await fetch(KERNEL_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(fullBriefcase),
+      signal: controller.signal
+    });
+
+    clearTimeout(timeoutId);
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(`Kernel Rejected: ${response.status} - ${errorText}`);
+    }
+
+    return response.json();
+  } catch (error: any) {
+    if (error.name === 'AbortError') {
+        throw new Error("Kernel Handshake Timed Out (150s)");
+    }
+    throw error;
+  }
+}
+
+--------------------
+
+FILE: src/app/api/agent/design/generate/route.ts
+--------------------
+import { NextResponse } from 'next/server';
+import { db } from '@/lib/firebase-admin';
+import { callVibeKernel } from '@/lib/kernel-client';
+import * as admin from 'firebase-admin';
+
+export async function POST(req: Request) {
+  try {
+    const formData = await req.formData();
+    const projectId = formData.get('project_id') as string;
+    const prompt = formData.get('prompt') as string;
+    const milestoneId = formData.get('milestone_id') as string || 'the_big_idea';
+
+    console.log(`[ARCHIVIST] Ingesting Project: ${projectId}`);
+
+    // 1. ATOMIC NAMING & GRID LOGGING
+    const projRef = db.collection('cofounder_boards').document(projectId);
+    const projDoc = await projRef.get();
+    let projectName = projDoc.data()?.project_name || 'UNTITLED PROJECT';
+
+    // SILVER TIER: Persist Human Grit
+    await projRef.collection('slots').document('user_goal').set({
+      text: prompt,
+      updated_at: admin.firestore.FieldValue.serverTimestamp()
+    });
+
+    // 2. UCC v1.1 HANDSHAKE
+    const briefcase = {
+      project_id: projectId,
+      intent: {
+        outcome_type: "STRATEGIC_IGNITION",
+        team_archetype: "DISCOVERY_HUB"
+      },
+      materials: {
+        user_goal: prompt,
+        brick_catalog: [] // Resolved by Kernel
+      },
+      state_ref: {
+        expected_version: projDoc.data()?.version || 1,
+        snowball_ref: `projects/${projectId}/vibe_manifest/narrative_history`
+      }
+    };
+
+    const kRes = await callVibeKernel(briefcase);
+
+    // 3. NAMING ENGINE: If still untitled, ask Kernel for a name
+    if (projectName === 'UNTITLED PROJECT' && kRes.social_response) {
+       projectName = kRes.suggested_project_name || projectName;
+       await projRef.update({ project_name: projectName });
+    }
+
+    // 4. DELIVERY
+    return NextResponse.json({
+      user_message: kRes.social_response,
+      suggested_project_name: projectName,
+      manifesto: kRes.data_patch || {},
+      status: kRes.status
+    });
+
+  } catch (error: any) {
+    console.error("[ARCHIVIST_FAILURE]", error);
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
+}
+
+--------------------
+
+FILE: Brain/SYSTEM_TRUTH_LEDGER.md
+--------------------
+# VIBE DESIGN LAB: SYSTEM TRUTH LEDGER (v15.0)
+
+## 1. THE STATE ENVELOPE
+- ZONE A (Immutable): _envelope.mission_manifesto
+- ZONE B (Mutable): state.*
+- SSOT: `problem_statement` is the only narrative field allowed to bridge UI and Specialists.
+
+## 2. THE SEQUENTIAL GATE (The Deadbolt)
+- **Law 1 (Physics):** Every mandatory bucket (Frustration, Belief, Model, Sentence) must contain > 15 characters of data.
+- **Law 2 (Permission):** Permission (Sentiment detection) is logically IMPOSSIBLE to grant until Law 1 is satisfied.
+- **Law 3 (Hardness):** No keyword overrides. Speech ('Go') does not open the gate; only Data volume opens the gate.
+
+## 3. THE INDUSTRIAL ASSEMBLY LINE
+1. **Librarian (Clerk):** 100% clinical extraction into flat JSON buckets.
+2. **The Author (Prose):** Dedicated turn to synthesize the user's "Gumboots" intent into the Official Brief.
+3. **Specialists (Hunters):** They define the search query; Gemini 2.0 Flash (Hound) executes via Native SDK.
+
+## 4. THE INSTRUCTION FIREWALL
+- PM sees gaps as [MISSING] tags in their X-Ray Vision vision.
+- PM is forbidden from lying about team status if Law 1 is False.
+
+## 5. PHYSICAL VERIFICATION GATE
+- **No Hearsay:** AI must `cat` or `read` the "Biological Signature" before every coding turn.
+- **Ledger-Led:** All major files must be anchored with Functional and Negative Headers.
+
+--------------------
+
+FILE: Brain/AI_SYSTEM_MAP.md
+--------------------
+# 🗺️ VIBE DESIGN LAB: MASTER AI ARCHITECTURAL MAP (v20.0)
+
+## I. THE CANONICAL ROSTER (Cognitive Isolation)
+To prevent intelligence decay, each agent has exactly ONE job. Handovers are atomic.
+
+1. **The Clerk (ID: `clerk`):** clinical IQ. Verbatim JSON extraction of facts.
+2. **The PM (ID: `master_pm`):** high-EQ. Facilitation, momentum, and social handshake.
+3. **The Author (ID: `master_author`):** high-prose. Synthesizes chat vibe into the 'Official Brief'.
+4. **The Hounds (Tool):** Native Vertex SDK. Harvesting direct URIs (Treasure Chest).
+5. **The Specialists (ID: `strat_...`):** 3 distinct personas. Deep ELI research reports.
+6. **The Editor (ID: `global_editor`):** Quality control. Final JSON assembly and tone-policing.
+
+## II. THE FOUR BODIES (Contextual Hierarchy)
+Every message sent to the PM is structured in this specific order of priority:
+
+1. **THE IDENTITY (System Message):** Social DNA from Agency Lab.
+2. **THE KNOWLEDGE (Institutional Memory):** Summary Bricks of all STABLE papers. (Strips raw logic/links).
+3. **THE LAW (The Kaiser):** The turn-specific mandate (e.g., "Paper 1 is done, move to Paper 2").
+4. **THE VIBE (Chat History):** The last 6-10 turns of transcript only.
+
+## III. THE CIRCUITRY (File Dependencies)
+*If you touch Column A, you MUST update Column B.*
+
+| Component | Lead File | Dependencies |
+| :--- | :--- | :--- |
+| **Orchestration** | `architect.py` | `factory.py`, `naming_registry.py` |
+| **Firewall (Memory)**| `firewall.py` | `strategyLedger` keys in Firestore |
+| **The Law (Kaiser)** | `kaiser_monologue.py` | `milestone_id` status check |
+| **The Deadbolt** | `response_filter.py` | `hiring_authorized` flag |
+| **Naming Law** | `naming_registry.py` | `REGISTRY` calls in `architect.py` |
+
+## IV. THE LAWS OF PHYSICS (Banned Patterns)
+1. **No Recapping:** The PM is forbidden from summarizing the Director's last message.
+2. **No Robot Speak:** PM never mentions "JSON," "Gates," or "Librarians."
+3. **Native Grounding:** Specialists MUST use Native Vertex SDK (LangChain tool-bind is banned).
+4. **De-loading Law:** PM and Clerk never see "Deep Research" (raw_a/b/c). Only Summary Bricks.
+5. **Infra-Lock:** Telemetry logs ([GATE], [SPECIALIST], [ASSEMBLY]) are mandatory.
+
+## V. THE ASSEMBLY LINE (Execution Flow)
+User -> Clerk (IQ Facts) -> Kaiser (Law) -> PM (EQ Social) -> [IF GREEN] -> Author (Brief) -> Specialists (Research) -> Editor (JSON Synthesis) -> Canvas.
+## VI. THE HANDSHAKE PROTOCOL (Immutable Contract)
+**REQUEST:** {app_id, project_id, milestone_id, user_message, agent_id}
+**RESPONSE:** {social_response, status, data_patch}
+**STATUSES:** 
+- PROBING: Discovery mode.
+- AUTHORIZED: Gate is Green, waiting for 'go'.
+- STABLE: Research complete, data_patch provided.
+
+6. **Trigger Law:** All ignition keywords (social cues to fire a team) must be fetched from the ARM. The Kernel code must remain linguistically neutral.
+--------------------
