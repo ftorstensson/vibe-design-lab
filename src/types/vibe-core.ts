@@ -15,11 +15,9 @@ export interface StrategyPaper {
     founding_voice: string[];
     evidence_mandate: string;
   };
-  appendix: any[]; 
+  appendix: any[];
   version_note: string;
 };
-  version_note: string;
-}
 
 export interface DeptSlot {
   id: string;

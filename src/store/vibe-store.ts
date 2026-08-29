@@ -137,21 +137,26 @@ export const useVibeStore = create<VibeStore>((set, get) => ({
   },
 
   generateLayout: async (input: Blob | string) => {
-    const { project, activeLayer, strategyLedger, chatHistory, activeSpecialist } = get();
+    const { project, activeLayer, chatHistory, activeSpecialist } = get();
     if (!project.id) return null;
     const userMsg = typeof input === 'string' ? input : "Voice Note";
     const updatedChat = [...chatHistory, { role: 'user' as const, content: userMsg }];
-    
+    set({ chatHistory: updatedChat });
+
     const formData = new FormData();
     if (input instanceof Blob) formData.append("file", input, "voice.webm");
     else formData.append("prompt", input);
     formData.append("project_id", project.id);
     formData.append("layer", activeLayer);
-    formData.append("chat_history", JSON.stringify(updatedChat));
+    if (activeSpecialist) formData.append("specialist_id", activeSpecialist);
 
     const response = await fetch(`${API_URL}/agent/design/generate`, { method: "POST", body: formData });
     const data = await response.json();
-    
+
+    if (data.user_message) {
+      set({ chatHistory: [...updatedChat, { role: 'assistant' as const, content: data.user_message }] });
+    }
+
     return data;
   }
 }));
